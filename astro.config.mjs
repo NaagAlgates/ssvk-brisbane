@@ -9,12 +9,16 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare({
     platformProxy: { enabled: true },
+    imageService: 'compile',
   }),
   integrations: [react(), keystatic()],
+  image: {
+    service: { entrypoint: 'astro/assets/services/noop' },
+  },
   vite: {
     plugins: [tailwindcss()],
     ssr: {
-      external: ['node:async_hooks', 'node:crypto', 'node:fs', 'node:path'],
+      external: ['node:async_hooks', 'node:crypto', 'node:fs', 'node:path', 'node:fs/promises'],
     },
   },
 });
