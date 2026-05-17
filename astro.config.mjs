@@ -5,7 +5,7 @@ import keystatic from '@keystatic/astro';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://ssvk-brisbane.pages.dev',
+  site: 'https://ssvk.naaglabs.workers.dev',
   output: 'server',
   adapter: cloudflare({
     platformProxy: { enabled: true },

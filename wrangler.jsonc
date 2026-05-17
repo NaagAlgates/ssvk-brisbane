@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ssvk-brisbane",
+  "name": "ssvk",
   "compatibility_date": "2025-05-17",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./dist/_worker.js/index.js",
