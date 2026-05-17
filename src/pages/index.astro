@@ -14,9 +14,7 @@ try {
   hours = await reader.singletons.openingHours.read();
   festivals = await reader.collections.festivals.all();
   notices = await reader.collections.notices.all();
-} catch {
-  // Pre-content fallback
-}
+} catch {}
 
 const today = new Date();
 const upcoming = festivals
@@ -25,95 +23,209 @@ const upcoming = festivals
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   .slice(0, 3);
 
-const activeNotices = notices
-  .map((n) => ({ ...n.entry, slug: n.slug }))
-  .filter((n) => !n.expiresOn || new Date(n.expiresOn) >= today)
-  .sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime())
-  .slice(0, 1);
+const nextFestival = upcoming[0];
+const daysToNext = nextFestival
+  ? Math.ceil((new Date(nextFestival.date).getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+  : null;
 ---
 <Layout title="Home">
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-maroon-700)] via-[var(--color-maroon-900)] to-[var(--color-charcoal)] opacity-95"></div>
-    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 30%, var(--color-saffron-500) 0%, transparent 40%), radial-gradient(circle at 80% 70%, var(--color-saffron-500) 0%, transparent 40%);"></div>
-    <div class="container-tight relative py-20 md:py-32 text-center">
-      <p class="text-[var(--color-saffron-500)] tracking-widest uppercase text-sm mb-4">
-        Welcome to
-      </p>
-      <h1 class="text-[var(--color-cream-50)] mb-2" style="color: var(--color-cream-50);">
-        Sri Selva Vinayakar Koyil
-      </h1>
-      <p class="text-[var(--color-saffron-500)] text-xl md:text-2xl mb-3" lang="ta">
-        ஸ்ரீ செல்வ விநாயகர் கோயில்
-      </p>
-      <p class="text-[var(--color-cream-200)] text-lg mb-10 max-w-2xl mx-auto">
-        Ganesha Temple, Brisbane · Serving the Tamil Hindu community of South-East Queensland since 1995
-      </p>
-      <div class="flex flex-wrap gap-3 justify-center">
-        <a href="/services" class="btn btn-secondary">View Festival Calendar</a>
-        <a href="/visit" class="btn btn-primary" style="border: 1px solid var(--color-saffron-500);">Plan your visit →</a>
+  {/* CINEMATIC HERO */}
+  <section class="relative h-screen min-h-[700px] overflow-hidden">
+    <img
+      src="/images/temple-front.jpg"
+      alt="The golden gopuram of Sri Selva Vinayakar Koyil against a deep blue sky"
+      class="absolute inset-0 w-full h-full object-cover hidden md:block"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <img
+      src="/images/temple-portrait.jpg"
+      alt="The temple's gopuram tower with dramatic clouds"
+      class="absolute inset-0 w-full h-full object-cover md:hidden"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero-image-overlay"></div>
+
+    <div class="absolute inset-0 flex items-end">
+      <div class="container-tight pb-20 md:pb-32 relative">
+        <p class="eyebrow mb-6">Est. 1995 · South Maclean, Queensland</p>
+        <h1 class="text-[var(--color-cream-50)] mb-4 max-w-4xl text-balance" style="font-weight: 400;">
+          Sri Selva Vinayakar Koyil
+        </h1>
+        <p lang="ta" class="display-tamil mb-10 max-w-2xl">
+          ஸ்ரீ செல்வ விநாயகர் கோயில்
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/visit" class="btn btn-primary">Plan your visit</a>
+          <a href="/services" class="btn btn-ghost">Festival calendar</a>
+        </div>
+      </div>
+    </div>
+
+    {/* Scroll indicator */}
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-[var(--color-cream-200)] text-xs tracking-widest uppercase">
+      <span>Scroll</span>
+      <span class="w-px h-12 bg-gradient-to-b from-[var(--color-gold-400)] to-transparent"></span>
+    </div>
+  </section>
+
+  {/* LIVE STATUS BAND */}
+  <section class="bg-[var(--color-ink-950)] border-y border-[var(--color-ink-700)]">
+    <div class="container-tight grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-ink-700)]">
+      <div class="py-6 px-2 md:px-8 flex items-center gap-4">
+        <span class={`w-3 h-3 rounded-full ${canteen.isOpen ? 'bg-green-400' : 'bg-red-500'} animate-pulse`}></span>
+        <div>
+          <p class="eyebrow !text-[0.6rem]">Canteen</p>
+          <p class="text-[var(--color-cream-50)] font-medium">
+            {canteen.isOpen ? `Open · ${canteen.todayHoursOpen} – ${canteen.todayHoursClose}` : 'Closed today'}
+          </p>
+        </div>
+      </div>
+      <div class="py-6 px-2 md:px-8 flex items-center gap-4">
+        <span class="text-[var(--color-gold-400)] text-2xl">◐</span>
+        <div>
+          <p class="eyebrow !text-[0.6rem]">Today's Pooja</p>
+          <p class="text-[var(--color-cream-50)] font-medium">
+            {hours?.poojaMorning ?? '9:00am – 9:30am'} · {hours?.poojaEvening ?? '7:00pm – 7:30pm'}
+          </p>
+        </div>
+      </div>
+      <div class="py-6 px-2 md:px-8 flex items-center gap-4">
+        <span class="text-[var(--color-gold-400)] text-2xl">⌂</span>
+        <div>
+          <p class="eyebrow !text-[0.6rem]">Open</p>
+          <p class="text-[var(--color-cream-50)] font-medium">Daily · Morning & Evening</p>
+        </div>
       </div>
     </div>
   </section>
 
-  {activeNotices.length > 0 && (
-    <section class="container-tight -mt-8 relative z-10">
-      <div class="card border-l-4" style="border-left-color: var(--color-saffron-500);">
-        <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-1">
-          Notice
-        </p>
-        <h3 class="!text-lg !mb-2">{activeNotices[0].title}</h3>
+  {/* NEXT FESTIVAL — bento style */}
+  {nextFestival && (
+    <section class="py-24 md:py-32">
+      <div class="container-tight grid lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-5 flex flex-col justify-center">
+          <p class="eyebrow mb-6">Next Festival</p>
+          <h2 class="text-[var(--color-cream-50)] mb-3" style="font-weight: 400;">
+            {nextFestival.name}
+          </h2>
+          <p lang="ta" class="display-tamil mb-8">{nextFestival.nameTamil}</p>
+          <div class="flex items-baseline gap-6 mb-8">
+            <div>
+              <p class="text-[var(--color-gold-400)] text-6xl md:text-8xl font-[var(--font-display)] font-light leading-none">
+                {daysToNext}
+              </p>
+              <p class="eyebrow mt-2">Days away</p>
+            </div>
+            <div class="border-l border-[var(--color-ink-600)] pl-6">
+              <p class="text-[var(--color-cream-50)] text-lg">
+                {new Date(nextFestival.date).toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+              </p>
+              {nextFestival.time && (
+                <p class="text-[var(--color-cream-200)] text-sm mt-1">{nextFestival.time}</p>
+              )}
+            </div>
+          </div>
+          <a href="/services" class="btn btn-ghost self-start">View full calendar</a>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="aspect-[4/3] relative overflow-hidden">
+            <img
+              src="/images/chariot-reflection.jpg"
+              alt="Temple chariot procession reflected in water — Theer festival"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-ink-900)]/60 via-transparent to-transparent"></div>
+          </div>
+        </div>
       </div>
     </section>
   )}
 
-  <section class="container-tight py-16 grid gap-6 md:grid-cols-3">
-    <article class="card">
-      <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Canteen</p>
-      <p class="text-2xl font-bold mb-1" style={`color: ${canteen.isOpen ? 'var(--color-maroon-700)' : 'var(--color-charcoal-soft)'};`}>
-        {canteen.isOpen ? '🟢 Open today' : '🔴 Closed today'}
+  {/* QUOTE / TRADITION */}
+  <section class="py-24 md:py-32 bg-[var(--color-ink-950)] relative overflow-hidden">
+    <img
+      src="/images/temple-wide.jpg"
+      alt="Wide view of the temple complex"
+      class="absolute inset-0 w-full h-full object-cover opacity-15"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-ink-950)] via-transparent to-[var(--color-ink-950)]"></div>
+    <div class="container-tight relative text-center max-w-3xl mx-auto">
+      <p lang="ta" class="font-[var(--font-tamil-display)] text-[var(--color-gold-300)] text-3xl md:text-5xl leading-relaxed mb-6">
+        விநாயகனே வெவ்வினையை வேரறுக்க வல்லான்
       </p>
-      {canteen.isOpen && (
-        <p class="text-[var(--color-charcoal-soft)]">
-          {canteen.todayHoursOpen} – {canteen.todayHoursClose}
-        </p>
-      )}
-      {canteen.specialNotice && <p class="text-sm mt-2 italic">{canteen.specialNotice}</p>}
-    </article>
-    <article class="card">
-      <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Today's Pooja</p>
-      <p class="font-semibold text-lg">{hours?.poojaMorning ?? '9:00am – 9:30am'}</p>
-      <p class="text-[var(--color-charcoal-soft)]">{hours?.poojaEvening ?? '7:00pm – 7:30pm'}</p>
-    </article>
-    <article class="card">
-      <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Opening</p>
-      <p class="font-semibold">Mon–Fri: 7:30am – 8:30pm</p>
-      <p class="text-[var(--color-charcoal-soft)]">Sat–Sun: 7:30am – 8:30pm</p>
-    </article>
+      <p class="text-[var(--color-cream-200)] italic text-lg md:text-xl">
+        Lord Vinayaka alone has the power to uproot the deepest of obstacles.
+      </p>
+      <span class="gold-rule gold-rule-center mt-8" aria-hidden="true"></span>
+    </div>
   </section>
 
-  <section class="container-tight py-12">
-    <div class="flex items-baseline justify-between mb-6">
-      <h2>Upcoming Festivals</h2>
-      <a href="/services" class="text-sm">View all →</a>
-    </div>
-    <span class="kolam-divider" aria-hidden="true"></span>
-    {upcoming.length > 0 ? (
-      <div class="grid gap-6 md:grid-cols-3">
-        {upcoming.map((f) => (
-          <article class="card">
-            <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">
-              {new Date(f.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
-            <h3 class="!text-xl !mb-1">{f.name}</h3>
-            <p lang="ta" class="text-[var(--color-charcoal-soft)] mb-2">{f.nameTamil}</p>
-            {f.time && <p class="text-sm">⏰ {f.time}</p>}
-          </article>
-        ))}
+  {/* UPCOMING FESTIVALS GRID */}
+  {upcoming.length > 1 && (
+    <section class="py-24 md:py-32">
+      <div class="container-tight">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <p class="eyebrow mb-3">Sacred Calendar</p>
+            <h2 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Upcoming festivals</h2>
+          </div>
+          <a href="/services" class="text-[var(--color-gold-400)] hover:text-[var(--color-gold-300)] text-sm tracking-wide uppercase">
+            View all →
+          </a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          {upcoming.map((f) => (
+            <article class="card card-elevated group">
+              <p class="text-[var(--color-gold-400)] text-sm tracking-wider uppercase mb-4">
+                {new Date(f.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+              </p>
+              <h3 class="text-[var(--color-cream-50)] mb-2 group-hover:text-[var(--color-gold-300)] transition-colors">
+                {f.name}
+              </h3>
+              <p lang="ta" class="text-[var(--color-cream-200)] font-[var(--font-tamil-display)] text-lg mb-4">
+                {f.nameTamil}
+              </p>
+              {f.time && (
+                <p class="text-[var(--color-cream-300)] text-sm">⏱  {f.time}</p>
+              )}
+              {f.type === 'major' && (
+                <span class="inline-block mt-4 text-[0.65rem] uppercase tracking-widest border border-[var(--color-gold-500)] text-[var(--color-gold-400)] px-3 py-1">
+                  Major festival
+                </span>
+              )}
+            </article>
+          ))}
+        </div>
       </div>
-    ) : (
-      <p class="text-center text-[var(--color-charcoal-soft)] italic">
-        Festival calendar will appear here once added via the admin panel.
+    </section>
+  )}
+
+  {/* CTA */}
+  <section class="py-24 md:py-32 relative overflow-hidden">
+    <img
+      src="/images/celebration.jpg"
+      alt="Community celebration at the temple"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[var(--color-ink-950)]/85"></div>
+    <div class="container-tight relative text-center max-w-2xl mx-auto">
+      <p class="eyebrow mb-6">Visit Us</p>
+      <h2 class="text-[var(--color-cream-50)] mb-6" style="font-weight: 400;">
+        Come and be part of a living tradition
+      </h2>
+      <p class="text-[var(--color-cream-200)] text-lg mb-10 leading-relaxed">
+        35 km south of Brisbane, beside the Logan River — a place of peace and inspiration
+        for devotees, families, and visitors from every community.
       </p>
-    )}
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="/visit" class="btn btn-primary">Directions & hours</a>
+        <a href="/donate" class="btn btn-ghost">Support the temple</a>
+      </div>
+    </div>
   </section>
 </Layout>

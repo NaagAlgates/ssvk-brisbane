@@ -3,12 +3,9 @@ import Layout from '~/layouts/Layout.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 
-let about: any = null;
 let committee: any[] = [];
-
 try {
   const reader = createReader(process.cwd(), keystaticConfig);
-  about = await reader.singletons.aboutPage.read({ resolveLinkedFiles: true });
   committee = await reader.collections.committee.all();
 } catch {}
 
@@ -18,88 +15,126 @@ const currentCommittee = committee
   .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
 ---
 <Layout title="About">
-  <section class="container-tight py-12 md:py-20">
-    <p class="text-[var(--color-saffron-600)] uppercase tracking-widest text-sm mb-2">About</p>
-    <h1 class="mb-4">Our Temple</h1>
-    <span class="kolam-divider" aria-hidden="true"></span>
-
-    <div class="grid md:grid-cols-3 gap-12 mt-12">
-      <article class="md:col-span-2 prose-content">
-        <h2>History</h2>
-        <p class="text-lg leading-relaxed">
-          The migration of Tamils to Queensland began in the mid-1980s. By 1983, Hindu families
-          had started monthly congregational prayer meetings — first in homes, then at the SWARA
-          Hall in Spring Hill. As the congregation grew, the need for a traditional temple became
-          clear.
-        </p>
-        <p>
-          A Convening Committee was formed on 25 April 1986, registered as
-          <strong>Hindu Ahlaya Sangam</strong>. After years of fundraising, the committee purchased
-          4.5 acres of elevated bushland at South Maclean — 35 km south of Brisbane, beside the
-          Logan River — in 1990.
-        </p>
-        <p>
-          The foundation was laid on 10 June 1993. Stapathies and sculptors arrived from South
-          India. Construction of the shrines commenced on 24 June 1994. The traditional
-          Kumbabishekam (consecration) was held on
-          <strong>5 February 1995</strong>, witnessed by hundreds of devotees from across Australia.
-        </p>
-        <p>
-          The temple is built in conformity with ancient Sitpa Sastra and Agamas, with a beautiful
-          tower (Gopuram) and ornamental icons crafted by the visiting sculptors.
-        </p>
-      </article>
-
-      <aside class="space-y-6">
-        <div class="card bg-[var(--color-cream-100)]">
-          <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Founded</p>
-          <p class="text-3xl font-bold text-[var(--color-maroon-700)]">1995</p>
-          <p class="text-sm text-[var(--color-charcoal-soft)]">Consecrated 5 February</p>
-        </div>
-        <div class="card bg-[var(--color-cream-100)]">
-          <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Land</p>
-          <p class="text-3xl font-bold text-[var(--color-maroon-700)]">4.5 acres</p>
-          <p class="text-sm text-[var(--color-charcoal-soft)]">South Maclean, beside the Logan River</p>
-        </div>
-        <div class="card bg-[var(--color-cream-100)]">
-          <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Tradition</p>
-          <p class="text-base font-semibold text-[var(--color-maroon-700)]">Sitpa Sastra & Agamas</p>
-          <p class="text-sm text-[var(--color-charcoal-soft)]">Built by stapathies from South India</p>
-        </div>
-      </aside>
+  {/* PAGE HERO — moody temple shot */}
+  <section class="relative h-[60vh] min-h-[420px] overflow-hidden">
+    <img
+      src="/images/temple-moody.jpg"
+      alt="The temple gopuram against a moody grey sky"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="hero-image-overlay"></div>
+    <div class="absolute inset-0 flex items-end">
+      <div class="container-tight pb-12 md:pb-20">
+        <p class="eyebrow mb-4">About the Temple</p>
+        <h1 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Our story</h1>
+      </div>
     </div>
   </section>
 
-  <section class="container-tight py-12 md:py-16">
-    <h2>Lord Vinayakar</h2>
-    <span class="kolam-divider" aria-hidden="true"></span>
-    <div class="grid md:grid-cols-2 gap-8 mt-8">
-      <p class="text-lg leading-relaxed">
-        Lord Vinayakar — also known as Ganesha, Kanapathy, or Aanaimukan — is the remover of
-        obstacles, the patron of arts and sciences, and the deva of intellect and wisdom. He is
-        honoured at the beginning of all Hindu ceremonies.
-      </p>
-      <p class="text-lg leading-relaxed" lang="ta">
-        விநாயகனே வெவ்வினையை வேரறுக்க வல்லான். வழிபடுவோர்க்கு செல்வம்,
-        ஞானம், மற்றும் தடைகளை நீக்கி அருள்பாலிக்கும் முதல்வர்.
-      </p>
+  {/* HISTORY — two column editorial */}
+  <section class="py-24 md:py-32">
+    <div class="container-tight grid lg:grid-cols-12 gap-12">
+      <aside class="lg:col-span-4 lg:sticky lg:top-12 self-start">
+        <p class="eyebrow mb-6">Chapter One</p>
+        <h2 class="text-[var(--color-cream-50)] mb-6" style="font-weight: 400;">History</h2>
+        <p lang="ta" class="display-tamil mb-8 !text-2xl">வரலாறு</p>
+        <div class="space-y-6">
+          <div class="border-l border-[var(--color-gold-500)] pl-4">
+            <p class="text-5xl font-[var(--font-display)] text-[var(--color-gold-400)] font-light">1986</p>
+            <p class="text-[var(--color-cream-200)] text-sm mt-1">Convening Committee formed</p>
+          </div>
+          <div class="border-l border-[var(--color-gold-500)] pl-4">
+            <p class="text-5xl font-[var(--font-display)] text-[var(--color-gold-400)] font-light">1990</p>
+            <p class="text-[var(--color-cream-200)] text-sm mt-1">4.5 acres acquired at South Maclean</p>
+          </div>
+          <div class="border-l border-[var(--color-gold-500)] pl-4">
+            <p class="text-5xl font-[var(--font-display)] text-[var(--color-gold-400)] font-light">1995</p>
+            <p class="text-[var(--color-cream-200)] text-sm mt-1">Kumbabishekam · consecration</p>
+          </div>
+        </div>
+      </aside>
+      <div class="lg:col-span-8 prose-content text-[var(--color-cream-100)] space-y-6 text-lg leading-relaxed">
+        <p class="text-2xl text-[var(--color-cream-50)] font-[var(--font-display)] leading-snug">
+          The migration of Tamils to Queensland began in the mid-1980s. By 1983, Hindu families
+          had started monthly congregational prayer meetings — first in homes, then at the SWARA
+          Hall in Spring Hill.
+        </p>
+        <p>
+          As the congregation grew, the need for a traditional temple became clear. A Convening
+          Committee was formed on 25 April 1986 and registered as <strong class="text-[var(--color-gold-300)]">Hindu Ahlaya Sangam</strong>.
+          After years of fundraising, the committee purchased 4.5 acres of elevated bushland at
+          South Maclean — 35 km south of Brisbane, beside the Logan River — in 1990.
+        </p>
+        <p>
+          The foundation was laid on 10 June 1993. Stapathies and sculptors arrived from South
+          India to begin the painstaking work. Construction of the shrines commenced on 24 June 1994.
+        </p>
+        <p>
+          The traditional <em class="text-[var(--color-gold-300)]">Kumbabishekam</em> (consecration) was held on
+          5 February 1995, witnessed by hundreds of devotees from across Australia and beyond.
+        </p>
+        <p>
+          The temple is built in conformity with ancient <em>Sitpa Sastra</em> and <em>Agamas</em>,
+          with a beautiful Gopuram and ornamental icons crafted by the visiting sculptors —
+          a piece of South India transplanted into the Queensland bush.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* FULL-BLEED BREAK IMAGE */}
+  <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+    <img
+      src="/images/temple-wide.jpg"
+      alt="Wide cinematic view of the temple complex"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-ink-900)] via-transparent to-transparent"></div>
+  </section>
+
+  {/* VINAYAKAR */}
+  <section class="py-24 md:py-32">
+    <div class="container-tight grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5">
+        <p class="eyebrow mb-6">Chapter Two</p>
+        <h2 class="text-[var(--color-cream-50)] mb-6" style="font-weight: 400;">Lord Vinayakar</h2>
+        <p lang="ta" class="display-tamil mb-8">விநாயகர்</p>
+      </div>
+      <div class="lg:col-span-7 space-y-6 text-lg leading-relaxed text-[var(--color-cream-100)]">
+        <p>
+          Lord Vinayakar — also known as Ganesha, Kanapathy, or Aanaimukan — is the remover
+          of obstacles, the patron of arts and sciences, and the deva of intellect and wisdom.
+          He is honoured at the beginning of all Hindu ceremonies.
+        </p>
+        <p lang="ta" class="font-[var(--font-tamil-display)] text-[var(--color-gold-300)] text-xl border-l-2 border-[var(--color-gold-500)] pl-6">
+          விநாயகனே வெவ்வினையை வேரறுக்க வல்லான். வழிபடுவோர்க்கு செல்வம்,
+          ஞானம், மற்றும் தடைகளை நீக்கி அருள்பாலிக்கும் முதல்வர்.
+        </p>
+      </div>
     </div>
   </section>
 
   {currentCommittee.length > 0 && (
-    <section class="container-tight py-12 md:py-16">
-      <h2>Management Committee</h2>
-      <p class="text-[var(--color-charcoal-soft)]">Hindu Ahlaya Sangam Queensland Inc. (HASQ)</p>
-      <span class="kolam-divider" aria-hidden="true"></span>
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
-        {currentCommittee.map((m) => (
-          <article class="card text-center">
-            {m.photo && <img src={m.photo} alt={m.name} class="w-24 h-24 rounded-full mx-auto mb-3 object-cover" />}
-            <h3 class="!text-lg !mb-1">{m.name}</h3>
-            {m.nameTamil && <p lang="ta" class="text-sm text-[var(--color-charcoal-soft)]">{m.nameTamil}</p>}
-            <p class="text-sm font-semibold text-[var(--color-saffron-600)] mt-1">{m.role}</p>
-          </article>
-        ))}
+    <section class="py-24 md:py-32 bg-[var(--color-ink-950)]">
+      <div class="container-tight">
+        <div class="text-center mb-16">
+          <p class="eyebrow mb-4">Stewardship</p>
+          <h2 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Management Committee</h2>
+          <p class="text-[var(--color-cream-200)] mt-3">Hindu Ahlaya Sangam Queensland Inc.</p>
+          <span class="gold-rule gold-rule-center" aria-hidden="true"></span>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {currentCommittee.map((m) => (
+            <article class="card text-center card-elevated">
+              {m.photo && <img src={m.photo} alt={m.name} class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-2 border-[var(--color-gold-500)]" />}
+              <h3 class="text-xl text-[var(--color-cream-50)] mb-1">{m.name}</h3>
+              {m.nameTamil && <p lang="ta" class="text-sm text-[var(--color-cream-200)] mb-2">{m.nameTamil}</p>}
+              <p class="eyebrow !text-[0.7rem] mt-2">{m.role}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )}

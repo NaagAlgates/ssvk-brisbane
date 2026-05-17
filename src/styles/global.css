@@ -1,107 +1,176 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Sacred Modern palette */
-  --color-maroon-50: #fdf2f3;
-  --color-maroon-100: #fce4e7;
-  --color-maroon-500: #a3303e;
-  --color-maroon-700: #6b1d2a;
-  --color-maroon-900: #4a1119;
-  --color-saffron-50: #fef9ee;
-  --color-saffron-100: #fdedce;
-  --color-saffron-500: #e8a317;
-  --color-saffron-600: #c58812;
-  --color-cream-50: #fffdf7;
-  --color-cream-100: #fff8ee;
-  --color-cream-200: #fdeed5;
-  --color-charcoal: #2d2d2d;
-  --color-charcoal-soft: #4a4a4a;
+  /* Dark Gold Devotional — Direction C */
+  --color-ink-950: #0a0908;        /* deepest background */
+  --color-ink-900: #0f0d0a;        /* primary background */
+  --color-ink-800: #1a1816;        /* elevated surface */
+  --color-ink-700: #26221d;        /* card surface */
+  --color-ink-600: #3a342c;        /* border / divider */
 
-  --font-display: 'Catamaran', 'Noto Sans Tamil', system-ui, sans-serif;
-  --font-body: 'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
+  --color-gold-300: #f4cb6e;       /* highlight gold */
+  --color-gold-400: #e4b757;       /* primary gold (text) */
+  --color-gold-500: #d4a356;       /* button gold */
+  --color-gold-600: #b8893d;       /* hover gold */
+  --color-gold-700: #8b6628;       /* deep gold */
+
+  --color-cream-50: #f8f1e3;       /* primary text on dark */
+  --color-cream-100: #ebe3d2;
+  --color-cream-200: #c8bda8;      /* secondary text */
+  --color-cream-300: #968b78;      /* tertiary text */
+
+  --color-maroon-deep: #6b1d2a;    /* sacred maroon accent */
+  --color-saffron-blaze: #ff8c42;  /* festival accent */
+
+  --font-display: 'Cormorant Garamond', 'Noto Serif Tamil', serif;
+  --font-sans: 'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
+  --font-tamil-display: 'Noto Serif Tamil', 'Cormorant Garamond', serif;
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    font-feature-settings: 'kern';
+    font-feature-settings: 'kern', 'ss01';
     scroll-behavior: smooth;
+    background: var(--color-ink-900);
   }
   body {
-    background: var(--color-cream-100);
-    color: var(--color-charcoal);
-    font-family: var(--font-body);
+    background: var(--color-ink-900);
+    color: var(--color-cream-50);
+    font-family: var(--font-sans);
     font-size: 17px;
-    line-height: 1.65;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    color: var(--color-maroon-700);
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    color: var(--color-cream-50);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
   }
-  h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; }
-  h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); line-height: 1.2; }
-  h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+  h1 {
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-weight: 400;
+  }
+  h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 400;
+  }
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 500;
+  }
   a {
-    color: var(--color-maroon-500);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
+    color: var(--color-gold-400);
+    text-decoration: none;
+    transition: color 200ms ease;
   }
-  a:hover { color: var(--color-saffron-600); }
-  :lang(ta) { font-family: 'Noto Sans Tamil', 'Catamaran', system-ui, sans-serif; }
+  a:hover {
+    color: var(--color-gold-300);
+  }
+  :lang(ta) {
+    font-family: var(--font-tamil-display);
+    font-feature-settings: 'kern';
+  }
+  ::selection {
+    background: var(--color-gold-500);
+    color: var(--color-ink-900);
+  }
 }
 
 @layer components {
   .container-tight {
     width: 100%;
-    max-width: 70rem;
+    max-width: 78rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1.5rem;
+  }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-gold-400);
+    font-weight: 600;
   }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 0;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     text-decoration: none;
-    transition: transform 120ms ease, background 120ms ease;
-    min-height: 44px;
+    transition: all 200ms ease;
+    min-height: 52px;
+    border: 1px solid transparent;
+    cursor: pointer;
   }
   .btn-primary {
-    background: var(--color-maroon-700);
-    color: var(--color-cream-50);
+    background: var(--color-gold-500);
+    color: var(--color-ink-900);
+    border-color: var(--color-gold-500);
   }
   .btn-primary:hover {
-    background: var(--color-maroon-900);
+    background: var(--color-gold-300);
+    color: var(--color-ink-900);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px -10px rgba(212, 163, 86, 0.45);
+  }
+  .btn-ghost {
+    background: transparent;
     color: var(--color-cream-50);
-    transform: translateY(-1px);
+    border-color: var(--color-cream-200);
   }
-  .btn-secondary {
-    background: var(--color-saffron-500);
-    color: var(--color-charcoal);
-  }
-  .btn-secondary:hover {
-    background: var(--color-saffron-600);
-    color: var(--color-charcoal);
+  .btn-ghost:hover {
+    background: var(--color-cream-50);
+    color: var(--color-ink-900);
   }
   .card {
-    background: white;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(107, 29, 42, 0.04);
-    border: 1px solid var(--color-cream-200);
+    background: var(--color-ink-800);
+    border: 1px solid var(--color-ink-600);
+    padding: 2rem;
+    transition: all 300ms ease;
   }
-  .kolam-divider {
+  .card-elevated:hover {
+    border-color: var(--color-gold-700);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6), 0 0 40px -20px rgba(212, 163, 86, 0.2);
+  }
+  .gold-rule {
     display: block;
     width: 4rem;
-    height: 4px;
-    margin: 2rem auto;
-    background: linear-gradient(90deg, transparent, var(--color-saffron-500), transparent);
-    border-radius: 2px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-gold-500), transparent);
+    margin: 1.5rem 0;
+  }
+  .gold-rule-center {
+    margin-inline: auto;
+    background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+  }
+  .display-tamil {
+    font-family: var(--font-tamil-display);
+    color: var(--color-gold-400);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10, 9, 8, 0.4) 0%, rgba(10, 9, 8, 0.2) 40%, rgba(10, 9, 8, 0.95) 100%),
+      linear-gradient(90deg, rgba(10, 9, 8, 0.7) 0%, rgba(10, 9, 8, 0.2) 60%, transparent 100%);
+  }
+  .text-balance {
+    text-wrap: balance;
   }
 }

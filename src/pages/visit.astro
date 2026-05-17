@@ -39,95 +39,135 @@ const addr = site ?? {
 };
 ---
 <Layout title="Visit">
-  <section class="container-tight py-12 md:py-20">
-    <p class="text-[var(--color-saffron-600)] uppercase tracking-widest text-sm mb-2">Visit Us</p>
-    <h1 class="mb-4">Plan your visit</h1>
-    <span class="kolam-divider" aria-hidden="true"></span>
+  {/* HERO */}
+  <section class="relative h-[55vh] min-h-[380px] overflow-hidden">
+    <img
+      src="/images/temple-side.jpg"
+      alt="Side view of the temple with people approaching"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="hero-image-overlay"></div>
+    <div class="absolute inset-0 flex items-end">
+      <div class="container-tight pb-12 md:pb-20">
+        <p class="eyebrow mb-4">Visit Us</p>
+        <h1 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Plan your visit</h1>
+      </div>
+    </div>
   </section>
 
-  <section class="container-tight grid md:grid-cols-2 gap-8 py-8">
-    <div class="card">
-      <h2 class="!text-2xl !mb-4">Address</h2>
-      <p class="text-lg">
-        {addr.templeAddressLine1}<br />
-        {addr.suburb} {addr.state} {addr.postcode}<br />
-        {addr.country}
-      </p>
-      <p class="mt-4">
-        <a href={addr.googleMapsUrl} target="_blank" rel="noopener" class="btn btn-primary">
+  {/* ADDRESS + HOURS — bento grid */}
+  <section class="py-24 md:py-32">
+    <div class="container-tight grid lg:grid-cols-12 gap-6">
+      {/* Address card */}
+      <div class="lg:col-span-7 card card-elevated">
+        <p class="eyebrow mb-4">Where to find us</p>
+        <p class="text-2xl md:text-3xl font-[var(--font-display)] text-[var(--color-cream-50)] mb-2 leading-snug">
+          {addr.templeAddressLine1}
+        </p>
+        <p class="text-[var(--color-cream-200)] text-lg mb-6">
+          {addr.suburb} {addr.state} {addr.postcode} · {addr.country}
+        </p>
+        <a href={addr.googleMapsUrl} target="_blank" rel="noopener" class="btn btn-primary mb-8">
           Open in Google Maps ↗
         </a>
-      </p>
-      <p class="mt-6 text-sm text-[var(--color-charcoal-soft)]">
-        📞 <a href={`tel:${addr.phonePrimary}`}>{addr.phonePrimary}</a><br />
-        ✉️ <a href={`mailto:${addr.emailGeneral}`}>{addr.emailGeneral}</a>
-      </p>
-    </div>
+        <div class="border-t border-[var(--color-ink-600)] pt-6 grid sm:grid-cols-2 gap-6">
+          <div>
+            <p class="eyebrow mb-2">Phone</p>
+            <a href={`tel:${addr.phonePrimary}`} class="text-[var(--color-cream-50)] hover:text-[var(--color-gold-300)] text-lg">
+              {addr.phonePrimary}
+            </a>
+          </div>
+          <div>
+            <p class="eyebrow mb-2">Email</p>
+            <a href={`mailto:${addr.emailGeneral}`} class="text-[var(--color-cream-50)] hover:text-[var(--color-gold-300)] text-lg">
+              {addr.emailGeneral}
+            </a>
+          </div>
+        </div>
+      </div>
 
-    <div class="card">
-      <h2 class="!text-2xl !mb-4">Opening Hours</h2>
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="text-left text-[var(--color-charcoal-soft)] text-xs uppercase tracking-wider">
-            <th class="py-2"></th>
-            <th class="py-2">Morning</th>
-            <th class="py-2">Evening</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-t border-[var(--color-cream-200)]">
-            <td class="py-3 font-semibold">Mon–Fri</td>
-            <td class="py-3">{hours?.weekdayMorningOpen ?? '7:30am'} – {hours?.weekdayMorningClose ?? '12:00pm'}</td>
-            <td class="py-3">{hours?.weekdayEveningOpen ?? '5:00pm'} – {hours?.weekdayEveningClose ?? '8:30pm'}</td>
-          </tr>
-          <tr class="border-t border-[var(--color-cream-200)]">
-            <td class="py-3 font-semibold">Sat–Sun</td>
-            <td class="py-3">{hours?.weekendMorningOpen ?? '7:30am'} – {hours?.weekendMorningClose ?? '1:00pm'}</td>
-            <td class="py-3">{hours?.weekendEveningOpen ?? '5:00pm'} – {hours?.weekendEveningClose ?? '8:30pm'}</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="mt-4 text-sm">
-        <strong>Pooja times:</strong> {hours?.poojaMorning ?? '9:00am – 9:30am'} & {hours?.poojaEvening ?? '7:00pm – 7:30pm'}
-      </p>
+      {/* Hours card */}
+      <div class="lg:col-span-5 card card-elevated">
+        <p class="eyebrow mb-4">Opening Hours</p>
+        <div class="space-y-5 mb-6">
+          <div>
+            <p class="text-[var(--color-cream-50)] font-medium mb-1">Monday – Friday</p>
+            <p class="text-[var(--color-cream-200)]">
+              {hours?.weekdayMorningOpen ?? '7:30am'} – {hours?.weekdayMorningClose ?? '12:00pm'}
+            </p>
+            <p class="text-[var(--color-cream-200)]">
+              {hours?.weekdayEveningOpen ?? '5:00pm'} – {hours?.weekdayEveningClose ?? '8:30pm'}
+            </p>
+          </div>
+          <div>
+            <p class="text-[var(--color-cream-50)] font-medium mb-1">Saturday – Sunday</p>
+            <p class="text-[var(--color-cream-200)]">
+              {hours?.weekendMorningOpen ?? '7:30am'} – {hours?.weekendMorningClose ?? '1:00pm'}
+            </p>
+            <p class="text-[var(--color-cream-200)]">
+              {hours?.weekendEveningOpen ?? '5:00pm'} – {hours?.weekendEveningClose ?? '8:30pm'}
+            </p>
+          </div>
+        </div>
+        <div class="border-t border-[var(--color-ink-600)] pt-4">
+          <p class="eyebrow mb-2">Pooja Times</p>
+          <p class="text-[var(--color-gold-400)] text-lg">{hours?.poojaMorning ?? '9:00am – 9:30am'}</p>
+          <p class="text-[var(--color-gold-400)] text-lg">{hours?.poojaEvening ?? '7:00pm – 7:30pm'}</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="container-tight py-12">
-    <h2>Temple Canteen</h2>
-    <span class="kolam-divider" aria-hidden="true"></span>
-    <div class="card mt-6">
-      <p class="text-2xl font-bold mb-2" style={`color: ${canteen?.isOpen ? 'var(--color-maroon-700)' : 'var(--color-charcoal-soft)'};`}>
-        {canteen?.isOpen ? '🟢 Open today' : '🔴 Closed today'}
-      </p>
-      {canteen?.isOpen && (
-        <p class="text-lg text-[var(--color-charcoal-soft)]">
-          {canteen.todayHoursOpen} – {canteen.todayHoursClose}
+  {/* CANTEEN */}
+  <section class="py-24 md:py-32 bg-[var(--color-ink-950)]">
+    <div class="container-tight">
+      <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+        <div>
+          <p class="eyebrow mb-3">Temple Canteen</p>
+          <h2 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Kamadhenu</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class={`w-3 h-3 rounded-full ${canteen?.isOpen ? 'bg-green-400 animate-pulse' : 'bg-red-500'}`}></span>
+          <span class="text-[var(--color-cream-50)] font-medium">
+            {canteen?.isOpen ? `Open · ${canteen.todayHoursOpen} – ${canteen.todayHoursClose}` : 'Closed today'}
+          </span>
+        </div>
+      </div>
+
+      {canteen?.specialNotice && (
+        <p class="card text-[var(--color-gold-300)] italic mb-8">{canteen.specialNotice}</p>
+      )}
+
+      {Object.keys(menuByCategory).length > 0 ? (
+        <div class="space-y-12">
+          {Object.entries(menuByCategory).map(([category, items]) => (
+            <div>
+              <h3 class="capitalize text-[var(--color-cream-50)] mb-6 pb-3 border-b border-[var(--color-ink-600)]">
+                {category}
+              </h3>
+              <div class="grid sm:grid-cols-2 gap-4">
+                {items.map((item) => (
+                  <div class="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-ink-700)]">
+                    <div>
+                      <p class="text-[var(--color-cream-50)] font-medium">{item.name}</p>
+                      {item.nameTamil && <p lang="ta" class="text-sm text-[var(--color-cream-200)]">{item.nameTamil}</p>}
+                      {item.description && <p class="text-sm text-[var(--color-cream-300)] mt-1">{item.description}</p>}
+                    </div>
+                    <p class="text-xl font-[var(--font-display)] text-[var(--color-gold-400)] whitespace-nowrap" style="font-weight: 500;">
+                      ${item.price?.toFixed(2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="card text-[var(--color-cream-200)] italic">
+          Menu will appear here once added via the admin panel.
         </p>
       )}
-      {canteen?.specialNotice && <p class="mt-2 italic">{canteen.specialNotice}</p>}
     </div>
-
-    {Object.keys(menuByCategory).length > 0 && (
-      <div class="mt-8 space-y-8">
-        {Object.entries(menuByCategory).map(([category, items]) => (
-          <div>
-            <h3 class="capitalize">{category}</h3>
-            <div class="grid sm:grid-cols-2 gap-3 mt-3">
-              {items.map((item) => (
-                <div class="card flex items-center justify-between">
-                  <div>
-                    <p class="font-semibold">{item.name}</p>
-                    {item.nameTamil && <p lang="ta" class="text-sm text-[var(--color-charcoal-soft)]">{item.nameTamil}</p>}
-                    {item.description && <p class="text-sm text-[var(--color-charcoal-soft)]">{item.description}</p>}
-                  </div>
-                  <p class="font-semibold text-[var(--color-maroon-700)]">${item.price?.toFixed(2)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    )}
   </section>
 </Layout>

@@ -18,44 +18,64 @@ const d = donation ?? {
 };
 ---
 <Layout title="Donate">
-  <section class="container-tight py-12 md:py-20">
-    <p class="text-[var(--color-saffron-600)] uppercase tracking-widest text-sm mb-2">Support</p>
-    <h1 class="mb-4">Donate to the Temple</h1>
-    <span class="kolam-divider" aria-hidden="true"></span>
-    <p class="text-lg max-w-2xl mt-6 leading-relaxed">
-      Your donations support the daily worship, festivals, and ongoing maintenance of the temple.
-      Donations can be made directly to the temple bank account below.
-    </p>
+  {/* Subtle hero */}
+  <section class="pt-32 md:pt-44 pb-12 relative">
+    <div class="container-tight max-w-3xl">
+      <p class="eyebrow mb-6">Support the temple</p>
+      <h1 class="text-[var(--color-cream-50)] mb-6 text-balance" style="font-weight: 400;">
+        Sustain a place of devotion
+      </h1>
+      <p lang="ta" class="display-tamil mb-8">தர்மம் தலை காக்கும்</p>
+      <p class="text-[var(--color-cream-200)] text-xl leading-relaxed max-w-2xl">
+        Your donations sustain the daily worship, festivals, and ongoing care of the temple.
+        Every contribution — large or small — keeps a sacred space alive for our community.
+      </p>
+    </div>
   </section>
 
-  <section class="container-tight pb-16">
-    <div class="card max-w-2xl">
-      <h2 class="!text-2xl !mb-6">Bank Transfer</h2>
-      <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <dt class="text-sm uppercase tracking-wider text-[var(--color-charcoal-soft)] font-semibold">Bank</dt>
-        <dd class="sm:col-span-2 font-medium">{d.bankName}</dd>
+  {/* Donation card */}
+  <section class="pb-24 md:pb-32">
+    <div class="container-tight max-w-3xl">
+      <div class="card card-elevated">
+        <div class="flex items-baseline justify-between mb-8 pb-6 border-b border-[var(--color-ink-600)]">
+          <h2 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Direct bank transfer</h2>
+          <span class="eyebrow">AUD</span>
+        </div>
+        <dl class="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-6">
+          <dt class="eyebrow">Bank</dt>
+          <dd class="md:col-span-2 text-[var(--color-cream-50)] text-lg font-medium">{d.bankName}</dd>
 
-        <dt class="text-sm uppercase tracking-wider text-[var(--color-charcoal-soft)] font-semibold">Account name</dt>
-        <dd class="sm:col-span-2 font-medium">{d.accountName}</dd>
+          <dt class="eyebrow">Account name</dt>
+          <dd class="md:col-span-2 text-[var(--color-cream-50)] text-lg font-medium">{d.accountName}</dd>
 
-        <dt class="text-sm uppercase tracking-wider text-[var(--color-charcoal-soft)] font-semibold">BSB</dt>
-        <dd class="sm:col-span-2 font-mono font-semibold text-lg">{d.bsb}</dd>
+          <dt class="eyebrow">BSB</dt>
+          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-gold-400)]">{d.bsb}</dd>
 
-        <dt class="text-sm uppercase tracking-wider text-[var(--color-charcoal-soft)] font-semibold">Account number</dt>
-        <dd class="sm:col-span-2 font-mono font-semibold text-lg">{d.accountNumber}</dd>
+          <dt class="eyebrow">Account number</dt>
+          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-gold-400)]">{d.accountNumber}</dd>
 
-        {d.payid && (
-          <>
-            <dt class="text-sm uppercase tracking-wider text-[var(--color-charcoal-soft)] font-semibold">PayID</dt>
-            <dd class="sm:col-span-2 font-medium">{d.payid}</dd>
-          </>
-        )}
-      </dl>
-      <div class="mt-8 p-4 rounded-lg bg-[var(--color-cream-100)] text-sm">
-        <p class="font-semibold mb-1">📧 To receive a receipt:</p>
-        <p>
-          Please email a copy of your transfer confirmation to
-          <a href={`mailto:${d.treasurerEmail}`} class="font-semibold">{d.treasurerEmail}</a>.
+          {d.payid && (
+            <>
+              <dt class="eyebrow">PayID</dt>
+              <dd class="md:col-span-2 text-[var(--color-cream-50)] text-lg font-medium">{d.payid}</dd>
+            </>
+          )}
+        </dl>
+
+        <div class="mt-10 pt-6 border-t border-[var(--color-ink-600)]">
+          <p class="text-sm text-[var(--color-cream-200)] leading-relaxed">
+            <strong class="text-[var(--color-gold-300)]">Receipt request:</strong>
+            email a copy of your transfer confirmation to
+            <a href={`mailto:${d.treasurerEmail}`} class="text-[var(--color-gold-400)] hover:text-[var(--color-gold-300)] underline underline-offset-4">
+              {d.treasurerEmail}
+            </a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-[var(--color-cream-300)] italic">
+          "Anything given with devotion finds its way to the Divine."
         </p>
       </div>
     </div>
