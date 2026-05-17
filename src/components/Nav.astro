@@ -1,0 +1,57 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/visit', label: 'Visit' },
+  { href: '/donate', label: 'Donate' },
+];
+const path = Astro.url.pathname;
+---
+<header class="sticky top-0 z-50 bg-[var(--color-cream-100)]/95 backdrop-blur border-b border-[var(--color-cream-200)]">
+  <div class="container-tight flex items-center justify-between py-3">
+    <a href="/" class="flex items-center gap-3 no-underline">
+      <span class="text-2xl" aria-hidden="true">🕉️</span>
+      <span class="font-[var(--font-display)] font-bold text-[var(--color-maroon-700)] leading-tight">
+        <span class="block text-lg">SSVK Brisbane</span>
+        <span class="block text-xs font-normal text-[var(--color-charcoal-soft)]">Sri Selva Vinayakar Koyil</span>
+      </span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="hidden md:flex items-center gap-1">
+        {links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class={`px-4 py-2 rounded-full no-underline font-medium ${
+                path === l.href
+                  ? 'bg-[var(--color-maroon-700)] text-[var(--color-cream-50)]'
+                  : 'text-[var(--color-charcoal)] hover:bg-[var(--color-cream-200)]'
+              }`}
+            >
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+  {/* Mobile bottom nav (PWA-style) */}
+  <nav aria-label="Mobile" class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-[var(--color-cream-200)] z-50">
+    <ul class="grid grid-cols-5">
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class={`flex flex-col items-center justify-center py-3 text-xs no-underline ${
+              path === l.href ? 'text-[var(--color-maroon-700)] font-semibold' : 'text-[var(--color-charcoal-soft)]'
+            }`}
+            style="min-height: 56px;"
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

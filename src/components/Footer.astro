@@ -1,0 +1,48 @@
+---
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+let site: any = null;
+try {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  site = await reader.singletons.siteConfig.read();
+} catch {
+  // First run before any content — render fallback
+}
+
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 pb-24 md:pb-12 bg-[var(--color-maroon-900)] text-[var(--color-cream-100)]">
+  <div class="container-tight py-12 grid gap-8 md:grid-cols-3">
+    <div>
+      <p class="font-[var(--font-display)] text-lg font-bold mb-2">Sri Selva Vinayakar Koyil</p>
+      <p class="text-sm opacity-90">
+        {site?.templeAddressLine1 ?? '4915–4923 Mt Lindesay Highway'}<br />
+        {site?.suburb ?? 'South Maclean'} {site?.state ?? 'QLD'} {site?.postcode ?? '4280'}<br />
+        {site?.country ?? 'Australia'}
+      </p>
+    </div>
+    <div>
+      <p class="font-semibold mb-2">Contact</p>
+      <p class="text-sm opacity-90">
+        <a href={`tel:${site?.phonePrimary ?? '+61755478064'}`} class="text-[var(--color-cream-100)] hover:text-[var(--color-saffron-500)]">
+          {site?.phonePrimary ?? '+61 7 5547 8064'}
+        </a><br />
+        <a href={`mailto:${site?.emailGeneral ?? 'info@ssvk.org.au'}`} class="text-[var(--color-cream-100)] hover:text-[var(--color-saffron-500)]">
+          {site?.emailGeneral ?? 'info@ssvk.org.au'}
+        </a>
+      </p>
+    </div>
+    <div>
+      <p class="font-semibold mb-2">Quick Links</p>
+      <ul class="text-sm space-y-1 opacity-90">
+        <li><a href="/services" class="text-[var(--color-cream-100)] hover:text-[var(--color-saffron-500)]">Pooja & Festival Calendar</a></li>
+        <li><a href="/donate" class="text-[var(--color-cream-100)] hover:text-[var(--color-saffron-500)]">Donate</a></li>
+        <li><a href="/visit" class="text-[var(--color-cream-100)] hover:text-[var(--color-saffron-500)]">Opening Hours</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container-tight border-t border-[var(--color-maroon-700)] pt-6 text-xs opacity-70">
+    © {year} Hindu Ahlaya Sangam Queensland Inc.
+  </div>
+</footer>

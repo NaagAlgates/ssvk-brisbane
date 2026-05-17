@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Sacred Modern palette */
+  --color-maroon-50: #fdf2f3;
+  --color-maroon-100: #fce4e7;
+  --color-maroon-500: #a3303e;
+  --color-maroon-700: #6b1d2a;
+  --color-maroon-900: #4a1119;
+  --color-saffron-50: #fef9ee;
+  --color-saffron-100: #fdedce;
+  --color-saffron-500: #e8a317;
+  --color-saffron-600: #c58812;
+  --color-cream-50: #fffdf7;
+  --color-cream-100: #fff8ee;
+  --color-cream-200: #fdeed5;
+  --color-charcoal: #2d2d2d;
+  --color-charcoal-soft: #4a4a4a;
+
+  --font-display: 'Catamaran', 'Noto Sans Tamil', system-ui, sans-serif;
+  --font-body: 'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-feature-settings: 'kern';
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-cream-100);
+    color: var(--color-charcoal);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-maroon-700);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); line-height: 1.2; }
+  h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+  a {
+    color: var(--color-maroon-500);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  a:hover { color: var(--color-saffron-600); }
+  :lang(ta) { font-family: 'Noto Sans Tamil', 'Catamaran', system-ui, sans-serif; }
+}
+
+@layer components {
+  .container-tight {
+    width: 100%;
+    max-width: 70rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 120ms ease, background 120ms ease;
+    min-height: 44px;
+  }
+  .btn-primary {
+    background: var(--color-maroon-700);
+    color: var(--color-cream-50);
+  }
+  .btn-primary:hover {
+    background: var(--color-maroon-900);
+    color: var(--color-cream-50);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    background: var(--color-saffron-500);
+    color: var(--color-charcoal);
+  }
+  .btn-secondary:hover {
+    background: var(--color-saffron-600);
+    color: var(--color-charcoal);
+  }
+  .card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(107, 29, 42, 0.04);
+    border: 1px solid var(--color-cream-200);
+  }
+  .kolam-divider {
+    display: block;
+    width: 4rem;
+    height: 4px;
+    margin: 2rem auto;
+    background: linear-gradient(90deg, transparent, var(--color-saffron-500), transparent);
+    border-radius: 2px;
+  }
+}

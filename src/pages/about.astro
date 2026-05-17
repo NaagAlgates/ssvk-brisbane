@@ -1,0 +1,106 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+let about: any = null;
+let committee: any[] = [];
+
+try {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  about = await reader.singletons.aboutPage.read({ resolveLinkedFiles: true });
+  committee = await reader.collections.committee.all();
+} catch {}
+
+const currentCommittee = committee
+  .map((c) => ({ ...c.entry, slug: c.slug }))
+  .filter((c) => c.isCurrent)
+  .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+---
+<Layout title="About">
+  <section class="container-tight py-12 md:py-20">
+    <p class="text-[var(--color-saffron-600)] uppercase tracking-widest text-sm mb-2">About</p>
+    <h1 class="mb-4">Our Temple</h1>
+    <span class="kolam-divider" aria-hidden="true"></span>
+
+    <div class="grid md:grid-cols-3 gap-12 mt-12">
+      <article class="md:col-span-2 prose-content">
+        <h2>History</h2>
+        <p class="text-lg leading-relaxed">
+          The migration of Tamils to Queensland began in the mid-1980s. By 1983, Hindu families
+          had started monthly congregational prayer meetings — first in homes, then at the SWARA
+          Hall in Spring Hill. As the congregation grew, the need for a traditional temple became
+          clear.
+        </p>
+        <p>
+          A Convening Committee was formed on 25 April 1986, registered as
+          <strong>Hindu Ahlaya Sangam</strong>. After years of fundraising, the committee purchased
+          4.5 acres of elevated bushland at South Maclean — 35 km south of Brisbane, beside the
+          Logan River — in 1990.
+        </p>
+        <p>
+          The foundation was laid on 10 June 1993. Stapathies and sculptors arrived from South
+          India. Construction of the shrines commenced on 24 June 1994. The traditional
+          Kumbabishekam (consecration) was held on
+          <strong>5 February 1995</strong>, witnessed by hundreds of devotees from across Australia.
+        </p>
+        <p>
+          The temple is built in conformity with ancient Sitpa Sastra and Agamas, with a beautiful
+          tower (Gopuram) and ornamental icons crafted by the visiting sculptors.
+        </p>
+      </article>
+
+      <aside class="space-y-6">
+        <div class="card bg-[var(--color-cream-100)]">
+          <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Founded</p>
+          <p class="text-3xl font-bold text-[var(--color-maroon-700)]">1995</p>
+          <p class="text-sm text-[var(--color-charcoal-soft)]">Consecrated 5 February</p>
+        </div>
+        <div class="card bg-[var(--color-cream-100)]">
+          <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Land</p>
+          <p class="text-3xl font-bold text-[var(--color-maroon-700)]">4.5 acres</p>
+          <p class="text-sm text-[var(--color-charcoal-soft)]">South Maclean, beside the Logan River</p>
+        </div>
+        <div class="card bg-[var(--color-cream-100)]">
+          <p class="text-xs uppercase tracking-wider text-[var(--color-saffron-600)] font-semibold mb-2">Tradition</p>
+          <p class="text-base font-semibold text-[var(--color-maroon-700)]">Sitpa Sastra & Agamas</p>
+          <p class="text-sm text-[var(--color-charcoal-soft)]">Built by stapathies from South India</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="container-tight py-12 md:py-16">
+    <h2>Lord Vinayakar</h2>
+    <span class="kolam-divider" aria-hidden="true"></span>
+    <div class="grid md:grid-cols-2 gap-8 mt-8">
+      <p class="text-lg leading-relaxed">
+        Lord Vinayakar — also known as Ganesha, Kanapathy, or Aanaimukan — is the remover of
+        obstacles, the patron of arts and sciences, and the deva of intellect and wisdom. He is
+        honoured at the beginning of all Hindu ceremonies.
+      </p>
+      <p class="text-lg leading-relaxed" lang="ta">
+        விநாயகனே வெவ்வினையை வேரறுக்க வல்லான். வழிபடுவோர்க்கு செல்வம்,
+        ஞானம், மற்றும் தடைகளை நீக்கி அருள்பாலிக்கும் முதல்வர்.
+      </p>
+    </div>
+  </section>
+
+  {currentCommittee.length > 0 && (
+    <section class="container-tight py-12 md:py-16">
+      <h2>Management Committee</h2>
+      <p class="text-[var(--color-charcoal-soft)]">Hindu Ahlaya Sangam Queensland Inc. (HASQ)</p>
+      <span class="kolam-divider" aria-hidden="true"></span>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
+        {currentCommittee.map((m) => (
+          <article class="card text-center">
+            {m.photo && <img src={m.photo} alt={m.name} class="w-24 h-24 rounded-full mx-auto mb-3 object-cover" />}
+            <h3 class="!text-lg !mb-1">{m.name}</h3>
+            {m.nameTamil && <p lang="ta" class="text-sm text-[var(--color-charcoal-soft)]">{m.nameTamil}</p>}
+            <p class="text-sm font-semibold text-[var(--color-saffron-600)] mt-1">{m.role}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+</Layout>

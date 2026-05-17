@@ -1,0 +1,133 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+let site: any = null;
+let hours: any = null;
+let canteen: any = null;
+let menu: any[] = [];
+
+try {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  site = await reader.singletons.siteConfig.read();
+  hours = await reader.singletons.openingHours.read();
+  canteen = await reader.singletons.canteenStatus.read();
+  menu = await reader.collections.canteenMenu.all();
+} catch {}
+
+const availableMenu = menu
+  .map((m) => ({ ...m.entry, slug: m.slug }))
+  .filter((m) => m.available);
+
+const menuByCategory: Record<string, any[]> = {};
+for (const item of availableMenu) {
+  const cat = item.category || 'snacks';
+  if (!menuByCategory[cat]) menuByCategory[cat] = [];
+  menuByCategory[cat].push(item);
+}
+
+const addr = site ?? {
+  templeAddressLine1: '4915–4923 Mt Lindesay Highway',
+  suburb: 'South Maclean',
+  state: 'QLD',
+  postcode: '4280',
+  country: 'Australia',
+  phonePrimary: '+61 7 5547 8064',
+  emailGeneral: 'info@ssvk.org.au',
+  googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Sri+Selva+Vinayakar+Koyil+South+Maclean',
+};
+---
+<Layout title="Visit">
+  <section class="container-tight py-12 md:py-20">
+    <p class="text-[var(--color-saffron-600)] uppercase tracking-widest text-sm mb-2">Visit Us</p>
+    <h1 class="mb-4">Plan your visit</h1>
+    <span class="kolam-divider" aria-hidden="true"></span>
+  </section>
+
+  <section class="container-tight grid md:grid-cols-2 gap-8 py-8">
+    <div class="card">
+      <h2 class="!text-2xl !mb-4">Address</h2>
+      <p class="text-lg">
+        {addr.templeAddressLine1}<br />
+        {addr.suburb} {addr.state} {addr.postcode}<br />
+        {addr.country}
+      </p>
+      <p class="mt-4">
+        <a href={addr.googleMapsUrl} target="_blank" rel="noopener" class="btn btn-primary">
+          Open in Google Maps ↗
+        </a>
+      </p>
+      <p class="mt-6 text-sm text-[var(--color-charcoal-soft)]">
+        📞 <a href={`tel:${addr.phonePrimary}`}>{addr.phonePrimary}</a><br />
+        ✉️ <a href={`mailto:${addr.emailGeneral}`}>{addr.emailGeneral}</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h2 class="!text-2xl !mb-4">Opening Hours</h2>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-[var(--color-charcoal-soft)] text-xs uppercase tracking-wider">
+            <th class="py-2"></th>
+            <th class="py-2">Morning</th>
+            <th class="py-2">Evening</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-[var(--color-cream-200)]">
+            <td class="py-3 font-semibold">Mon–Fri</td>
+            <td class="py-3">{hours?.weekdayMorningOpen ?? '7:30am'} – {hours?.weekdayMorningClose ?? '12:00pm'}</td>
+            <td class="py-3">{hours?.weekdayEveningOpen ?? '5:00pm'} – {hours?.weekdayEveningClose ?? '8:30pm'}</td>
+          </tr>
+          <tr class="border-t border-[var(--color-cream-200)]">
+            <td class="py-3 font-semibold">Sat–Sun</td>
+            <td class="py-3">{hours?.weekendMorningOpen ?? '7:30am'} – {hours?.weekendMorningClose ?? '1:00pm'}</td>
+            <td class="py-3">{hours?.weekendEveningOpen ?? '5:00pm'} – {hours?.weekendEveningClose ?? '8:30pm'}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="mt-4 text-sm">
+        <strong>Pooja times:</strong> {hours?.poojaMorning ?? '9:00am – 9:30am'} & {hours?.poojaEvening ?? '7:00pm – 7:30pm'}
+      </p>
+    </div>
+  </section>
+
+  <section class="container-tight py-12">
+    <h2>Temple Canteen</h2>
+    <span class="kolam-divider" aria-hidden="true"></span>
+    <div class="card mt-6">
+      <p class="text-2xl font-bold mb-2" style={`color: ${canteen?.isOpen ? 'var(--color-maroon-700)' : 'var(--color-charcoal-soft)'};`}>
+        {canteen?.isOpen ? '🟢 Open today' : '🔴 Closed today'}
+      </p>
+      {canteen?.isOpen && (
+        <p class="text-lg text-[var(--color-charcoal-soft)]">
+          {canteen.todayHoursOpen} – {canteen.todayHoursClose}
+        </p>
+      )}
+      {canteen?.specialNotice && <p class="mt-2 italic">{canteen.specialNotice}</p>}
+    </div>
+
+    {Object.keys(menuByCategory).length > 0 && (
+      <div class="mt-8 space-y-8">
+        {Object.entries(menuByCategory).map(([category, items]) => (
+          <div>
+            <h3 class="capitalize">{category}</h3>
+            <div class="grid sm:grid-cols-2 gap-3 mt-3">
+              {items.map((item) => (
+                <div class="card flex items-center justify-between">
+                  <div>
+                    <p class="font-semibold">{item.name}</p>
+                    {item.nameTamil && <p lang="ta" class="text-sm text-[var(--color-charcoal-soft)]">{item.nameTamil}</p>}
+                    {item.description && <p class="text-sm text-[var(--color-charcoal-soft)]">{item.description}</p>}
+                  </div>
+                  <p class="font-semibold text-[var(--color-maroon-700)]">${item.price?.toFixed(2)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>
