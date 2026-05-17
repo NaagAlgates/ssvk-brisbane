@@ -18,63 +18,71 @@ const d = donation ?? {
 };
 ---
 <Layout title="Donate">
-  {/* Subtle hero */}
-  <section class="pt-32 md:pt-44 pb-12 relative">
+  {/* Quiet hero with text */}
+  <section class="pt-32 md:pt-44 pb-12">
     <div class="container-tight max-w-3xl">
       <p class="eyebrow mb-6">Support the temple</p>
-      <h1 class="text-[var(--color-cream-50)] mb-6 text-balance" style="font-weight: 400;">
+      <h1 class="text-[var(--color-ink)] mb-6 text-balance" style="font-weight: 400;">
         Sustain a place of devotion
       </h1>
-      <p lang="ta" class="display-tamil mb-8">தர்மம் தலை காக்கும்</p>
-      <p class="text-[var(--color-cream-200)] text-xl leading-relaxed max-w-2xl">
+      <p lang="ta" class="tamil-display mb-8">தர்மம் தலை காக்கும்</p>
+      <p class="text-[var(--color-ink-soft)] text-xl leading-relaxed max-w-2xl">
         Your donations sustain the daily worship, festivals, and ongoing care of the temple.
         Every contribution — large or small — keeps a sacred space alive for our community.
       </p>
     </div>
   </section>
 
-  {/* Donation card */}
-  <section class="pb-24 md:pb-32">
+  {/* Warm photo for gravitas */}
+  <section class="container-tight">
+    <div class="aspect-[21/8] photo-frame">
+      <img src="/images/temple-front.jpg" alt="The temple gopuram in morning light" loading="eager" />
+    </div>
+  </section>
+
+  {/* Donation card — premium minimal on paper-soft */}
+  <section class="py-24 md:py-32">
     <div class="container-tight max-w-3xl">
-      <div class="card card-elevated">
-        <div class="flex items-baseline justify-between mb-8 pb-6 border-b border-[var(--color-ink-600)]">
-          <h2 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Direct bank transfer</h2>
-          <span class="eyebrow">AUD</span>
+      <div class="card card-hover">
+        <div class="flex items-baseline justify-between mb-8 pb-6 border-b border-[var(--color-rule)]">
+          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Direct bank transfer</h2>
+          <span class="eyebrow eyebrow-mute">AUD</span>
         </div>
         <dl class="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-6">
           <dt class="eyebrow">Bank</dt>
-          <dd class="md:col-span-2 text-[var(--color-cream-50)] text-lg font-medium">{d.bankName}</dd>
+          <dd class="md:col-span-2 text-[var(--color-ink)] text-lg font-medium">{d.bankName}</dd>
 
           <dt class="eyebrow">Account name</dt>
-          <dd class="md:col-span-2 text-[var(--color-cream-50)] text-lg font-medium">{d.accountName}</dd>
+          <dd class="md:col-span-2 text-[var(--color-ink)] text-lg font-medium">{d.accountName}</dd>
 
           <dt class="eyebrow">BSB</dt>
-          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-gold-400)]">{d.bsb}</dd>
+          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-kumkum)]">{d.bsb}</dd>
 
           <dt class="eyebrow">Account number</dt>
-          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-gold-400)]">{d.accountNumber}</dd>
+          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-kumkum)]">{d.accountNumber}</dd>
 
           {d.payid && (
             <>
               <dt class="eyebrow">PayID</dt>
-              <dd class="md:col-span-2 text-[var(--color-cream-50)] text-lg font-medium">{d.payid}</dd>
+              <dd class="md:col-span-2 text-[var(--color-ink)] text-lg font-medium">{d.payid}</dd>
             </>
           )}
         </dl>
 
-        <div class="mt-10 pt-6 border-t border-[var(--color-ink-600)]">
-          <p class="text-sm text-[var(--color-cream-200)] leading-relaxed">
-            <strong class="text-[var(--color-gold-300)]">Receipt request:</strong>
+        <div class="mt-10 pt-6 border-t border-[var(--color-rule)]">
+          <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed">
+            <strong class="text-[var(--color-kumkum)]">Receipt request:</strong>
             email a copy of your transfer confirmation to
-            <a href={`mailto:${d.treasurerEmail}`} class="text-[var(--color-gold-400)] hover:text-[var(--color-gold-300)] underline underline-offset-4">
+            <a href={`mailto:${d.treasurerEmail}`} class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)] underline underline-offset-4">
               {d.treasurerEmail}
             </a>.
           </p>
         </div>
       </div>
 
-      <div class="mt-12 text-center">
-        <p class="text-[var(--color-cream-300)] italic">
+      <div class="mt-16 text-center">
+        <p lang="ta" class="tamil-display !text-2xl !text-[var(--color-ink-soft)] mb-3">தர்மம் ஈய்க</p>
+        <p class="text-[var(--color-ink-soft)] italic">
           "Anything given with devotion finds its way to the Divine."
         </p>
       </div>

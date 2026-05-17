@@ -10,45 +10,45 @@ try {
 
 const year = new Date().getFullYear();
 ---
-<footer class="mt-32 pb-32 md:pb-12 bg-[var(--color-ink-950)] border-t border-[var(--color-ink-700)]">
-  <div class="container-tight pt-16 grid gap-12 md:grid-cols-4">
-    <div class="md:col-span-2">
-      <p class="font-[var(--font-display)] text-3xl text-[var(--color-cream-50)] mb-2 leading-tight">
+<footer class="mt-32 pb-32 md:pb-12 bg-[var(--color-paper-soft)] border-t border-[var(--color-rule)]">
+  <div class="container-tight pt-20 grid gap-12 md:grid-cols-12">
+    <div class="md:col-span-6">
+      <p class="font-[var(--font-display)] text-3xl text-[var(--color-ink)] mb-3 leading-tight">
         Sri Selva Vinayakar Koyil
       </p>
-      <p lang="ta" class="display-tamil !text-xl mb-4">ஸ்ரீ செல்வ விநாயகர் கோயில்</p>
-      <p class="text-[var(--color-cream-200)] text-sm leading-relaxed max-w-md">
+      <p lang="ta" class="tamil-display !text-2xl !text-[var(--color-kumkum)] mb-5">ஸ்ரீ செல்வ விநாயகர் கோயில்</p>
+      <p class="text-[var(--color-ink-soft)] text-sm leading-relaxed max-w-md">
         A traditional Hindu Ganesha temple serving the Tamil community of South-East
         Queensland. Consecrated 5 February 1995.
       </p>
     </div>
-    <div>
+    <div class="md:col-span-3">
       <p class="eyebrow mb-4">Contact</p>
-      <p class="text-sm text-[var(--color-cream-100)] leading-relaxed">
-        <a href={`tel:${site?.phonePrimary ?? '+61755478064'}`} class="block hover:text-[var(--color-gold-300)]">
+      <p class="text-sm text-[var(--color-ink)] leading-relaxed">
+        <a href={`tel:${site?.phonePrimary ?? '+61755478064'}`} class="block hover:text-[var(--color-kumkum)]">
           {site?.phonePrimary ?? '+61 7 5547 8064'}
         </a>
-        <a href={`mailto:${site?.emailGeneral ?? 'info@ssvk.org.au'}`} class="block hover:text-[var(--color-gold-300)]">
+        <a href={`mailto:${site?.emailGeneral ?? 'info@ssvk.org.au'}`} class="block hover:text-[var(--color-kumkum)]">
           {site?.emailGeneral ?? 'info@ssvk.org.au'}
         </a>
       </p>
-      <p class="mt-4 text-sm text-[var(--color-cream-200)]">
+      <p class="mt-4 text-sm text-[var(--color-ink-soft)]">
         {site?.templeAddressLine1 ?? '4915–4923 Mt Lindesay Hwy'}<br />
         {site?.suburb ?? 'South Maclean'} {site?.state ?? 'QLD'} {site?.postcode ?? '4280'}
       </p>
     </div>
-    <div>
+    <div class="md:col-span-3">
       <p class="eyebrow mb-4">Visit</p>
-      <ul class="text-sm space-y-2 text-[var(--color-cream-100)]">
-        <li><a href="/visit" class="hover:text-[var(--color-gold-300)]">Opening Hours</a></li>
-        <li><a href="/services" class="hover:text-[var(--color-gold-300)]">Pooja & Services</a></li>
-        <li><a href="/services" class="hover:text-[var(--color-gold-300)]">Festival Calendar</a></li>
-        <li><a href="/donate" class="hover:text-[var(--color-gold-300)]">Donate</a></li>
+      <ul class="text-sm space-y-2 text-[var(--color-ink)]">
+        <li><a href="/visit" class="hover:text-[var(--color-kumkum)]">Opening Hours</a></li>
+        <li><a href="/services" class="hover:text-[var(--color-kumkum)]">Pooja & Services</a></li>
+        <li><a href="/services" class="hover:text-[var(--color-kumkum)]">Festival Calendar</a></li>
+        <li><a href="/donate" class="hover:text-[var(--color-kumkum)]">Donate</a></li>
       </ul>
     </div>
   </div>
-  <div class="container-tight border-t border-[var(--color-ink-700)] mt-12 pt-6 flex flex-col md:flex-row justify-between text-xs text-[var(--color-cream-300)]">
+  <div class="container-tight border-t border-[var(--color-rule)] mt-12 pt-6 flex flex-col md:flex-row justify-between text-xs text-[var(--color-ink-mute)]">
     <p>© {year} Hindu Ahlaya Sangam Queensland Inc.</p>
-    <p class="mt-2 md:mt-0">Built with care · open source · zero cost</p>
+    <p class="mt-2 md:mt-0">Open source · maintained with care</p>
   </div>
 </footer>

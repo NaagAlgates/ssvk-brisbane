@@ -1,30 +1,34 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Dark Gold Devotional — Direction C */
-  --color-ink-950: #0a0908;        /* deepest background */
-  --color-ink-900: #0f0d0a;        /* primary background */
-  --color-ink-800: #1a1816;        /* elevated surface */
-  --color-ink-700: #26221d;        /* card surface */
-  --color-ink-600: #3a342c;        /* border / divider */
+  /* ── Sacred Minimalism base (D4) ── */
+  --color-paper: #FAFAF8;          /* warm paper white — body bg */
+  --color-paper-soft: #F3EFE5;     /* card / surface */
+  --color-paper-warm: #EFE7D6;     /* subtle differentiation */
+  --color-ink: #1C1816;            /* primary text */
+  --color-ink-soft: #5C5550;       /* secondary text */
+  --color-ink-mute: #8A8278;       /* tertiary, captions */
+  --color-rule: #D9D2C2;           /* hairline dividers */
 
-  --color-gold-300: #f4cb6e;       /* highlight gold */
-  --color-gold-400: #e4b757;       /* primary gold (text) */
-  --color-gold-500: #d4a356;       /* button gold */
-  --color-gold-600: #b8893d;       /* hover gold */
-  --color-gold-700: #8b6628;       /* deep gold */
+  /* ── Kumkum (default accent, quiet register) ── */
+  --color-kumkum: #7C2D12;         /* primary accent — deep, sacred */
+  --color-kumkum-soft: #9A3D1F;    /* hover */
+  --color-kumkum-light: #C97A55;   /* highlight on light bg */
 
-  --color-cream-50: #f8f1e3;       /* primary text on dark */
-  --color-cream-100: #ebe3d2;
-  --color-cream-200: #c8bda8;      /* secondary text */
-  --color-cream-300: #968b78;      /* tertiary text */
+  /* ── Festival register (D3 accents, used in festival sections only) ── */
+  --color-vermillion: #C62828;     /* WCAG-safe vermillion (4.96:1 on paper) */
+  --color-teal: #2A6F5A;           /* temple teal (4.92:1 on paper) */
+  --color-saffron: #D97706;        /* warm festival saffron */
 
-  --color-maroon-deep: #6b1d2a;    /* sacred maroon accent */
-  --color-saffron-blaze: #ff8c42;  /* festival accent */
+  /* ── Surface for inverted sections ── */
+  --color-shrine: #1A1614;         /* deep, used sparingly for shrine/quote bands */
+  --color-shrine-soft: #2A2520;
 
-  --font-display: 'Cormorant Garamond', 'Noto Serif Tamil', serif;
+  /* ── Type ── */
+  --font-display: 'Literata', 'Noto Serif Tamil', Georgia, serif;
   --font-sans: 'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
-  --font-tamil-display: 'Noto Serif Tamil', 'Cormorant Garamond', serif;
+  --font-tamil-display: 'Noto Serif Tamil', 'Literata', Georgia, serif;
+  --font-tamil-body: 'Noto Sans Tamil', 'Inter', system-ui, sans-serif;
 }
 
 @layer base {
@@ -32,11 +36,11 @@
     -webkit-text-size-adjust: 100%;
     font-feature-settings: 'kern', 'ss01';
     scroll-behavior: smooth;
-    background: var(--color-ink-900);
+    background: var(--color-paper);
   }
   body {
-    background: var(--color-ink-900);
-    color: var(--color-cream-50);
+    background: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 17px;
     line-height: 1.6;
@@ -46,38 +50,38 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    color: var(--color-cream-50);
+    color: var(--color-ink);
     font-weight: 500;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     line-height: 1.05;
   }
   h1 {
-    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
     font-weight: 400;
   }
   h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3.75rem);
     font-weight: 400;
   }
   h3 {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-size: clamp(1.375rem, 2.8vw, 2rem);
     font-weight: 500;
   }
   a {
-    color: var(--color-gold-400);
+    color: var(--color-kumkum);
     text-decoration: none;
     transition: color 200ms ease;
   }
   a:hover {
-    color: var(--color-gold-300);
+    color: var(--color-kumkum-soft);
   }
   :lang(ta) {
-    font-family: var(--font-tamil-display);
+    font-family: var(--font-tamil-body);
     font-feature-settings: 'kern';
   }
   ::selection {
-    background: var(--color-gold-500);
-    color: var(--color-ink-900);
+    background: var(--color-kumkum);
+    color: var(--color-paper);
   }
 }
 
@@ -91,23 +95,25 @@
   .eyebrow {
     font-family: var(--font-sans);
     font-size: 0.7rem;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--color-gold-400);
+    color: var(--color-kumkum);
     font-weight: 600;
+  }
+  .eyebrow-mute {
+    color: var(--color-ink-mute);
   }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 1rem 2rem;
+    padding: 1rem 1.75rem;
     border-radius: 0;
     font-family: var(--font-sans);
     font-weight: 500;
     font-size: 0.875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0.06em;
     text-decoration: none;
     transition: all 200ms ease;
     min-height: 52px;
@@ -115,60 +121,100 @@
     cursor: pointer;
   }
   .btn-primary {
-    background: var(--color-gold-500);
-    color: var(--color-ink-900);
-    border-color: var(--color-gold-500);
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
   }
   .btn-primary:hover {
-    background: var(--color-gold-300);
-    color: var(--color-ink-900);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px -10px rgba(212, 163, 86, 0.45);
+    background: var(--color-kumkum);
+    color: var(--color-paper);
+    border-color: var(--color-kumkum);
   }
   .btn-ghost {
     background: transparent;
-    color: var(--color-cream-50);
-    border-color: var(--color-cream-200);
+    color: var(--color-ink);
+    border-color: var(--color-ink);
   }
   .btn-ghost:hover {
-    background: var(--color-cream-50);
-    color: var(--color-ink-900);
+    background: var(--color-ink);
+    color: var(--color-paper);
   }
-  .card {
-    background: var(--color-ink-800);
-    border: 1px solid var(--color-ink-600);
-    padding: 2rem;
-    transition: all 300ms ease;
-  }
-  .card-elevated:hover {
-    border-color: var(--color-gold-700);
-    transform: translateY(-4px);
-    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6), 0 0 40px -20px rgba(212, 163, 86, 0.2);
-  }
-  .gold-rule {
-    display: block;
-    width: 4rem;
-    height: 1px;
-    background: linear-gradient(90deg, var(--color-gold-500), transparent);
-    margin: 1.5rem 0;
-  }
-  .gold-rule-center {
-    margin-inline: auto;
-    background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
-  }
-  .display-tamil {
+  /* Tamil-as-architecture — large display Tamil for hero/section heads */
+  .tamil-display {
     font-family: var(--font-tamil-display);
-    color: var(--color-gold-400);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    letter-spacing: 0.02em;
+    color: var(--color-kumkum);
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1.2;
+    letter-spacing: 0.01em;
   }
-  .hero-image-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, rgba(10, 9, 8, 0.4) 0%, rgba(10, 9, 8, 0.2) 40%, rgba(10, 9, 8, 0.95) 100%),
-      linear-gradient(90deg, rgba(10, 9, 8, 0.7) 0%, rgba(10, 9, 8, 0.2) 60%, transparent 100%);
+  .tamil-monumental {
+    font-family: var(--font-tamil-display);
+    color: var(--color-ink);
+    font-weight: 500;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1.05;
+    letter-spacing: 0.005em;
+  }
+  .tamil-body {
+    font-family: var(--font-tamil-body);
+    color: var(--color-ink-soft);
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  /* Hairline kumkum rule — replaces gold-rule */
+  .kumkum-rule {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: var(--color-kumkum);
+    margin: 1.25rem 0;
+  }
+  .kumkum-rule-center {
+    margin-inline: auto;
+  }
+  /* Card pattern, quiet register */
+  .card {
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-rule);
+    padding: 2rem;
+    transition: all 250ms ease;
+  }
+  .card-hover:hover {
+    border-color: var(--color-kumkum);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -20px rgba(124, 45, 18, 0.18);
+  }
+  /* Festival register — for festival-tagged sections only */
+  .festival-section {
+    background: var(--color-paper-warm);
+  }
+  .festival-card {
+    background: var(--color-paper);
+    border-left: 3px solid var(--color-vermillion);
+    padding: 1.75rem;
+  }
+  .accent-vermillion {
+    color: var(--color-vermillion);
+  }
+  .accent-teal {
+    color: var(--color-teal);
+  }
+  /* Soft photo treatment — minimum 70% visibility */
+  .photo-frame {
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Light hero text positioning over photos — no dark overlay */
+  .hero-text-card {
+    background: var(--color-paper);
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px -20px rgba(28, 24, 22, 0.25);
   }
   .text-balance {
     text-wrap: balance;

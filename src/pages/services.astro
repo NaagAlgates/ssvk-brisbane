@@ -21,108 +21,107 @@ const upcomingFestivals = festivals
 const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
 ---
 <Layout title="Services & Festivals">
-  {/* HERO — chariot detail */}
-  <section class="relative h-[60vh] min-h-[420px] overflow-hidden">
-    <img
-      src="/images/chariot-detail.jpg"
-      alt="Close-up of the temple chariot with priest and deity"
-      class="absolute inset-0 w-full h-full object-cover"
-      loading="eager"
-    />
-    <div class="hero-image-overlay"></div>
-    <div class="absolute inset-0 flex items-end">
-      <div class="container-tight pb-12 md:pb-20">
-        <p class="eyebrow mb-4">Services & Festivals</p>
-        <h1 class="text-[var(--color-cream-50)]" style="font-weight: 400;">Pooja, Archana & the Sacred Year</h1>
-      </div>
+  {/* Quiet hero */}
+  <section class="pt-32 md:pt-44 pb-12">
+    <div class="container-tight max-w-4xl">
+      <p class="eyebrow mb-6">Services & Festivals</p>
+      <h1 class="text-[var(--color-ink)] mb-4 text-balance" style="font-weight: 400;">Pooja, Archana & the Sacred Year</h1>
+      <p lang="ta" class="tamil-display mb-10">பூஜை மற்றும் திருவிழாக்கள்</p>
     </div>
   </section>
 
-  {/* POOJA SERVICES */}
+  {/* Photo break — chariot detail */}
+  <section class="container-tight">
+    <div class="aspect-[21/9] photo-frame">
+      <img src="/images/chariot-detail.jpg" alt="Close-up of the temple chariot with priest and deity" loading="eager" />
+    </div>
+  </section>
+
+  {/* POOJA SERVICES — quiet editorial register */}
   <section class="py-24 md:py-32">
     <div class="container-tight">
       <div class="grid lg:grid-cols-12 gap-12 mb-16">
         <div class="lg:col-span-4">
-          <p class="eyebrow mb-6">Sacred Rites</p>
-          <h2 class="text-[var(--color-cream-50)] mb-4" style="font-weight: 400;">Pooja & Archana</h2>
-          <p lang="ta" class="display-tamil mb-6">பூஜை & அர்ச்சனை</p>
-          <p class="text-[var(--color-cream-200)] leading-relaxed">
+          <p class="eyebrow mb-5">Sacred Rites</p>
+          <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Pooja & Archana</h2>
+          <p lang="ta" class="tamil-display !text-3xl mb-6">பூஜை & அர்ச்சனை</p>
+          <p class="text-[var(--color-ink-soft)] leading-relaxed">
             Personal poojas and archanas can be performed by the temple priests. Book in
             advance for major rites such as Abishekam and Homam.
           </p>
         </div>
         <div class="lg:col-span-8">
           {allServices.length > 0 ? (
-            <div class="divide-y divide-[var(--color-ink-600)]">
+            <div class="divide-y divide-[var(--color-rule)]">
               {allServices.map((s) => (
                 <div class="py-6 grid grid-cols-12 gap-4 items-baseline">
                   <div class="col-span-7">
-                    <h3 class="text-2xl text-[var(--color-cream-50)] font-[var(--font-display)] mb-1" style="font-weight: 500;">
+                    <h3 class="text-2xl text-[var(--color-ink)] font-[var(--font-display)] mb-1" style="font-weight: 500;">
                       {s.name}
                     </h3>
-                    {s.nameTamil && <p lang="ta" class="text-[var(--color-cream-200)] font-[var(--font-tamil-display)] text-lg">{s.nameTamil}</p>}
+                    {s.nameTamil && <p lang="ta" class="text-[var(--color-kumkum)] tamil-body !text-lg">{s.nameTamil}</p>}
                   </div>
-                  <div class="col-span-2 text-[var(--color-cream-300)] text-sm">
+                  <div class="col-span-2 text-[var(--color-ink-mute)] text-sm">
                     {s.durationMinutes ? `${s.durationMinutes} min` : ''}
                   </div>
                   <div class="col-span-3 text-right">
-                    <p class="text-3xl font-[var(--font-display)] text-[var(--color-gold-400)]" style="font-weight: 500;">
+                    <p class="text-3xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">
                       ${s.priceAud?.toFixed(0)}
                     </p>
-                    <p class="eyebrow !text-[0.6rem] !text-[var(--color-cream-300)]">AUD</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p class="card text-[var(--color-cream-200)] italic">
+            <p class="card text-[var(--color-ink-soft)] italic">
               Pooja & Archana price list will appear here once added via the admin panel.
             </p>
           )}
-          <p class="mt-8 text-sm text-[var(--color-cream-300)]">
-            To book a service, please call <a href="tel:+61755478064" class="text-[var(--color-gold-400)] hover:text-[var(--color-gold-300)]">07 5547 8064</a> or
-            email <a href="mailto:info@ssvk.org.au" class="text-[var(--color-gold-400)] hover:text-[var(--color-gold-300)]">info@ssvk.org.au</a>.
+          <p class="mt-8 text-sm text-[var(--color-ink-soft)]">
+            To book a service, please call <a href="tel:+61755478064" class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)]">07 5547 8064</a> or
+            email <a href="mailto:info@ssvk.org.au" class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)]">info@ssvk.org.au</a>.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  {/* FESTIVAL CALENDAR — alternating cards with photography */}
-  <section class="py-24 md:py-32 bg-[var(--color-ink-950)]">
+  {/* FESTIVAL CALENDAR — VIBRANT REGISTER */}
+  <section class="festival-section py-24 md:py-32">
     <div class="container-tight">
       <div class="text-center mb-16">
-        <p class="eyebrow mb-4">Sacred Year</p>
-        <h2 class="text-[var(--color-cream-50)] mb-3" style="font-weight: 400;">Festival Calendar</h2>
-        <p lang="ta" class="display-tamil">திருவிழாக்கள்</p>
-        <span class="gold-rule gold-rule-center mt-6" aria-hidden="true"></span>
+        <p class="eyebrow mb-4" style="color: var(--color-vermillion);">Sacred Year</p>
+        <h2 class="text-[var(--color-ink)] mb-3" style="font-weight: 400;">Festival Calendar</h2>
+        <p lang="ta" class="tamil-display !text-[var(--color-teal)]">திருவிழாக்கள்</p>
       </div>
       {upcomingFestivals.length > 0 ? (
-        <ol class="space-y-6 max-w-4xl mx-auto">
+        <ol class="space-y-4 max-w-4xl mx-auto">
           {upcomingFestivals.map((f, i) => {
             const date = new Date(f.date);
+            const accentColor = i % 3 === 0 ? 'var(--color-vermillion)' : i % 3 === 1 ? 'var(--color-teal)' : 'var(--color-kumkum)';
             return (
-              <li class="card card-elevated grid md:grid-cols-12 gap-6 items-center">
-                <div class="md:col-span-2 text-center md:border-r md:border-[var(--color-ink-600)] md:pr-6">
-                  <p class="text-5xl font-[var(--font-display)] text-[var(--color-gold-400)] font-light leading-none">
+              <li class="festival-card card-hover grid md:grid-cols-12 gap-6 items-center" style={`border-left-color: ${accentColor};`}>
+                <div class="md:col-span-2 text-center md:border-r md:border-[var(--color-rule)] md:pr-6">
+                  <p class="text-5xl font-[var(--font-display)] font-light leading-none" style={`color: ${accentColor};`}>
                     {date.getDate()}
                   </p>
-                  <p class="eyebrow mt-2">
+                  <p class="eyebrow mt-2" style={`color: ${accentColor};`}>
                     {date.toLocaleDateString('en-AU', { month: 'short' })} {date.getFullYear()}
                   </p>
                 </div>
                 <div class="md:col-span-7">
-                  <h3 class="text-2xl text-[var(--color-cream-50)] mb-1" style="font-weight: 500;">{f.name}</h3>
-                  {f.nameTamil && <p lang="ta" class="text-[var(--color-cream-200)] font-[var(--font-tamil-display)] text-lg">{f.nameTamil}</p>}
-                  {f.time && <p class="text-[var(--color-cream-300)] text-sm mt-3">⏱  {f.time}</p>}
+                  <h3 class="text-2xl text-[var(--color-ink)] mb-1" style="font-weight: 500;">{f.name}</h3>
+                  {f.nameTamil && <p lang="ta" class="text-[var(--color-ink-soft)] tamil-body !text-lg">{f.nameTamil}</p>}
+                  {f.time && <p class="text-[var(--color-ink-mute)] text-sm mt-3">{f.time}</p>}
                 </div>
                 <div class="md:col-span-3 md:text-right">
                   {f.type === 'major' && (
-                    <span class="inline-block text-[0.65rem] uppercase tracking-widest border border-[var(--color-gold-500)] text-[var(--color-gold-400)] px-3 py-1">
+                    <span class="inline-block text-[0.65rem] uppercase tracking-widest px-3 py-1" style={`color: ${accentColor}; border: 1px solid ${accentColor};`}>
                       Major
                     </span>
                   )}
-                  <p class="text-sm text-[var(--color-cream-300)] mt-2">
+                  <p class="text-sm text-[var(--color-ink-mute)] mt-2">
                     {date.toLocaleDateString('en-AU', { weekday: 'long' })}
                   </p>
                 </div>
@@ -131,7 +130,7 @@ const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
           })}
         </ol>
       ) : (
-        <p class="card text-center text-[var(--color-cream-200)] italic max-w-xl mx-auto">
+        <p class="card text-center text-[var(--color-ink-soft)] italic max-w-xl mx-auto">
           Festival calendar will appear here once added via the admin panel.
         </p>
       )}

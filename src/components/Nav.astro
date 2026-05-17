@@ -8,28 +8,28 @@ const links = [
 ];
 const path = Astro.url.pathname;
 ---
-<header class="absolute top-0 inset-x-0 z-50 md:bg-transparent">
+<header class="absolute top-0 inset-x-0 z-50 bg-transparent">
   <div class="container-tight flex items-center justify-between py-6">
-    <a href="/" class="flex items-center gap-3 no-underline group">
+    <a href="/" class="flex items-baseline gap-3 no-underline group">
       <span class="font-[var(--font-display)] leading-tight">
-        <span class="block text-base md:text-lg font-semibold tracking-wide text-[var(--color-cream-50)]">
+        <span class="block text-base md:text-lg font-semibold tracking-wide text-[var(--color-ink)]">
           SSVK
         </span>
-        <span class="block text-[0.65rem] tracking-[0.25em] uppercase text-[var(--color-gold-400)]">
-          Brisbane
-        </span>
+      </span>
+      <span class="hidden md:block text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-kumkum)] font-semibold">
+        Brisbane
       </span>
     </a>
     <nav aria-label="Primary">
       <ul class="hidden md:flex items-center gap-1">
-        {links.slice(1).map((l) => (
+        {links.slice(1, -1).map((l) => (
           <li>
             <a
               href={l.href}
-              class={`px-4 py-2 text-sm font-medium tracking-wide transition-colors ${
+              class={`px-4 py-2 text-sm font-medium transition-colors ${
                 path === l.href
-                  ? 'text-[var(--color-gold-400)]'
-                  : 'text-[var(--color-cream-100)] hover:text-[var(--color-gold-300)]'
+                  ? 'text-[var(--color-kumkum)]'
+                  : 'text-[var(--color-ink)] hover:text-[var(--color-kumkum)]'
               }`}
             >
               {l.label}
@@ -46,14 +46,14 @@ const path = Astro.url.pathname;
   </div>
 
   {/* Mobile bottom nav */}
-  <nav aria-label="Mobile" class="md:hidden fixed bottom-0 inset-x-0 bg-[var(--color-ink-950)]/95 backdrop-blur border-t border-[var(--color-ink-700)] z-50">
+  <nav aria-label="Mobile" class="md:hidden fixed bottom-0 inset-x-0 bg-[var(--color-paper)]/95 backdrop-blur border-t border-[var(--color-rule)] z-50">
     <ul class="grid grid-cols-5">
       {links.map((l) => (
         <li>
           <a
             href={l.href}
             class={`flex flex-col items-center justify-center py-3 text-[0.7rem] tracking-wide no-underline ${
-              path === l.href ? 'text-[var(--color-gold-400)] font-semibold' : 'text-[var(--color-cream-200)]'
+              path === l.href ? 'text-[var(--color-kumkum)] font-semibold' : 'text-[var(--color-ink-soft)]'
             }`}
             style="min-height: 56px;"
           >
