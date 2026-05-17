@@ -29,51 +29,64 @@ const daysToNext = nextFestival
   : null;
 ---
 <Layout title="Home">
-  {/* QUIET ARCHITECTURAL HERO — register A */}
-  <section class="relative min-h-screen flex flex-col">
-    {/* Photo as a serene backdrop, full color */}
-    <div class="absolute inset-0 photo-frame">
-      <img
-        src="/images/temple-front.jpg"
-        alt="The gopuram of Sri Selva Vinayakar Koyil at South Maclean"
-        class="hidden md:block w-full h-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <img
-        src="/images/temple-portrait.jpg"
-        alt="The temple's gopuram tower"
-        class="md:hidden w-full h-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-      />
-      {/* Very gentle paper-tinted bottom fade — keeps photo at 80%+ visibility */}
-      <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[var(--color-paper)] to-transparent"></div>
+  {/* EDITORIAL HERO with WOW typography + Om watermark + Ken Burns photo */}
+  <section class="relative overflow-hidden pt-36 md:pt-48 pb-16">
+    <span class="om-watermark" style="top: 8rem; right: -4rem;" aria-hidden="true">ॐ</span>
+    <div class="container-tight max-w-6xl relative">
+      <p class="eyebrow mb-6 hero-fade-up">Est. 1995 · South Maclean · Brisbane</p>
+      <h1 class="text-[var(--color-ink)] mb-6 text-balance hero-fade-up hero-fade-up-delay-1">
+        A sacred space.<br/>Right here in Brisbane.
+      </h1>
+      <p lang="ta" class="tamil-display mb-10 !text-2xl md:!text-4xl hero-fade-up hero-fade-up-delay-2">
+        ஸ்ரீ செல்வ விநாயகர் கோயில்
+      </p>
+      <p class="text-lg md:text-xl text-[var(--color-ink-soft)] mb-10 max-w-2xl leading-relaxed hero-fade-up hero-fade-up-delay-3">
+        Sri Selva Vinayakar Koyil — a traditional Hindu Ganesha temple beside
+        the Logan River, serving the Tamil community of South-East Queensland for
+        three decades.
+      </p>
+      <div class="flex flex-wrap gap-3 hero-fade-up hero-fade-up-delay-4">
+        <a href="/visit" class="btn btn-primary">Plan your visit</a>
+        <a href="/services" class="btn btn-ghost">Festival calendar</a>
+      </div>
     </div>
+  </section>
 
-    {/* Text content positioned at bottom — quiet, monumental */}
-    <div class="relative mt-auto pb-20 md:pb-32 pt-32">
-      <div class="container-tight">
-        <div class="max-w-4xl">
-          <p class="eyebrow mb-8" style="color: var(--color-kumkum); background: var(--color-paper); display: inline-block; padding: 6px 14px;">
-            Est. 1995 · South Maclean
-          </p>
-          <h1 lang="ta" class="tamil-monumental mb-6 text-balance">
-            ஸ்ரீ செல்வ விநாயகர் கோயில்
-          </h1>
-          <p class="text-2xl md:text-3xl font-[var(--font-display)] text-[var(--color-ink)] mb-8 italic">
-            Sri Selva Vinayakar Koyil
-          </p>
-          <span class="block w-16 h-px bg-[var(--color-kumkum)] mb-8"></span>
-          <p class="text-lg md:text-xl text-[var(--color-ink-soft)] mb-10 max-w-xl leading-relaxed">
-            A traditional Hindu Ganesha temple serving the Tamil community of South-East
-            Queensland — beside the Logan River, 35km south of Brisbane.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="/visit" class="btn btn-primary">Plan your visit</a>
-            <a href="/services" class="btn btn-ghost">Festival calendar</a>
-          </div>
-        </div>
+  {/* CINEMATIC AERIAL — birds-eye drone shot of the full complex */}
+  <section class="container-wide pb-12">
+    <div class="aspect-[16/9] photo-frame">
+      <img
+        src="/images/temple-birds-view.jpg"
+        alt="Aerial view of Sri Selva Vinayakar Koyil — the full temple complex in its bushland setting"
+        class="ken-burns"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  {/* STATS STRIP — wow numbers */}
+  <section class="py-20 md:py-28 bg-[var(--color-paper-soft)] border-y border-[var(--color-rule)]">
+    <div class="container-tight grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center">
+      <div>
+        <p class="stat-number text-[var(--color-saffron)]">30</p>
+        <p class="eyebrow mt-3 eyebrow-mute">Years of worship</p>
+        <p class="text-sm text-[var(--color-ink-soft)] mt-1">Since 1995</p>
+      </div>
+      <div>
+        <p class="stat-number">4.5</p>
+        <p class="eyebrow mt-3 eyebrow-mute">Acres of grounds</p>
+        <p class="text-sm text-[var(--color-ink-soft)] mt-1">By the Logan River</p>
+      </div>
+      <div>
+        <p class="stat-number">35<span class="text-2xl align-top ml-1">km</span></p>
+        <p class="eyebrow mt-3 eyebrow-mute">South of Brisbane</p>
+        <p class="text-sm text-[var(--color-ink-soft)] mt-1">Mt Lindesay Hwy</p>
+      </div>
+      <div>
+        <p class="stat-number text-[var(--color-teal)]">Daily</p>
+        <p class="eyebrow mt-3 eyebrow-mute">Pooja & Worship</p>
+        <p class="text-sm text-[var(--color-ink-soft)] mt-1">Morning & evening</p>
       </div>
     </div>
   </section>
@@ -82,7 +95,7 @@ const daysToNext = nextFestival
   <section class="bg-[var(--color-paper-soft)] border-y border-[var(--color-rule)]">
     <div class="container-tight grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-rule)]">
       <div class="py-7 px-2 md:px-8 flex items-center gap-4">
-        <span class={`w-2.5 h-2.5 rounded-full ${canteen.isOpen ? 'bg-[var(--color-teal)] animate-pulse' : 'bg-[var(--color-vermillion)]'}`}></span>
+        <span class={`w-2.5 h-2.5 rounded-full ${canteen.isOpen ? 'bg-[var(--color-teal)] animate-pulse' : 'bg-[var(--color-saffron)]'}`}></span>
         <div>
           <p class="eyebrow !text-[0.6rem] eyebrow-mute">Canteen</p>
           <p class="text-[var(--color-ink)] font-medium mt-1">
@@ -91,7 +104,7 @@ const daysToNext = nextFestival
         </div>
       </div>
       <div class="py-7 px-2 md:px-8 flex items-center gap-4">
-        <span class="text-[var(--color-kumkum)] text-xl">◐</span>
+        <span class="text-[var(--color-saffron)] text-xl">◐</span>
         <div>
           <p class="eyebrow !text-[0.6rem] eyebrow-mute">Today's Pooja</p>
           <p class="text-[var(--color-ink)] font-medium mt-1">
@@ -100,7 +113,7 @@ const daysToNext = nextFestival
         </div>
       </div>
       <div class="py-7 px-2 md:px-8 flex items-center gap-4">
-        <span class="text-[var(--color-kumkum)] text-xl">⌂</span>
+        <span class="text-[var(--color-saffron)] text-xl">⌂</span>
         <div>
           <p class="eyebrow !text-[0.6rem] eyebrow-mute">Open Daily</p>
           <p class="text-[var(--color-ink)] font-medium mt-1">Morning & Evening</p>
@@ -115,7 +128,7 @@ const daysToNext = nextFestival
       <p lang="ta" class="font-[var(--font-tamil-display)] text-[var(--color-ink)] text-3xl md:text-5xl leading-relaxed mb-8 font-medium">
         விநாயகனே வெவ்வினையை<br/>வேரறுக்க வல்லான்
       </p>
-      <span class="block w-12 h-px bg-[var(--color-kumkum)] mx-auto mb-6"></span>
+      <span class="block w-12 h-px bg-[var(--color-saffron)] mx-auto mb-6"></span>
       <p class="text-[var(--color-ink-soft)] italic text-lg">
         Lord Vinayaka alone has the power to uproot the deepest of obstacles.
       </p>
@@ -127,14 +140,14 @@ const daysToNext = nextFestival
     <section class="festival-section py-24 md:py-32">
       <div class="container-tight grid lg:grid-cols-12 gap-12">
         <div class="lg:col-span-5 flex flex-col justify-center">
-          <p class="eyebrow accent-vermillion mb-6" style="color: var(--color-vermillion);">Next Festival</p>
+          <p class="eyebrow accent-vermillion mb-6" style="color: var(--color-saffron);">Next Festival</p>
           <h2 class="text-[var(--color-ink)] mb-3" style="font-weight: 400;">
             {nextFestival.name}
           </h2>
           <p lang="ta" class="tamil-display !text-[var(--color-teal)] mb-10">{nextFestival.nameTamil}</p>
           <div class="flex items-baseline gap-8 mb-10">
             <div>
-              <p class="text-[var(--color-vermillion)] font-[var(--font-display)] font-light leading-none" style="font-size: clamp(4rem, 12vw, 8rem);">
+              <p class="text-[var(--color-saffron)] font-[var(--font-display)] font-light leading-none" style="font-size: clamp(4rem, 12vw, 8rem);">
                 {daysToNext}
               </p>
               <p class="eyebrow mt-3" style="color: var(--color-teal);">Days away</p>
@@ -169,16 +182,16 @@ const daysToNext = nextFestival
       <div class="container-tight">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
-            <p class="eyebrow mb-3" style="color: var(--color-vermillion);">Sacred Calendar</p>
+            <p class="eyebrow mb-3" style="color: var(--color-saffron);">Sacred Calendar</p>
             <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Upcoming festivals</h2>
           </div>
-          <a href="/services" class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)] text-sm tracking-wide">
+          <a href="/services" class="text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] text-sm tracking-wide">
             View all →
           </a>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
           {upcoming.map((f, i) => {
-            const accentColor = i === 0 ? 'var(--color-vermillion)' : i === 1 ? 'var(--color-teal)' : 'var(--color-kumkum)';
+            const accentColor = i === 0 ? 'var(--color-saffron)' : i === 1 ? 'var(--color-teal)' : 'var(--color-saffron)';
             return (
               <article class="festival-card card-hover" style={`border-left-color: ${accentColor};`}>
                 <p class="text-sm tracking-wider uppercase mb-4 font-semibold" style={`color: ${accentColor};`}>

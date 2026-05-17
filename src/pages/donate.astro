@@ -56,10 +56,10 @@ const d = donation ?? {
           <dd class="md:col-span-2 text-[var(--color-ink)] text-lg font-medium">{d.accountName}</dd>
 
           <dt class="eyebrow">BSB</dt>
-          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-kumkum)]">{d.bsb}</dd>
+          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-saffron)]">{d.bsb}</dd>
 
           <dt class="eyebrow">Account number</dt>
-          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-kumkum)]">{d.accountNumber}</dd>
+          <dd class="md:col-span-2 font-mono text-2xl font-[var(--font-display)] text-[var(--color-saffron)]">{d.accountNumber}</dd>
 
           {d.payid && (
             <>
@@ -71,9 +71,9 @@ const d = donation ?? {
 
         <div class="mt-10 pt-6 border-t border-[var(--color-rule)]">
           <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed">
-            <strong class="text-[var(--color-kumkum)]">Receipt request:</strong>
+            <strong class="text-[var(--color-saffron)]">Receipt request:</strong>
             email a copy of your transfer confirmation to
-            <a href={`mailto:${d.treasurerEmail}`} class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)] underline underline-offset-4">
+            <a href={`mailto:${d.treasurerEmail}`} class="text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] underline underline-offset-4">
               {d.treasurerEmail}
             </a>.
           </p>

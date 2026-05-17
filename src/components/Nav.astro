@@ -16,20 +16,20 @@ const path = Astro.url.pathname;
           SSVK
         </span>
       </span>
-      <span class="hidden md:block text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-kumkum)] font-semibold">
+      <span class="hidden md:block text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-saffron)] font-semibold">
         Brisbane
       </span>
     </a>
     <nav aria-label="Primary">
       <ul class="hidden md:flex items-center gap-1">
-        {links.slice(1, -1).map((l) => (
+        {links.slice(0, -1).map((l) => (
           <li>
             <a
               href={l.href}
               class={`px-4 py-2 text-sm font-medium transition-colors ${
                 path === l.href
-                  ? 'text-[var(--color-kumkum)]'
-                  : 'text-[var(--color-ink)] hover:text-[var(--color-kumkum)]'
+                  ? 'text-[var(--color-saffron)]'
+                  : 'text-[var(--color-ink)] hover:text-[var(--color-saffron)]'
               }`}
             >
               {l.label}
@@ -53,7 +53,7 @@ const path = Astro.url.pathname;
           <a
             href={l.href}
             class={`flex flex-col items-center justify-center py-3 text-[0.7rem] tracking-wide no-underline ${
-              path === l.href ? 'text-[var(--color-kumkum)] font-semibold' : 'text-[var(--color-ink-soft)]'
+              path === l.href ? 'text-[var(--color-saffron)] font-semibold' : 'text-[var(--color-ink-soft)]'
             }`}
             style="min-height: 56px;"
           >

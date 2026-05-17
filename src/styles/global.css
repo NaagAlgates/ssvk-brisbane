@@ -1,40 +1,37 @@
 @import 'tailwindcss';
 
 @theme {
-  /* ── Sacred Minimalism base (D4) ── */
-  --color-paper: #FAFAF8;          /* warm paper white — body bg */
-  --color-paper-soft: #F3EFE5;     /* card / surface */
-  --color-paper-warm: #EFE7D6;     /* subtle differentiation */
-  --color-ink: #1C1816;            /* primary text */
-  --color-ink-soft: #5C5550;       /* secondary text */
-  --color-ink-mute: #8A8278;       /* tertiary, captions */
-  --color-rule: #D9D2C2;           /* hairline dividers */
+  /* ── Calm Editorial (FGS-inspired) ── */
+  --color-paper: #FBFAF7;          /* warm near-white bg */
+  --color-paper-soft: #F5F1E9;     /* card / elevation */
+  --color-paper-warm: #EFEAE0;     /* divider band */
 
-  /* ── Kumkum (default accent, quiet register) ── */
-  --color-kumkum: #7C2D12;         /* primary accent — deep, sacred */
-  --color-kumkum-soft: #9A3D1F;    /* hover */
-  --color-kumkum-light: #C97A55;   /* highlight on light bg */
+  --color-ink: #1A1815;            /* primary text — deep ink */
+  --color-ink-soft: #5A5448;       /* secondary text */
+  --color-ink-mute: #8C857A;       /* tertiary, captions */
+  --color-rule: #E0DACC;           /* hairline */
+  --color-rule-strong: #C8C0AD;    /* prominent divider */
 
-  /* ── Festival register (D3 accents, used in festival sections only) ── */
-  --color-vermillion: #C62828;     /* WCAG-safe vermillion (4.96:1 on paper) */
-  --color-teal: #2A6F5A;           /* temple teal (4.92:1 on paper) */
-  --color-saffron: #D97706;        /* warm festival saffron */
+  /* ── Single accent (used sparingly) ── */
+  --color-saffron: #C2410C;         /* deep saffron — kumkum tone */
+  --color-saffron-soft: #DC5821;    /* hover */
+  --color-saffron-deep: #8B2C08;    /* depth */
 
-  /* ── Surface for inverted sections ── */
-  --color-shrine: #1A1614;         /* deep, used sparingly for shrine/quote bands */
-  --color-shrine-soft: #2A2520;
+  /* ── Festival register (used only in festival sections) ── */
+  --color-teal: #2A6F5A;            /* temple teal */
+  --color-blue: #1E3A5F;            /* deep sky-blue from gopuram photos */
 
   /* ── Type ── */
-  --font-display: 'Literata', 'Noto Serif Tamil', Georgia, serif;
+  --font-display: 'Manrope', 'Noto Sans Tamil', system-ui, sans-serif;
   --font-sans: 'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
-  --font-tamil-display: 'Noto Serif Tamil', 'Literata', Georgia, serif;
-  --font-tamil-body: 'Noto Sans Tamil', 'Inter', system-ui, sans-serif;
+  --font-tamil: 'Noto Sans Tamil', 'Inter', system-ui, sans-serif;
+  --font-tamil-display: 'Noto Sans Tamil', 'Manrope', system-ui, sans-serif;
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    font-feature-settings: 'kern', 'ss01';
+    font-feature-settings: 'kern', 'cv01', 'ss01';
     scroll-behavior: smooth;
     background: var(--color-paper);
   }
@@ -43,7 +40,7 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 17px;
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -52,35 +49,37 @@
     font-family: var(--font-display);
     color: var(--color-ink);
     font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
   }
   h1 {
-    font-size: clamp(2.5rem, 7vw, 5.5rem);
-    font-weight: 400;
+    font-size: clamp(2.75rem, 8vw, 7rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
   }
   h2 {
-    font-size: clamp(2rem, 5vw, 3.75rem);
-    font-weight: 400;
-  }
-  h3 {
-    font-size: clamp(1.375rem, 2.8vw, 2rem);
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
     font-weight: 500;
   }
+  h3 {
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+  }
   a {
-    color: var(--color-kumkum);
+    color: var(--color-saffron);
     text-decoration: none;
     transition: color 200ms ease;
   }
   a:hover {
-    color: var(--color-kumkum-soft);
+    color: var(--color-saffron-soft);
   }
   :lang(ta) {
-    font-family: var(--font-tamil-body);
+    font-family: var(--font-tamil);
     font-feature-settings: 'kern';
   }
   ::selection {
-    background: var(--color-kumkum);
+    background: var(--color-saffron);
     color: var(--color-paper);
   }
 }
@@ -92,13 +91,19 @@
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
+  .container-wide {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
   .eyebrow {
     font-family: var(--font-sans);
     font-size: 0.7rem;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--color-kumkum);
-    font-weight: 600;
+    color: var(--color-saffron);
+    font-weight: 700;
   }
   .eyebrow-mute {
     color: var(--color-ink-mute);
@@ -108,15 +113,15 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 1rem 1.75rem;
-    border-radius: 0;
+    padding: 0.95rem 1.75rem;
+    border-radius: 999px;
     font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 0.875rem;
-    letter-spacing: 0.06em;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
     text-decoration: none;
     transition: all 200ms ease;
-    min-height: 52px;
+    min-height: 48px;
     border: 1px solid transparent;
     cursor: pointer;
   }
@@ -126,97 +131,146 @@
     border-color: var(--color-ink);
   }
   .btn-primary:hover {
-    background: var(--color-kumkum);
+    background: var(--color-saffron);
+    border-color: var(--color-saffron);
     color: var(--color-paper);
-    border-color: var(--color-kumkum);
+  }
+  .btn-saffron {
+    background: var(--color-saffron);
+    color: var(--color-paper);
+    border-color: var(--color-saffron);
+  }
+  .btn-saffron:hover {
+    background: var(--color-saffron-deep);
+    border-color: var(--color-saffron-deep);
+    color: var(--color-paper);
   }
   .btn-ghost {
     background: transparent;
     color: var(--color-ink);
-    border-color: var(--color-ink);
+    border-color: var(--color-rule-strong);
   }
   .btn-ghost:hover {
     background: var(--color-ink);
     color: var(--color-paper);
+    border-color: var(--color-ink);
   }
-  /* Tamil-as-architecture — large display Tamil for hero/section heads */
+  /* Tamil display — modest, not monumental */
   .tamil-display {
     font-family: var(--font-tamil-display);
-    color: var(--color-kumkum);
+    color: var(--color-saffron);
     font-weight: 500;
-    font-size: clamp(2rem, 5vw, 4rem);
-    line-height: 1.2;
-    letter-spacing: 0.01em;
-  }
-  .tamil-monumental {
-    font-family: var(--font-tamil-display);
-    color: var(--color-ink);
-    font-weight: 500;
-    font-size: clamp(3rem, 9vw, 7rem);
-    line-height: 1.05;
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    line-height: 1.3;
     letter-spacing: 0.005em;
   }
   .tamil-body {
-    font-family: var(--font-tamil-body);
+    font-family: var(--font-tamil);
     color: var(--color-ink-soft);
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.5;
   }
-  /* Hairline kumkum rule — replaces gold-rule */
-  .kumkum-rule {
+  /* Hairline saffron rule */
+  .saffron-rule {
     display: block;
-    width: 3rem;
-    height: 1px;
-    background: var(--color-kumkum);
-    margin: 1.25rem 0;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--color-saffron);
+    margin: 1rem 0;
   }
-  .kumkum-rule-center {
+  .saffron-rule-center {
     margin-inline: auto;
   }
-  /* Card pattern, quiet register */
+  /* Card — minimal, soft shadow */
   .card {
-    background: var(--color-paper-soft);
+    background: var(--color-paper);
     border: 1px solid var(--color-rule);
+    border-radius: 12px;
     padding: 2rem;
     transition: all 250ms ease;
   }
   .card-hover:hover {
-    border-color: var(--color-kumkum);
+    border-color: var(--color-rule-strong);
     transform: translateY(-2px);
-    box-shadow: 0 16px 40px -20px rgba(124, 45, 18, 0.18);
+    box-shadow: 0 12px 32px -16px rgba(26, 24, 21, 0.18);
   }
-  /* Festival register — for festival-tagged sections only */
-  .festival-section {
-    background: var(--color-paper-warm);
-  }
+  /* Festival register — subtle */
   .festival-card {
     background: var(--color-paper);
-    border-left: 3px solid var(--color-vermillion);
-    padding: 1.75rem;
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-saffron);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 250ms ease;
   }
-  .accent-vermillion {
-    color: var(--color-vermillion);
-  }
-  .accent-teal {
-    color: var(--color-teal);
-  }
-  /* Soft photo treatment — minimum 70% visibility */
+  .accent-saffron { color: var(--color-saffron); }
+  .accent-teal { color: var(--color-teal); }
+  .accent-blue { color: var(--color-blue); }
+  /* Photos at full visibility */
   .photo-frame {
     position: relative;
     overflow: hidden;
+    border-radius: 16px;
   }
   .photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  /* Light hero text positioning over photos — no dark overlay */
-  .hero-text-card {
-    background: var(--color-paper);
-    padding: 2.5rem;
-    box-shadow: 0 20px 60px -20px rgba(28, 24, 22, 0.25);
-  }
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* ── Motion ── */
+  .hero-fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-fade-up-delay-1 { animation-delay: 0.1s; }
+  .hero-fade-up-delay-2 { animation-delay: 0.25s; }
+  .hero-fade-up-delay-3 { animation-delay: 0.4s; }
+  .hero-fade-up-delay-4 { animation-delay: 0.55s; }
+  @keyframes heroFadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ken-burns {
+    animation: kenBurns 22s ease-in-out infinite alternate;
+  }
+  @keyframes kenBurns {
+    0%   { transform: scale(1.05) translate(0, 0); }
+    100% { transform: scale(1.12) translate(-1.5%, -1.5%); }
+  }
+
+  /* Signature watermark */
+  .om-watermark {
+    position: absolute;
+    font-family: var(--font-tamil-display);
+    color: var(--color-saffron);
+    opacity: 0.06;
+    font-size: clamp(20rem, 50vw, 45rem);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    font-weight: 700;
+  }
+
+  /* Stat number — wow scale */
+  .stat-number {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-up, .ken-burns {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
   }
 }

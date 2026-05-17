@@ -39,15 +39,15 @@ const currentCommittee = committee
         <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">History</h2>
         <p lang="ta" class="tamil-display !text-3xl mb-10">வரலாறு</p>
         <div class="space-y-8">
-          <div class="border-l-2 border-[var(--color-kumkum)] pl-5">
+          <div class="border-l-2 border-[var(--color-saffron)] pl-5">
             <p class="text-5xl font-[var(--font-display)] text-[var(--color-ink)] font-light">1986</p>
             <p class="text-[var(--color-ink-soft)] text-sm mt-1">Convening Committee formed</p>
           </div>
-          <div class="border-l-2 border-[var(--color-kumkum)] pl-5">
+          <div class="border-l-2 border-[var(--color-saffron)] pl-5">
             <p class="text-5xl font-[var(--font-display)] text-[var(--color-ink)] font-light">1990</p>
             <p class="text-[var(--color-ink-soft)] text-sm mt-1">4.5 acres acquired at South Maclean</p>
           </div>
-          <div class="border-l-2 border-[var(--color-kumkum)] pl-5">
+          <div class="border-l-2 border-[var(--color-saffron)] pl-5">
             <p class="text-5xl font-[var(--font-display)] text-[var(--color-ink)] font-light">1995</p>
             <p class="text-[var(--color-ink-soft)] text-sm mt-1">Kumbabishekam · consecration</p>
           </div>
@@ -61,7 +61,7 @@ const currentCommittee = committee
         </p>
         <p class="text-[var(--color-ink-soft)]">
           As the congregation grew, the need for a traditional temple became clear. A Convening
-          Committee was formed on 25 April 1986 and registered as <strong class="text-[var(--color-kumkum)]">Hindu Ahlaya Sangam</strong>.
+          Committee was formed on 25 April 1986 and registered as <strong class="text-[var(--color-saffron)]">Hindu Ahlaya Sangam</strong>.
           After years of fundraising, the committee purchased 4.5 acres of elevated bushland at
           South Maclean — 35 km south of Brisbane, beside the Logan River — in 1990.
         </p>
@@ -70,7 +70,7 @@ const currentCommittee = committee
           India to begin the painstaking work. Construction of the shrines commenced on 24 June 1994.
         </p>
         <p class="text-[var(--color-ink-soft)]">
-          The traditional <em class="text-[var(--color-kumkum)]">Kumbabishekam</em> (consecration) was held on
+          The traditional <em class="text-[var(--color-saffron)]">Kumbabishekam</em> (consecration) was held on
           5 February 1995, witnessed by hundreds of devotees from across Australia and beyond.
         </p>
         <p class="text-[var(--color-ink-soft)]">
@@ -103,7 +103,7 @@ const currentCommittee = committee
           of obstacles, the patron of arts and sciences, and the deva of intellect and wisdom.
           He is honoured at the beginning of all Hindu ceremonies.
         </p>
-        <p lang="ta" class="font-[var(--font-tamil-display)] text-[var(--color-ink)] text-2xl border-l-2 border-[var(--color-kumkum)] pl-6 leading-relaxed font-medium">
+        <p lang="ta" class="font-[var(--font-tamil-display)] text-[var(--color-ink)] text-2xl border-l-2 border-[var(--color-saffron)] pl-6 leading-relaxed font-medium">
           விநாயகனே வெவ்வினையை வேரறுக்க வல்லான். வழிபடுவோர்க்கு செல்வம்,
           ஞானம், மற்றும் தடைகளை நீக்கி அருள்பாலிக்கும் முதல்வர்.
         </p>
@@ -118,12 +118,12 @@ const currentCommittee = committee
           <p class="eyebrow mb-4">Stewardship</p>
           <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Management Committee</h2>
           <p class="text-[var(--color-ink-soft)] mt-3">Hindu Ahlaya Sangam Queensland Inc.</p>
-          <span class="kumkum-rule kumkum-rule-center" aria-hidden="true"></span>
+          <span class="gold-rule gold-rule-center" aria-hidden="true"></span>
         </div>
         <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {currentCommittee.map((m) => (
             <article class="card card-hover text-center">
-              {m.photo && <img src={m.photo} alt={m.name} class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-2 border-[var(--color-kumkum)]" />}
+              {m.photo && <img src={m.photo} alt={m.name} class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-2 border-[var(--color-saffron)]" />}
               <h3 class="text-xl text-[var(--color-ink)] mb-1">{m.name}</h3>
               {m.nameTamil && <p lang="ta" class="text-sm text-[var(--color-ink-soft)] mb-2 tamil-body !text-base">{m.nameTamil}</p>}
               <p class="eyebrow !text-[0.7rem] mt-2">{m.role}</p>

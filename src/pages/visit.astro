@@ -71,13 +71,13 @@ const addr = site ?? {
         <div class="border-t border-[var(--color-rule)] pt-6 grid sm:grid-cols-2 gap-6">
           <div>
             <p class="eyebrow mb-2">Phone</p>
-            <a href={`tel:${addr.phonePrimary}`} class="text-[var(--color-ink)] hover:text-[var(--color-kumkum)] text-lg">
+            <a href={`tel:${addr.phonePrimary}`} class="text-[var(--color-ink)] hover:text-[var(--color-saffron)] text-lg">
               {addr.phonePrimary}
             </a>
           </div>
           <div>
             <p class="eyebrow mb-2">Email</p>
-            <a href={`mailto:${addr.emailGeneral}`} class="text-[var(--color-ink)] hover:text-[var(--color-kumkum)] text-lg">
+            <a href={`mailto:${addr.emailGeneral}`} class="text-[var(--color-ink)] hover:text-[var(--color-saffron)] text-lg">
               {addr.emailGeneral}
             </a>
           </div>
@@ -100,8 +100,8 @@ const addr = site ?? {
         </div>
         <div class="border-t border-[var(--color-rule)] pt-4">
           <p class="eyebrow mb-2">Pooja Times</p>
-          <p class="text-[var(--color-kumkum)] text-lg font-medium">{hours?.poojaMorning ?? '9:00am – 9:30am'}</p>
-          <p class="text-[var(--color-kumkum)] text-lg font-medium">{hours?.poojaEvening ?? '7:00pm – 7:30pm'}</p>
+          <p class="text-[var(--color-saffron)] text-lg font-medium">{hours?.poojaMorning ?? '9:00am – 9:30am'}</p>
+          <p class="text-[var(--color-saffron)] text-lg font-medium">{hours?.poojaEvening ?? '7:00pm – 7:30pm'}</p>
         </div>
       </div>
     </div>
@@ -116,7 +116,7 @@ const addr = site ?? {
           <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Kamadhenu</h2>
         </div>
         <div class="flex items-center gap-3 px-4 py-2 bg-[var(--color-paper)] border border-[var(--color-rule)]">
-          <span class={`w-2.5 h-2.5 rounded-full ${canteen?.isOpen ? 'bg-[var(--color-teal)] animate-pulse' : 'bg-[var(--color-vermillion)]'}`}></span>
+          <span class={`w-2.5 h-2.5 rounded-full ${canteen?.isOpen ? 'bg-[var(--color-teal)] animate-pulse' : 'bg-[var(--color-saffron)]'}`}></span>
           <span class="text-[var(--color-ink)] font-medium">
             {canteen?.isOpen ? `Open · ${canteen.todayHoursOpen} – ${canteen.todayHoursClose}` : 'Closed today'}
           </span>
@@ -124,7 +124,7 @@ const addr = site ?? {
       </div>
 
       {canteen?.specialNotice && (
-        <p class="card text-[var(--color-vermillion)] italic mb-8">{canteen.specialNotice}</p>
+        <p class="card text-[var(--color-saffron)] italic mb-8">{canteen.specialNotice}</p>
       )}
 
       {Object.keys(menuByCategory).length > 0 ? (
@@ -142,7 +142,7 @@ const addr = site ?? {
                       {item.nameTamil && <p lang="ta" class="text-sm text-[var(--color-ink-soft)] tamil-body">{item.nameTamil}</p>}
                       {item.description && <p class="text-sm text-[var(--color-ink-mute)] mt-1">{item.description}</p>}
                     </div>
-                    <p class="text-xl font-[var(--font-display)] text-[var(--color-kumkum)] whitespace-nowrap" style="font-weight: 500;">
+                    <p class="text-xl font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 500;">
                       ${item.price?.toFixed(2)}
                     </p>
                   </div>

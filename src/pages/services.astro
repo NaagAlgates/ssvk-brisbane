@@ -59,7 +59,7 @@ const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
                     <h3 class="text-2xl text-[var(--color-ink)] font-[var(--font-display)] mb-1" style="font-weight: 500;">
                       {s.name}
                     </h3>
-                    {s.nameTamil && <p lang="ta" class="text-[var(--color-kumkum)] tamil-body !text-lg">{s.nameTamil}</p>}
+                    {s.nameTamil && <p lang="ta" class="text-[var(--color-saffron)] tamil-body !text-lg">{s.nameTamil}</p>}
                   </div>
                   <div class="col-span-2 text-[var(--color-ink-mute)] text-sm">
                     {s.durationMinutes ? `${s.durationMinutes} min` : ''}
@@ -79,8 +79,8 @@ const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
             </p>
           )}
           <p class="mt-8 text-sm text-[var(--color-ink-soft)]">
-            To book a service, please call <a href="tel:+61755478064" class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)]">07 5547 8064</a> or
-            email <a href="mailto:info@ssvk.org.au" class="text-[var(--color-kumkum)] hover:text-[var(--color-kumkum-soft)]">info@ssvk.org.au</a>.
+            To book a service, please call <a href="tel:+61755478064" class="text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)]">07 5547 8064</a> or
+            email <a href="mailto:info@ssvk.org.au" class="text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)]">info@ssvk.org.au</a>.
           </p>
         </div>
       </div>
@@ -88,10 +88,10 @@ const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
   </section>
 
   {/* FESTIVAL CALENDAR — VIBRANT REGISTER */}
-  <section class="festival-section py-24 md:py-32">
+  <section class="festival-section py-32">
     <div class="container-tight">
       <div class="text-center mb-16">
-        <p class="eyebrow mb-4" style="color: var(--color-vermillion);">Sacred Year</p>
+        <p class="eyebrow mb-4" style="color: var(--color-saffron);">Sacred Year</p>
         <h2 class="text-[var(--color-ink)] mb-3" style="font-weight: 400;">Festival Calendar</h2>
         <p lang="ta" class="tamil-display !text-[var(--color-teal)]">திருவிழாக்கள்</p>
       </div>
@@ -99,7 +99,7 @@ const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
         <ol class="space-y-4 max-w-4xl mx-auto">
           {upcomingFestivals.map((f, i) => {
             const date = new Date(f.date);
-            const accentColor = i % 3 === 0 ? 'var(--color-vermillion)' : i % 3 === 1 ? 'var(--color-teal)' : 'var(--color-kumkum)';
+            const accentColor = i % 3 === 0 ? 'var(--color-saffron)' : i % 3 === 1 ? 'var(--color-teal)' : 'var(--color-saffron)';
             return (
               <li class="festival-card card-hover grid md:grid-cols-12 gap-6 items-center" style={`border-left-color: ${accentColor};`}>
                 <div class="md:col-span-2 text-center md:border-r md:border-[var(--color-rule)] md:pr-6">
