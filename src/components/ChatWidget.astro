@@ -52,6 +52,7 @@
           </svg>
         </button>
       </form>
+      <p id="chat-disclaimer">AI assistant · may occasionally be inaccurate · verify with <a href="mailto:info@ssvk.org.au">info@ssvk.org.au</a></p>
     </div>
   </div>
 </div>
@@ -301,6 +302,17 @@
   }
   #chat-send:hover { background: var(--color-saffron-soft); }
   #chat-send:disabled { background: var(--color-rule-strong); cursor: not-allowed; }
+
+  #chat-disclaimer {
+    text-align: center;
+    font-size: 0.68rem;
+    color: var(--color-ink-mute);
+    padding: 5px 12px 7px;
+    margin: 0;
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-rule);
+  }
+  #chat-disclaimer a { color: inherit; text-decoration: underline; }
 </style>
 
 <script>
