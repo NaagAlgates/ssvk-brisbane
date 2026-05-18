@@ -24,35 +24,182 @@ for (const item of availableMenu) {
   if (!menuByCategory[cat]) menuByCategory[cat] = [];
   menuByCategory[cat].push(item);
 }
+
+const DOSAS = [
+  { name: 'Masala Dosa', img: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=300&q=80' },
+  { name: 'Cheese Dosa', img: 'https://images.unsplash.com/photo-1577221912057-d2030b722d58?w=300&q=80' },
+  { name: 'Ghee Dosa', img: 'https://images.unsplash.com/photo-1736239093051-508a8472a934?w=300&q=80' },
+  { name: 'Onion Dosa', img: 'https://images.unsplash.com/photo-1725483990551-d9268479f3f4?w=300&q=80' },
+  { name: 'Podi Dosa', img: 'https://images.unsplash.com/photo-1694849789325-914b71ab4075?w=300&q=80' },
+  { name: 'Plain Dosa', img: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=300&q=80' },
+  { name: 'Uttapam', img: 'https://images.unsplash.com/photo-1617777854432-2c66c79f970a?w=300&q=80' },
+  { name: 'Kaara Dosa', img: 'https://images.unsplash.com/photo-1577221912057-d2030b722d58?w=300&q=80' },
+];
+
+const MORE_VARIETIES = [
+  { name: 'Idly', img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=80' },
+  { name: 'Poori Baji', img: 'https://images.unsplash.com/photo-1706790574525-d218c4c52b5c?w=300&q=80' },
+  { name: 'Pongal Combo', img: 'https://images.unsplash.com/photo-1732603891196-2b8cc24f39a5?w=300&q=80' },
+  { name: 'Kadala Vadai', img: 'https://images.unsplash.com/photo-1730191843435-073792ba22bc?w=300&q=80' },
+  { name: 'Ulunthu Vadai', img: 'https://images.unsplash.com/photo-1617777854432-2c66c79f970a?w=300&q=80' },
+  { name: 'Sweet Bonda', img: 'https://images.unsplash.com/photo-1635952346904-95f2ccfcd029?w=300&q=80' },
+];
+
+const FRESH_PACKED = [
+  { name: 'Laddu', img: 'https://images.unsplash.com/photo-1635952346904-95f2ccfcd029?w=300&q=80' },
+  { name: 'Murukku', img: 'https://images.unsplash.com/photo-1709091052718-3cb8a990edfa?w=300&q=80' },
+  { name: 'Spicy Snacks', img: 'https://images.unsplash.com/photo-1709091052718-3cb8a990edfa?w=300&q=80' },
+  { name: 'Sweets', img: 'https://images.unsplash.com/photo-1635952346904-95f2ccfcd029?w=300&q=80' },
+  { name: 'Meals', img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=80' },
+];
 ---
 <Layout title="Temple Canteen · Kamadhenu">
-  {/* Quiet hero */}
+
+  {/* Hero */}
   <section class="pt-32 md:pt-44 pb-12">
     <div class="container-tight max-w-4xl">
       <p class="eyebrow mb-6">Temple Canteen</p>
-      <h1 class="text-[var(--color-ink)] mb-4 text-balance" style="font-weight: 400;">Kamadhenu</h1>
+      <h1 class="text-[var(--color-ink)] mb-4 text-balance" style="font-weight: 400;">Sri Selva Vinayakar Koyil Canteen</h1>
+      <p class="text-lg text-[var(--color-ink-soft)] leading-relaxed mb-4">
+        Come & Enjoy freshly made, mouth-watering vegetarian delicacies in the serene natural surrounds.
+      </p>
       <p lang="ta" class="tamil-display mb-10">கோயில் உணவகம்</p>
     </div>
   </section>
 
-  {/* CANTEEN — quiet register with live status accent */}
-  <section class="py-24 md:py-32 bg-[var(--color-paper-soft)]">
-    <div class="container-tight">
-      <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+  {/* Opening hours band */}
+  <section class="border-y border-[var(--color-rule)] bg-[var(--color-paper-soft)]">
+    <div class="container-tight py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div>
-          <p class="eyebrow mb-3">Temple Canteen</p>
-          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Kamadhenu</h2>
+          <p class="eyebrow mb-2" style="color: var(--color-saffron);">Open This Weekend</p>
+          <h2 class="text-[var(--color-ink)] text-3xl" style="font-weight: 400;">Saturday & Sunday · 9 AM – 1 PM</h2>
         </div>
-        <div class="px-4 py-2 bg-[var(--color-paper)] border border-[var(--color-rule)]">
+        <div class="px-5 py-3 bg-[var(--color-paper)] border border-[var(--color-rule)]">
           <CanteenStatus canteen={canteen ?? {}} variant="pill" />
         </div>
       </div>
-
       {canteen?.specialNotice && (
-        <p class="card text-[var(--color-saffron)] italic mb-8">{canteen.specialNotice}</p>
+        <p class="mt-6 text-[var(--color-saffron)] italic text-sm">{canteen.specialNotice}</p>
       )}
+    </div>
+  </section>
 
-      {Object.keys(menuByCategory).length > 0 ? (
+  {/* MENU — static from flyer */}
+  <section class="py-24 md:py-32">
+    <div class="container-tight">
+
+      <div class="text-center mb-16">
+        <p class="eyebrow mb-4">What's on the Menu</p>
+        <h2 class="text-[var(--color-ink)] mb-3" style="font-weight: 400;">Today's Offerings</h2>
+        <p class="text-[var(--color-ink-soft)] max-w-xl mx-auto">All items are freshly prepared. Menu may vary on the day.</p>
+      </div>
+
+      {/* Two-column menu grid */}
+      <div class="grid lg:grid-cols-2 gap-12 mb-16">
+
+        {/* Varieties of Dosas */}
+        <div class="bg-[var(--color-paper-soft)] rounded-sm p-8">
+          <h3 class="text-center text-xl text-[var(--color-ink)] mb-8 pb-4 border-b border-[var(--color-rule)]" style="font-weight: 500;">
+            Varieties of Dosas
+          </h3>
+          <div class="grid grid-cols-4 gap-4">
+            {DOSAS.map((item) => (
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-[var(--color-saffron)] flex-shrink-0">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="text-xs text-center text-[var(--color-ink)] leading-tight">{item.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* More Varieties */}
+        <div class="bg-[var(--color-paper-soft)] rounded-sm p-8">
+          <h3 class="text-center text-xl text-[var(--color-ink)] mb-8 pb-4 border-b border-[var(--color-rule)]" style="font-weight: 500;">
+            More Varieties
+          </h3>
+          <div class="grid grid-cols-3 gap-6">
+            {MORE_VARIETIES.map((item) => (
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-[var(--color-saffron)] flex-shrink-0">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="text-xs text-center text-[var(--color-ink)] leading-tight">{item.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      {/* Freshly Made & Drinks */}
+      <div class="grid lg:grid-cols-2 gap-12">
+
+        {/* Freshly Made and Pre-packed */}
+        <div class="bg-[var(--color-paper-soft)] rounded-sm p-8">
+          <h3 class="text-center text-xl text-[var(--color-ink)] mb-8 pb-4 border-b border-[var(--color-rule)]" style="font-weight: 500;">
+            Freshly Made & Pre-packed
+          </h3>
+          <div class="grid grid-cols-5 gap-3">
+            {FRESH_PACKED.map((item) => (
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-[var(--color-saffron)] flex-shrink-0">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="text-xs text-center text-[var(--color-ink)] leading-tight">{item.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Drinks */}
+        <div class="bg-[var(--color-paper-soft)] rounded-sm p-8">
+          <h3 class="text-center text-xl text-[var(--color-ink)] mb-8 pb-4 border-b border-[var(--color-rule)]" style="font-weight: 500;">
+            Drinks
+          </h3>
+          <div class="flex flex-wrap justify-center gap-6">
+            {['Soft Drinks', 'Water', 'Tea & Coffee', 'Milkshake / Lassi'].map((drink) => (
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 rounded-full bg-[var(--color-rule)] flex items-center justify-center border-2 border-[var(--color-saffron)]">
+                  <span class="text-2xl">🥤</span>
+                </div>
+                <p class="text-xs text-center text-[var(--color-ink)] leading-tight">{drink}</p>
+              </div>
+            ))}
+          </div>
+          <p class="text-center text-sm text-[var(--color-ink-mute)] mt-8">
+            Fanta, Coca-Cola, still & sparkling water, freshly made chai & filter coffee, milkshakes and lassi.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  {/* CMS-driven menu — shown when items are added via admin */}
+  {Object.keys(menuByCategory).length > 0 && (
+    <section class="py-16 border-t border-[var(--color-rule)] bg-[var(--color-paper-soft)]">
+      <div class="container-tight">
+        <p class="eyebrow mb-2">Today's Prices</p>
+        <h2 class="text-[var(--color-ink)] mb-10" style="font-weight: 400;">Price List</h2>
         <div class="space-y-12">
           {Object.entries(menuByCategory).map(([category, items]) => (
             <div>
@@ -76,11 +223,20 @@ for (const item of availableMenu) {
             </div>
           ))}
         </div>
-      ) : (
-        <p class="card text-[var(--color-ink-soft)] italic">
-          Menu will appear here once added via the admin panel.
-        </p>
-      )}
+      </div>
+    </section>
+  )}
+
+  {/* Contact strip */}
+  <section class="py-16 border-t border-[var(--color-rule)]">
+    <div class="container-tight text-center space-y-2">
+      <p class="text-[var(--color-ink-soft)] text-sm">4915–4923 Mount Lindesay Hwy, South MacLean QLD 4280</p>
+      <p class="text-[var(--color-ink-soft)] text-sm">
+        <a href="mailto:hasq.secretary@gmail.com" class="text-[var(--color-saffron)]">hasq.secretary@gmail.com</a>
+        &nbsp;·&nbsp;
+        <a href="tel:+61755477302" class="text-[var(--color-saffron)]">(07) 5547 7302</a>
+      </p>
     </div>
   </section>
+
 </Layout>
