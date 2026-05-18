@@ -9,9 +9,12 @@
 
   <div id="chat-panel" role="dialog" aria-label="Temple assistant" aria-modal="true" hidden>
     <div id="chat-header">
-      <div>
-        <p id="chat-title">Temple Assistant</p>
-        <p id="chat-subtitle">Ask about hours, pooja, canteen &amp; more</p>
+      <div id="chat-header-info">
+        <div id="chat-header-avatar">TA</div>
+        <div>
+          <p id="chat-title">Temple Assistant</p>
+          <p id="chat-subtitle">Ask about hours, pooja, canteen &amp; more</p>
+        </div>
       </div>
       <button id="chat-close" aria-label="Close assistant">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -20,26 +23,36 @@
       </button>
     </div>
 
-    <div id="chat-messages">
-      <div class="msg msg-bot">
-        <p>வணக்கம்! I can help with temple hours, pooja services, canteen menu, directions, and more. What would you like to know?</p>
+    <!-- Intro / identity form -->
+    <div id="chat-intro">
+      <p class="intro-greeting">வணக்கம்! 🙏</p>
+      <p class="intro-sub">Please introduce yourself before we begin.</p>
+      <div class="intro-fields">
+        <input id="intro-name"  type="text"  placeholder="Your name *"       autocomplete="given-name" maxlength="50" />
+        <input id="intro-email" type="email" placeholder="Email (optional)"  autocomplete="email"      maxlength="100" />
+        <p id="intro-error" hidden>Please enter your name to continue.</p>
+        <button id="intro-submit">Start chatting</button>
       </div>
     </div>
 
-    <form id="chat-form" autocomplete="off">
-      <input
-        id="chat-input"
-        type="text"
-        placeholder="Ask about the temple…"
-        maxlength="300"
-        aria-label="Your question"
-      />
-      <button type="submit" id="chat-send" aria-label="Send">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-        </svg>
-      </button>
-    </form>
+    <!-- Main chat (shown after intro) -->
+    <div id="chat-main" hidden>
+      <div id="chat-messages"></div>
+      <form id="chat-form" autocomplete="off">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Ask about the temple…"
+          maxlength="300"
+          aria-label="Your question"
+        />
+        <button type="submit" id="chat-send" aria-label="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -77,7 +90,7 @@
     bottom: 64px;
     right: 0;
     width: 340px;
-    max-height: 480px;
+    max-height: 520px;
     background: var(--color-paper);
     border: 1px solid var(--color-rule);
     border-radius: 16px;
@@ -91,66 +104,165 @@
   }
   #chat-panel[hidden] { display: none; }
 
+  /* Header */
   #chat-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 16px;
+    padding: 12px 14px;
     background: var(--color-saffron);
     color: white;
+    flex-shrink: 0;
+  }
+  #chat-header-info { display: flex; align-items: center; gap: 10px; }
+  #chat-header-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em;
     flex-shrink: 0;
   }
   #chat-title { font-weight: 600; font-size: 0.9rem; margin: 0; }
   #chat-subtitle { font-size: 0.7rem; opacity: 0.85; margin: 2px 0 0; }
   #chat-close {
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
-    display: flex;
-    opacity: 0.85;
+    background: transparent; border: none; color: white;
+    cursor: pointer; padding: 4px; border-radius: 6px;
+    display: flex; opacity: 0.85;
   }
   #chat-close:hover { opacity: 1; }
+
+  /* Intro form */
+  #chat-intro {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    text-align: center;
+    background: var(--color-paper);
+  }
+  .intro-greeting {
+    font-size: 1.6rem;
+    margin: 0 0 6px;
+    color: var(--color-saffron);
+    font-family: var(--font-tamil-display, inherit);
+  }
+  .intro-sub {
+    font-size: 0.825rem;
+    color: var(--color-ink-soft);
+    margin: 0 0 20px;
+  }
+  .intro-fields { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .intro-fields input {
+    width: 100%;
+    border: 1px solid var(--color-rule-strong);
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: 0.875rem;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: white;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 200ms;
+  }
+  .intro-fields input:focus { border-color: var(--color-saffron); }
+  #intro-error { font-size: 0.78rem; color: #dc2626; margin: 0; }
+  #intro-submit {
+    background: var(--color-saffron);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 200ms;
+    width: 100%;
+  }
+  #intro-submit:hover { background: var(--color-saffron-soft); }
+
+  /* Chat main */
+  #chat-main { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+  #chat-main[hidden] { display: none; }
 
   #chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
+    padding: 14px 12px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     scroll-behavior: smooth;
+    background: #f7f3ee;
+  }
+
+  /* Message rows — avatars + bubbles */
+  :global(.msg-row) { display: flex; align-items: flex-end; gap: 7px; }
+  :global(.msg-row-bot) { flex-direction: row; }
+  :global(.msg-row-user) { flex-direction: row-reverse; }
+
+  :global(.msg-avatar) {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+  :global(.msg-avatar-bot) {
+    background: white;
+    color: var(--color-saffron);
+    border: 1.5px solid var(--color-rule);
+  }
+  :global(.msg-avatar-user) {
+    background: var(--color-saffron);
+    color: white;
   }
 
   :global(.msg) {
     max-width: 78%;
-    font-size: 0.875rem;
-    line-height: 1.5;
+    font-size: 0.855rem;
+    line-height: 1.55;
     word-break: break-word;
   }
   :global(.msg p) { margin: 0; }
+
   :global(.msg-bot) {
-    align-self: flex-start;
-    background: #f0ece6;
-    border-radius: 2px 16px 16px 16px;
-    padding: 9px 13px;
+    background: white;
+    border-radius: 2px 14px 14px 14px;
+    padding: 9px 12px;
     color: var(--color-ink);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07);
   }
+  :global(.msg-bot p + p) { margin-top: 6px; }
+  :global(.msg-bot ol),
+  :global(.msg-bot ul) {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  :global(.msg-bot li) { line-height: 1.5; }
   :global(.msg-user) {
-    align-self: flex-end;
     background: var(--color-saffron);
-    border-radius: 16px 2px 16px 16px;
-    padding: 9px 13px;
+    border-radius: 14px 2px 14px 14px;
+    padding: 9px 12px;
     color: white;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
-  :global(.msg-typing) { display: flex; align-items: center; gap: 4px; padding: 12px 13px; background: #f0ece6; border-radius: 2px 16px 16px 16px; align-self: flex-start; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+
+  :global(.msg-typing) {
+    display: flex; align-items: center; gap: 4px;
+    padding: 12px 12px;
+    background: white;
+    border-radius: 2px 14px 14px 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  }
   :global(.msg-typing .dot) {
-    width: 7px; height: 7px;
-    border-radius: 50%;
+    width: 7px; height: 7px; border-radius: 50%;
     background: var(--color-ink-mute);
     animation: blink 1.2s infinite;
   }
@@ -161,10 +273,9 @@
     40% { opacity: 1; }
   }
 
+  /* Input form */
   #chat-form {
-    display: flex;
-    gap: 8px;
-    padding: 12px;
+    display: flex; gap: 8px; padding: 10px 12px;
     border-top: 1px solid var(--color-rule);
     flex-shrink: 0;
     background: var(--color-paper);
@@ -183,63 +294,142 @@
   }
   #chat-input:focus { border-color: var(--color-saffron); }
   #chat-send {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--color-saffron);
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 200ms;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--color-saffron); color: white; border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 200ms;
   }
   #chat-send:hover { background: var(--color-saffron-soft); }
   #chat-send:disabled { background: var(--color-rule-strong); cursor: not-allowed; }
 </style>
 
 <script>
-  const toggle = document.getElementById('chat-toggle')!;
-  const panel  = document.getElementById('chat-panel')!;
-  const close  = document.getElementById('chat-close')!;
+  const toggle    = document.getElementById('chat-toggle')!;
+  const panel     = document.getElementById('chat-panel')!;
+  const closeBtn  = document.getElementById('chat-close')!;
+  const intro     = document.getElementById('chat-intro')!;
+  const chatMain  = document.getElementById('chat-main')!;
+  const introName  = document.getElementById('intro-name') as HTMLInputElement;
+  const introEmail = document.getElementById('intro-email') as HTMLInputElement;
+  const introErr   = document.getElementById('intro-error')!;
+  const introSubmit = document.getElementById('intro-submit')!;
   const form   = document.getElementById('chat-form')!;
   const input  = document.getElementById('chat-input') as HTMLInputElement;
   const send   = document.getElementById('chat-send') as HTMLButtonElement;
   const msgs   = document.getElementById('chat-messages')!;
 
+  let userName   = '';
+  let userEmail  = '';
+  let userInitials = '';
   let history: Array<{ role: string; content: string }> = [];
 
-  const openPanel  = () => { panel.hidden = false; input.focus(); };
+  const openPanel  = () => { panel.hidden = false; if (!userName) introName.focus(); else input.focus(); };
   const closePanel = () => { panel.hidden = true; };
   toggle.addEventListener('click', () => panel.hidden ? openPanel() : closePanel());
-  close.addEventListener('click', closePanel);
+  closeBtn.addEventListener('click', closePanel);
 
   const scrollBottom = () => msgs.scrollTo({ top: msgs.scrollHeight, behavior: 'smooth' });
 
+  const getInitials = (name: string) =>
+    name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+
+  const makeAvatar = (cls: string, label: string) => {
+    const av = document.createElement('div');
+    av.className = `msg-avatar ${cls}`;
+    av.textContent = label;
+    return av;
+  };
+
+  const escHtml = (s: string) =>
+    s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  const formatBotText = (text: string): string => {
+    const lines = text.split('\n');
+    let html = '';
+    let listOpen = false;
+    let listType = 'ol';
+
+    for (const raw of lines) {
+      const line = raw.trim();
+      if (!line) {
+        if (listOpen) { html += `</${listType}>`; listOpen = false; }
+        continue;
+      }
+      const numMatch = line.match(/^(\d+)\.\s+(.+)/);
+      const bulletMatch = line.match(/^[-*•]\s+(.+)/);
+      if (numMatch) {
+        if (!listOpen) { listType = 'ol'; html += '<ol>'; listOpen = true; }
+        html += `<li>${escHtml(numMatch[2])}</li>`;
+      } else if (bulletMatch) {
+        if (!listOpen) { listType = 'ul'; html += '<ul>'; listOpen = true; }
+        html += `<li>${escHtml(bulletMatch[1])}</li>`;
+      } else {
+        if (listOpen) { html += listType === 'ol' ? '</ol>' : '</ul>'; listOpen = false; }
+        html += `<p>${escHtml(line)}</p>`;
+      }
+    }
+    if (listOpen) html += listType === 'ol' ? '</ol>' : '</ul>';
+    return html;
+  };
+
   const addMsg = (text: string, role: 'user' | 'bot') => {
-    const div = document.createElement('div');
-    div.className = `msg msg-${role}`;
-    const p = document.createElement('p');
-    p.textContent = text;
-    div.appendChild(p);
-    msgs.appendChild(div);
+    const row = document.createElement('div');
+    row.className = `msg-row msg-row-${role}`;
+
+    const bubble = document.createElement('div');
+    bubble.className = `msg msg-${role}`;
+
+    if (role === 'bot') {
+      bubble.innerHTML = formatBotText(text);
+    } else {
+      const p = document.createElement('p');
+      p.textContent = text;
+      bubble.appendChild(p);
+    }
+
+    const avatar = role === 'bot'
+      ? makeAvatar('msg-avatar-bot', 'TA')
+      : makeAvatar('msg-avatar-user', userInitials);
+
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    msgs.appendChild(row);
     scrollBottom();
   };
 
   const showTyping = () => {
-    const div = document.createElement('div');
-    div.className = 'msg msg-bot msg-typing';
+    const row = document.createElement('div');
+    row.className = 'msg-row msg-row-bot';
+    row.appendChild(makeAvatar('msg-avatar-bot', 'TA'));
+    const bubble = document.createElement('div');
+    bubble.className = 'msg msg-typing';
     for (let i = 0; i < 3; i++) {
       const dot = document.createElement('span');
       dot.className = 'dot';
-      div.appendChild(dot);
+      bubble.appendChild(dot);
     }
-    msgs.appendChild(div);
+    row.appendChild(bubble);
+    msgs.appendChild(row);
     scrollBottom();
-    return div;
+    return row;
   };
+
+  // Intro form submit
+  introSubmit.addEventListener('click', () => {
+    const name = introName.value.trim();
+    if (!name) { introErr.hidden = false; introName.focus(); return; }
+    introErr.hidden = true;
+    userName    = name;
+    userEmail   = introEmail.value.trim();
+    userInitials = getInitials(name);
+
+    intro.hidden    = true;
+    chatMain.hidden = false;
+
+    addMsg(`வணக்கம் ${userName}! I can help with temple hours, pooja services, canteen menu, directions, and more. What would you like to know?`, 'bot');
+    input.focus();
+  });
+  introName.addEventListener('keydown', (e) => { if (e.key === 'Enter') introSubmit.click(); });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -257,7 +447,7 @@
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, history: history.slice(-8) }),
+        body: JSON.stringify({ message: text, history: history.slice(-8), userName }),
       });
       const data = await res.json() as { reply?: string; error?: string };
       typing.remove();

@@ -40,13 +40,16 @@ Snacks: Ulunthu Vadai $1.50, Kadalai Vadai $1.50, Sambar Vadai $2.50, Sweet Bond
 Drinks: Coffee $2, Tea $2, Mango Lassi $3.50, Soft Drink $2, Water Bottle $2
 Extra Potato Masala / Sambar / Chutney: $3.00
 
-Keep answers concise, warm, and helpful. Do not invent information.`;
+Keep answers concise, warm, and helpful. Do not invent information.
+When listing steps or items, put each one on its own line starting with a number and period (e.g. "1. First step"). Never run multiple steps together in one sentence.
+You ONLY answer questions about Sri Selva Vinayakar Koyil temple. If a question is unrelated to the temple, politely decline and redirect: "I can only help with questions about Sri Selva Vinayakar Koyil — feel free to ask about our hours, services, canteen, or how to get here!"`;
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { message, history = [] } = await request.json() as {
+    const { message, history = [], userName = '' } = await request.json() as {
       message: string;
       history?: Array<{ role: string; content: string }>;
+      userName?: string;
     };
 
     if (!message?.trim()) {
@@ -61,9 +64,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
+    const systemWithName = userName
+      ? `${SYSTEM_PROMPT}\n\nThe visitor's name is ${userName}. Address them by name occasionally to make the conversation feel personal and warm.`
+      : SYSTEM_PROMPT;
+
     const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: systemWithName },
         ...history.slice(-8),
         { role: 'user', content: message },
       ],
