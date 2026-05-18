@@ -102,7 +102,6 @@ export const prerender = true;
           <p lang="ta" class="tamil-display !text-3xl mb-6">அர்ச்சனை வழிகாட்டி</p>
           <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed">
             Pay on arrival, collect a receipt, and the Archana will be performed by the temple priest.
-            Prices are available at the temple office.
           </p>
         </div>
         <div class="lg:col-span-8 space-y-10">
@@ -110,25 +109,26 @@ export const prerender = true;
           {/* Walk-in Archanas */}
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Walk-in Archanas</h3>
-            <div class="space-y-4">
-              <div class="grid grid-cols-12 gap-4 items-start">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Standard Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">With oil lamp, ghee lamp & fruit</p>
+            <div class="divide-y divide-[var(--color-rule)]">
+              {[
+                { name: 'Standard Archanai', note: 'With oil lamp, ghee lamp & fruit', price: 5 },
+                { name: 'Oil Lamp / Ghee Lamp', note: '', price: 5 },
+                { name: 'Fruit Archanai', note: '', price: 10 },
+                { name: 'Archana Basket', note: 'Basket with fruits & incense sticks', price: 21 },
+                { name: 'Moksha Archanai', note: 'For departed souls — performed with ghee lamp', price: 21 },
+                { name: 'Special Poojai', note: 'Ganesh Coin/statue, fruits & incense sticks', price: 51 },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    {item.note && <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>}
+                  </div>
+                  <div class="col-span-4 text-right">
+                    <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">${item.price}.00</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
+                  </div>
                 </div>
-              </div>
-              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Archana Basket</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">Basket with fruits & incense sticks</p>
-                </div>
-              </div>
-              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Moksha Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">For departed souls — performed with ghee lamp</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -136,19 +136,22 @@ export const prerender = true;
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Kumkuma Archanas</h3>
             <p class="text-sm text-[var(--color-ink-soft)] mb-4">Available for Abhirami Amman, Vishnu Durga & Siva Durga</p>
-            <div class="space-y-4">
-              <div class="grid grid-cols-12 gap-4 items-start">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Astotra Kumkuma Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">108 names</p>
+            <div class="divide-y divide-[var(--color-rule)]">
+              {[
+                { name: 'Astotra Kumkuma Archana', note: '108 names', price: 51 },
+                { name: 'Thirisathy Kumkuma Archana', note: '300 names', price: 75 },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>
+                  </div>
+                  <div class="col-span-4 text-right">
+                    <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">${item.price}.00</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
+                  </div>
                 </div>
-              </div>
-              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Thirisathy Kumkuma Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">300 names</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -156,25 +159,24 @@ export const prerender = true;
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Nama Archanas</h3>
             <p class="text-sm text-[var(--color-ink-soft)] mb-4">Available for Pillaiyar, Sivan, Murugan, Anjaneyar, Maha Vishnu, Venkadeswavar & Bhairavar</p>
-            <div class="space-y-4">
-              <div class="grid grid-cols-12 gap-4 items-start">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Astotra Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">108 names</p>
+            <div class="divide-y divide-[var(--color-rule)]">
+              {[
+                { name: 'Astotra Archana', note: '108 names', price: 51 },
+                { name: 'Thirisathy Nama Archana', note: '300 names', price: 75 },
+                { name: 'Santhana Kaapu (Thirisathy)', note: '300 names', price: 75 },
+                { name: 'Sahasranama Archana', note: '1000 names — devotees to bring flowers, fruits & one coconut. Sponsor receives one prasadam.', price: 150 },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>
+                  </div>
+                  <div class="col-span-4 text-right">
+                    <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">${item.price}.00</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
+                  </div>
                 </div>
-              </div>
-              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Thirisathy Nama Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">300 names — also available for Santhana Kaapu</p>
-                </div>
-              </div>
-              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
-                <div class="col-span-8">
-                  <p class="font-medium text-[var(--color-ink)]">Sahasranama Archana</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">1000 names — devotees to bring flowers, fruits & one coconut. Sponsor receives one prasadam.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -203,18 +205,28 @@ export const prerender = true;
           {/* Sponsored Pujas */}
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Sponsored Pujas</h3>
-            <div class="space-y-4">
+            <div class="divide-y divide-[var(--color-rule)]">
               {[
-                { name: 'Vadai Malai', note: 'Vadai Malai can be ordered through the priest' },
-                { name: 'Mothaka Poojai', note: 'Mothakam can be ordered through the priest. Poojai with Neivetham available.' },
-                { name: 'Thiruvembavai', note: 'Devotees to bring fruits, flowers & five coconuts' },
-                { name: 'Kuru Poojai', note: 'Devotees to bring fruits, flowers & five coconuts' },
-                { name: 'Sathyanarayana Poojai', note: 'Devotees to bring fruits, flowers & five coconuts' },
-              ].map((item, i) => (
-                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
-                  <div class="col-span-12">
+                { name: 'Kuru Poojai', note: 'Devotees to bring fruits, flowers & five coconuts', price: 75 },
+                { name: 'Sathyanarayana Poojai', note: 'Devotees to bring fruits, flowers & five coconuts', price: 101 },
+                { name: 'Vadai Malai', note: 'Can be ordered through the priest', price: null },
+                { name: 'Mothaka Poojai', note: 'Mothakam can be ordered through the priest. Poojai with Neivetham available.', price: null },
+                { name: 'Thiruvembavai', note: 'Devotees to bring fruits, flowers & five coconuts', price: null },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
                     <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
                     <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>
+                  </div>
+                  <div class="col-span-4 text-right">
+                    {item.price ? (
+                      <>
+                        <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">${item.price}.00</p>
+                        <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
+                      </>
+                    ) : (
+                      <p class="text-sm text-[var(--color-ink-mute)] italic">enquire</p>
+                    )}
                   </div>
                 </div>
               ))}
