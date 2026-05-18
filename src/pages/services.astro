@@ -4,30 +4,25 @@ import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 
 let services: any[] = [];
-let festivals: any[] = [];
-let events: any[] = [];
+let docs: any[] = [];
 
 try {
   const reader = createReader(process.cwd(), keystaticConfig);
   services = await reader.collections.poojaServices.all();
-  festivals = await reader.collections.festivals.all();
-  events = await reader.collections.events.all();
+  docs = await reader.collections.libraryDocuments.all();
 } catch {}
 
-const today = new Date();
-const upcomingFestivals = festivals
-  .map((f) => ({ ...f.entry, slug: f.slug }))
-  .filter((f) => new Date(f.date) >= today)
-  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
 const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
+const allDocs = docs.map((d) => ({ ...d.entry, slug: d.slug }));
 
-const allEvents = events
-  .map((e) => ({ ...e.entry, slug: e.slug }))
-  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+const koyilMani = allDocs
+  .filter((d) => d.category === 'koyil-mani')
+  .sort((a, b) => (b.sortOrder ?? 0) - (a.sortOrder ?? 0));
 
-const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const worshipSeries = allDocs
+  .filter((d) => d.category === 'worship-series')
+  .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+
 export const prerender = true;
 ---
 <Layout title="Services & Festivals">
@@ -151,122 +146,79 @@ export const prerender = true;
     </div>
   </section>
 
-  {/* FESTIVAL CALENDAR — VIBRANT REGISTER */}
-  <section class="festival-section py-32">
-    <div class="container-tight">
-      <div class="text-center mb-16">
-        <p class="eyebrow mb-4" style="color: var(--color-saffron);">Sacred Year</p>
-        <h2 class="text-[var(--color-ink)] mb-3" style="font-weight: 400;">Festival Calendar</h2>
-        <p lang="ta" class="tamil-display !text-[var(--color-teal)]">திருவிழாக்கள்</p>
-      </div>
-      {upcomingFestivals.length > 0 ? (
-        <ol class="space-y-4 max-w-4xl mx-auto">
-          {upcomingFestivals.map((f, i) => {
-            const date = new Date(f.date);
-            const accentColor = i % 3 === 0 ? 'var(--color-saffron)' : i % 3 === 1 ? 'var(--color-teal)' : 'var(--color-saffron)';
-            return (
-              <li class="festival-card card-hover grid md:grid-cols-12 gap-6 items-center" style={`border-left-color: ${accentColor};`}>
-                <div class="md:col-span-2 text-center md:border-r md:border-[var(--color-rule)] md:pr-6">
-                  <p class="text-5xl font-[var(--font-display)] font-light leading-none" style={`color: ${accentColor};`}>
-                    {date.getDate()}
-                  </p>
-                  <p class="eyebrow mt-2" style={`color: ${accentColor};`}>
-                    {date.toLocaleDateString('en-AU', { month: 'short' })} {date.getFullYear()}
-                  </p>
-                </div>
-                <div class="md:col-span-7">
-                  <h3 class="text-2xl text-[var(--color-ink)] mb-1" style="font-weight: 500;">{f.name}</h3>
-                  {f.nameTamil && <p lang="ta" class="text-[var(--color-ink-soft)] tamil-body !text-lg">{f.nameTamil}</p>}
-                  {f.time && <p class="text-[var(--color-ink-mute)] text-sm mt-3">{f.time}</p>}
-                </div>
-                <div class="md:col-span-3 md:text-right">
-                  {f.type === 'major' && (
-                    <span class="inline-block text-[0.65rem] uppercase tracking-widest px-3 py-1" style={`color: ${accentColor}; border: 1px solid ${accentColor};`}>
-                      Major
-                    </span>
-                  )}
-                  <p class="text-sm text-[var(--color-ink-mute)] mt-2">
-                    {date.toLocaleDateString('en-AU', { weekday: 'long' })}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      ) : (
-        <p class="card text-center text-[var(--color-ink-soft)] italic max-w-xl mx-auto">
-          Festival calendar will appear here once added via the admin panel.
-        </p>
-      )}
-    </div>
-  </section>
-
-  {/* MONTHLY PROGRAMME */}
+  {/* LIBRARY */}
   <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
-    <div class="container-tight">
-      <div class="grid lg:grid-cols-12 gap-12 mb-12">
-        <div class="lg:col-span-4">
-          <p class="eyebrow mb-5">Monthly Observances</p>
-          <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Monthly Programme</h2>
-          <p lang="ta" class="tamil-display !text-3xl mb-6">மாத நிகழ்ச்சிகள்</p>
-          <p class="text-[var(--color-ink-soft)] leading-relaxed text-sm">
-            Regular observances, abishekams, and special poojas as listed in the monthly newsletter.
+    <div class="container-tight max-w-4xl space-y-20">
+
+      {/* Koyil Mani Magazine */}
+      <div>
+        <div class="border-t border-[var(--color-rule)] pt-10 mb-10">
+          <p class="eyebrow mb-3">Temple Magazine</p>
+          <h2 class="text-[var(--color-ink)] text-3xl" style="font-weight: 400;">Koyil Mani</h2>
+          <p lang="ta" class="tamil-display !text-2xl mt-2">கோயில் மணி</p>
+        </div>
+        {koyilMani.length > 0 ? (
+          <div class="divide-y divide-[var(--color-rule)]">
+            {koyilMani.map((d) => (
+              <div class="py-5 flex items-center justify-between gap-4">
+                <div>
+                  <h3 class="text-lg text-[var(--color-ink)] font-medium">{d.title}</h3>
+                  {d.description && <p class="text-sm text-[var(--color-ink-soft)] mt-1">{d.description}</p>}
+                  {d.date && (
+                    <p class="text-xs text-[var(--color-ink-mute)] mt-1">
+                      {new Date(d.date).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}
+                    </p>
+                  )}
+                </div>
+                <a
+                  href={d.pdfUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="btn btn-secondary !py-2 !px-4 !min-h-[36px] text-xs whitespace-nowrap flex-shrink-0"
+                >
+                  Download PDF
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="card text-[var(--color-ink-soft)] italic">No Koyil Mani issues published yet.</p>
+        )}
+      </div>
+
+      {/* Temple Worship Series */}
+      <div>
+        <div class="border-t border-[var(--color-rule)] pt-10 mb-10">
+          <p class="eyebrow mb-3">Worship Guides</p>
+          <h2 class="text-[var(--color-ink)] text-3xl" style="font-weight: 400;">Temple Worship Series</h2>
+          <p class="text-[var(--color-ink-soft)] mt-3 text-base leading-relaxed max-w-xl">
+            A series of worship guides by Sri Santhan Kurukkal, covering temple rituals and devotional practices.
           </p>
         </div>
-        <div class="lg:col-span-8">
-          {allEvents.length > 0 ? (
-            <div class="space-y-0">
-              {allEvents.map((ev, i) => {
-                const evDate = new Date(ev.date);
-                const dayNum = evDate.getDate();
-                const weekday = WEEKDAYS[evDate.getDay()];
-                const month = MONTHS[evDate.getMonth()].substring(0, 3);
-                const isMajor = ev.type === 'major';
-                const program: { time: string; activity: string }[] = ev.program ?? [];
-                return (
-                  <div class={`grid grid-cols-12 gap-x-6 gap-y-1 py-5 ${i > 0 ? 'border-t border-[var(--color-rule)]' : ''}`}>
-                    <div class="col-span-2 pt-0.5">
-                      <p class="text-3xl leading-none font-light" style={isMajor ? 'color: var(--color-saffron);' : 'color: var(--color-ink);'}>
-                        {dayNum}
-                      </p>
-                      <p class="text-[0.65rem] tracking-widest uppercase text-[var(--color-ink-mute)] mt-1">
-                        {weekday.substring(0, 3)} {month}
-                      </p>
-                    </div>
-                    <div class="col-span-10">
-                      <div class="flex items-baseline gap-3 mb-2">
-                        <h3 class="text-lg text-[var(--color-ink)]" style="font-weight: 500;">{ev.title}</h3>
-                        {isMajor && (
-                          <span class="text-[0.6rem] tracking-widest uppercase px-2 py-0.5 border border-[var(--color-saffron)] text-[var(--color-saffron)]">
-                            Major
-                          </span>
-                        )}
-                      </div>
-                      {ev.titleTamil && (
-                        <p lang="ta" class="text-sm text-[var(--color-saffron)] tamil-body mb-2">{ev.titleTamil}</p>
-                      )}
-                      {program.length > 0 && (
-                        <div class="space-y-1 mt-2">
-                          {program.map((item) => (
-                            <div class="flex gap-4 text-sm">
-                              <span class="tabular-nums shrink-0 w-16" style="color: var(--color-saffron);">{item.time}</span>
-                              <span class="text-[var(--color-ink-soft)]">{item.activity}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <p class="card text-[var(--color-ink-soft)] italic">
-              Monthly programme will appear here once added via the admin panel.
-            </p>
-          )}
-        </div>
+        {worshipSeries.length > 0 ? (
+          <div class="divide-y divide-[var(--color-rule)]">
+            {worshipSeries.map((d) => (
+              <div class="py-5 flex items-center justify-between gap-4">
+                <div>
+                  <h3 class="text-lg text-[var(--color-ink)] font-medium">{d.title}</h3>
+                  {d.description && <p class="text-sm text-[var(--color-ink-soft)] mt-1">{d.description}</p>}
+                </div>
+                <a
+                  href={d.pdfUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="btn btn-secondary !py-2 !px-4 !min-h-[36px] text-xs whitespace-nowrap flex-shrink-0"
+                >
+                  Download PDF
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="card text-[var(--color-ink-soft)] italic">No worship guides published yet.</p>
+        )}
       </div>
+
     </div>
   </section>
 </Layout>

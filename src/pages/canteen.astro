@@ -1,0 +1,86 @@
+---
+export const prerender = true;
+import Layout from '~/layouts/Layout.astro';
+import CanteenStatus from '~/components/CanteenStatus.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+let canteen: any = null;
+let menu: any[] = [];
+
+try {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  canteen = await reader.singletons.canteenStatus.read();
+  menu = await reader.collections.canteenMenu.all();
+} catch {}
+
+const availableMenu = menu
+  .map((m) => ({ ...m.entry, slug: m.slug }))
+  .filter((m) => m.available);
+
+const menuByCategory: Record<string, any[]> = {};
+for (const item of availableMenu) {
+  const cat = item.category || 'snacks';
+  if (!menuByCategory[cat]) menuByCategory[cat] = [];
+  menuByCategory[cat].push(item);
+}
+---
+<Layout title="Temple Canteen · Kamadhenu">
+  {/* Quiet hero */}
+  <section class="pt-32 md:pt-44 pb-12">
+    <div class="container-tight max-w-4xl">
+      <p class="eyebrow mb-6">Temple Canteen</p>
+      <h1 class="text-[var(--color-ink)] mb-4 text-balance" style="font-weight: 400;">Kamadhenu</h1>
+      <p lang="ta" class="tamil-display mb-10">கோயில் உணவகம்</p>
+    </div>
+  </section>
+
+  {/* CANTEEN — quiet register with live status accent */}
+  <section class="py-24 md:py-32 bg-[var(--color-paper-soft)]">
+    <div class="container-tight">
+      <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+        <div>
+          <p class="eyebrow mb-3">Temple Canteen</p>
+          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Kamadhenu</h2>
+        </div>
+        <div class="px-4 py-2 bg-[var(--color-paper)] border border-[var(--color-rule)]">
+          <CanteenStatus canteen={canteen ?? {}} variant="pill" />
+        </div>
+      </div>
+
+      {canteen?.specialNotice && (
+        <p class="card text-[var(--color-saffron)] italic mb-8">{canteen.specialNotice}</p>
+      )}
+
+      {Object.keys(menuByCategory).length > 0 ? (
+        <div class="space-y-12">
+          {Object.entries(menuByCategory).map(([category, items]) => (
+            <div>
+              <h3 class="capitalize text-[var(--color-ink)] mb-6 pb-3 border-b border-[var(--color-rule)]">
+                {category}
+              </h3>
+              <div class="grid sm:grid-cols-2 gap-4">
+                {items.map((item) => (
+                  <div class="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-rule)]">
+                    <div>
+                      <p class="text-[var(--color-ink)] font-medium">{item.name}</p>
+                      {item.nameTamil && <p lang="ta" class="text-sm text-[var(--color-ink-soft)] tamil-body">{item.nameTamil}</p>}
+                      {item.description && <p class="text-sm text-[var(--color-ink-mute)] mt-1">{item.description}</p>}
+                    </div>
+                    <p class="text-xl font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 500;">
+                      ${item.price?.toFixed(2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="card text-[var(--color-ink-soft)] italic">
+          Menu will appear here once added via the admin panel.
+        </p>
+      )}
+    </div>
+  </section>
+</Layout>

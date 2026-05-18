@@ -8,6 +8,7 @@ let canteen: any = {};
 let hours: any = null;
 let festivals: any[] = [];
 let notices: any[] = [];
+let site: any = null;
 
 try {
   const reader = createReader(process.cwd(), keystaticConfig);
@@ -15,6 +16,7 @@ try {
   hours = await reader.singletons.openingHours.read();
   festivals = await reader.collections.festivals.all();
   notices = await reader.collections.notices.all();
+  site = await reader.singletons.siteConfig.read();
 } catch {}
 
 const today = new Date();
@@ -28,6 +30,17 @@ const nextFestival = upcoming[0];
 const daysToNext = nextFestival
   ? Math.ceil((new Date(nextFestival.date).getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
   : null;
+
+const addr = site ?? {
+  templeAddressLine1: '4915–4923 Mt Lindesay Highway',
+  suburb: 'South Maclean',
+  state: 'QLD',
+  postcode: '4280',
+  country: 'Australia',
+  phonePrimary: '+61 7 5547 8064',
+  emailGeneral: 'info@ssvk.org.au',
+  googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Sri+Selva+Vinayakar+Koyil+South+Maclean',
+};
 export const prerender = true;
 ---
 <Layout title="Home">
@@ -48,8 +61,8 @@ export const prerender = true;
         three decades.
       </p>
       <div class="flex flex-wrap gap-3 hero-fade-up hero-fade-up-delay-4">
-        <a href="/visit" class="btn btn-primary">Plan your visit</a>
-        <a href="/services" class="btn btn-ghost">Festival calendar</a>
+        <a href="#visit-us" class="btn btn-primary">Plan your visit</a>
+        <a href="/events" class="btn btn-ghost">Festival calendar</a>
       </div>
     </div>
   </section>
@@ -157,7 +170,7 @@ export const prerender = true;
               )}
             </div>
           </div>
-          <a href="/services" class="btn btn-ghost self-start">View full calendar →</a>
+          <a href="/events" class="btn btn-ghost self-start">View full calendar →</a>
         </div>
         <div class="lg:col-span-7">
           <div class="aspect-[4/3] photo-frame">
@@ -181,7 +194,7 @@ export const prerender = true;
             <p class="eyebrow mb-3" style="color: var(--color-saffron);">Sacred Calendar</p>
             <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Upcoming festivals</h2>
           </div>
-          <a href="/services" class="text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] text-sm tracking-wide">
+          <a href="/events" class="text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] text-sm tracking-wide">
             View all →
           </a>
         </div>
@@ -208,10 +221,10 @@ export const prerender = true;
     </section>
   )}
 
-  {/* CLOSING — quiet register with photo */}
-  <section class="py-24 md:py-32 bg-[var(--color-paper-soft)]">
-    <div class="container-tight grid lg:grid-cols-12 gap-12 items-center">
-      <div class="lg:col-span-5">
+  {/* CLOSING — Visit Us with address + hours bento cards */}
+  <section class="py-24 md:py-32 bg-[var(--color-paper-soft)]" id="visit-us">
+    <div class="container-tight">
+      <div class="max-w-2xl mb-16">
         <p class="eyebrow mb-6">Visit Us</p>
         <h2 class="text-[var(--color-ink)] mb-6" style="font-weight: 400;">
           Come and be part of a living tradition
@@ -220,14 +233,56 @@ export const prerender = true;
           35 km south of Brisbane, beside the Logan River — a place of peace and inspiration
           for devotees, families, and visitors from every community.
         </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="/visit" class="btn btn-primary">Directions & hours</a>
-          <a href="/donate" class="btn btn-ghost">Support the temple</a>
-        </div>
+        <a href="/donate" class="btn btn-ghost">Support the temple</a>
       </div>
-      <div class="lg:col-span-7">
-        <div class="aspect-[16/10] photo-frame">
-          <img src="/images/temple-wide.jpg" alt="Wide view of the temple grounds" loading="lazy" />
+
+      <div class="grid lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 card card-hover">
+          <p class="eyebrow mb-4">Where to find us</p>
+          <p class="text-2xl md:text-3xl font-[var(--font-display)] text-[var(--color-ink)] mb-2 leading-snug">
+            {addr.templeAddressLine1}
+          </p>
+          <p class="text-[var(--color-ink-soft)] text-lg mb-6">
+            {addr.suburb} {addr.state} {addr.postcode} · {addr.country}
+          </p>
+          <a href={addr.googleMapsUrl} target="_blank" rel="noopener" class="btn btn-primary mb-8">
+            Open in Google Maps ↗
+          </a>
+          <div class="border-t border-[var(--color-rule)] pt-6 grid sm:grid-cols-2 gap-6">
+            <div>
+              <p class="eyebrow mb-2">Phone</p>
+              <a href={`tel:${addr.phonePrimary}`} class="text-[var(--color-ink)] hover:text-[var(--color-saffron)] text-lg">
+                {addr.phonePrimary}
+              </a>
+            </div>
+            <div>
+              <p class="eyebrow mb-2">Email</p>
+              <a href={`mailto:${addr.emailGeneral}`} class="text-[var(--color-ink)] hover:text-[var(--color-saffron)] text-lg">
+                {addr.emailGeneral}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 card card-hover">
+          <p class="eyebrow mb-4">Opening Hours</p>
+          <div class="space-y-5 mb-6">
+            <div>
+              <p class="text-[var(--color-ink)] font-semibold mb-1">Monday – Friday</p>
+              <p class="text-[var(--color-ink-soft)]">{hours?.weekdayMorningOpen ?? '7:30am'} – {hours?.weekdayMorningClose ?? '12:00pm'}</p>
+              <p class="text-[var(--color-ink-soft)]">{hours?.weekdayEveningOpen ?? '5:00pm'} – {hours?.weekdayEveningClose ?? '8:30pm'}</p>
+            </div>
+            <div>
+              <p class="text-[var(--color-ink)] font-semibold mb-1">Saturday – Sunday</p>
+              <p class="text-[var(--color-ink-soft)]">{hours?.weekendMorningOpen ?? '7:30am'} – {hours?.weekendMorningClose ?? '1:00pm'}</p>
+              <p class="text-[var(--color-ink-soft)]">{hours?.weekendEveningOpen ?? '5:00pm'} – {hours?.weekendEveningClose ?? '8:30pm'}</p>
+            </div>
+          </div>
+          <div class="border-t border-[var(--color-rule)] pt-4">
+            <p class="eyebrow mb-2">Pooja Times</p>
+            <p class="text-[var(--color-saffron)] text-lg font-medium">{hours?.poojaMorning ?? '9:00am – 9:30am'}</p>
+            <p class="text-[var(--color-saffron)] text-lg font-medium">{hours?.poojaEvening ?? '7:00pm – 7:30pm'}</p>
+          </div>
         </div>
       </div>
     </div>
