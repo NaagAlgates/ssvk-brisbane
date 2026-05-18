@@ -301,10 +301,11 @@ export const prerender = true;
     const badge = document.getElementById('temple-status');
     if (!badge) return;
     const now = new Date();
-    // Convert to Brisbane time (AEST = UTC+10, no daylight saving in Queensland)
-    const bris = new Date(now.toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }));
-    const day = bris.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-    const mins = bris.getHours() * 60 + bris.getMinutes();
+    // Brisbane is always UTC+10 — no daylight saving in Queensland
+    const brisMs = now.getTime() + 10 * 60 * 60 * 1000;
+    const bris = new Date(brisMs);
+    const day = bris.getUTCDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+    const mins = bris.getUTCHours() * 60 + bris.getUTCMinutes();
     const isWeekend = day === 0 || day === 6;
     // Open windows in minutes from midnight
     const windows = isWeekend
