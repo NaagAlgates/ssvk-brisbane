@@ -8,7 +8,7 @@ export default defineConfig({
   site: 'https://ssvk.naaglabs.workers.dev',
   output: 'server',
   adapter: cloudflare({
-    platformProxy: { enabled: true },
+    platformProxy: { enabled: false },
     imageService: 'compile',
   }),
   integrations: [react(), keystatic()],
