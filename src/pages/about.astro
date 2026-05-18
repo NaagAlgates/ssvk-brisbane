@@ -13,6 +13,7 @@ const currentCommittee = committee
   .map((c) => ({ ...c.entry, slug: c.slug }))
   .filter((c) => c.isCurrent)
   .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+export const prerender = true;
 ---
 <Layout title="About">
   {/* Quiet hero — paper white, big Tamil, photo-as-frame */}

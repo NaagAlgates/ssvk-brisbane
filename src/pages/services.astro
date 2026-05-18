@@ -19,6 +19,7 @@ const upcomingFestivals = festivals
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
+export const prerender = true;
 ---
 <Layout title="Services & Festivals">
   {/* Quiet hero */}
