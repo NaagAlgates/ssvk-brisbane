@@ -14,6 +14,7 @@ export default config({
       'Canteen Menu': ['canteenMenu'],
       'People': ['committee'],
       'Updates': ['notices', 'newsletters'],
+      'Library': ['libraryDocuments'],
     },
   },
   singletons: {
@@ -212,6 +213,27 @@ export default config({
         date: fields.date({ label: 'Issue date', validation: { isRequired: true } }),
         body: fields.markdoc({ label: 'Body' }),
         coverImage: fields.image({ label: 'Cover image', directory: 'public/images/newsletters', publicPath: '/images/newsletters/' }),
+        pdfUrl: fields.text({ label: 'PDF download URL (e.g. /documents/newsletters/x.pdf)' }),
+      },
+    }),
+    libraryDocuments: collection({
+      label: 'Library Documents',
+      slugField: 'title',
+      path: 'src/content/library-documents/*',
+      schema: {
+        title: fields.slug({ name: { label: 'Title', validation: { isRequired: true } } }),
+        category: fields.select({
+          label: 'Category',
+          options: [
+            { label: 'Koyil Mani Magazine', value: 'koyil-mani' },
+            { label: 'Temple Worship Series', value: 'worship-series' },
+          ],
+          defaultValue: 'koyil-mani',
+        }),
+        date: fields.date({ label: 'Date / Issue date (optional)' }),
+        pdfUrl: fields.text({ label: 'PDF path (e.g. /documents/worship-series/x.pdf)', validation: { isRequired: true } }),
+        description: fields.text({ label: 'One-line description (optional)' }),
+        sortOrder: fields.integer({ label: 'Sort order (Koyil Mani: issue number; Worship Series: guide number)', defaultValue: 0 }),
       },
     }),
     committee: collection({

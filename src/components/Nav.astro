@@ -3,6 +3,8 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
+  { href: '/news', label: 'News' },
+  { href: '/library', label: 'Library' },
   { href: '/visit', label: 'Visit' },
   { href: '/donate', label: 'Donate' },
 ];
@@ -47,7 +49,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
   {/* Mobile bottom nav */}
   <nav aria-label="Mobile" class="md:hidden fixed bottom-0 inset-x-0 bg-[var(--color-paper)]/95 backdrop-blur border-t border-[var(--color-rule)] z-50">
-    <ul class="grid grid-cols-5">
+    <ul class="grid grid-cols-7">
       {links.map((l) => (
         <li>
           <a

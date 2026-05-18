@@ -1,0 +1,77 @@
+---
+export const prerender = true;
+import Layout from '~/layouts/Layout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import Markdoc from '@markdoc/markdoc';
+
+let newsletters: any[] = [];
+try {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  newsletters = await reader.collections.newsletters.all();
+} catch {}
+
+const toHtml = (field: any): string => {
+  if (!field?.node) return '';
+  return Markdoc.renderers.html(Markdoc.transform(field.node));
+};
+
+const sorted = newsletters
+  .map((n) => ({ ...n.entry, slug: n.slug }))
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+<Layout title="News">
+  <section class="pt-32 md:pt-44 pb-12">
+    <div class="container-tight max-w-4xl">
+      <p class="eyebrow mb-6">News & Updates</p>
+      <h1 class="text-[var(--color-ink)] mb-4 text-balance" style="font-weight: 400;">Newsletters</h1>
+      <p lang="ta" class="tamil-display mb-10">செய்திகள்</p>
+    </div>
+  </section>
+
+  <section class="pb-24 md:pb-32">
+    <div class="container-tight max-w-4xl">
+      {sorted.length > 0 ? (
+        <div class="space-y-16">
+          {sorted.map((n) => {
+            const bodyHtml = toHtml(n.body);
+            const date = n.date ? new Date(n.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+            return (
+              <article class="border-t border-[var(--color-rule)] pt-12">
+                <div class="grid lg:grid-cols-12 gap-8">
+                  <div class="lg:col-span-3">
+                    {date && <p class="eyebrow eyebrow-mute mb-2">{date}</p>}
+                    {n.pdfUrl && (
+                      <a
+                        href={n.pdfUrl}
+                        target="_blank"
+                        rel="noopener"
+                        class="inline-flex items-center gap-2 text-sm text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] transition-colors mt-4"
+                      >
+                        Download PDF
+                      </a>
+                    )}
+                  </div>
+                  <div class="lg:col-span-9">
+                    <h2 class="text-3xl text-[var(--color-ink)] mb-6" style="font-weight: 400;">{n.title}</h2>
+                    {bodyHtml ? (
+                      <div class="prose-content text-[var(--color-ink-soft)] text-lg leading-relaxed" set:html={bodyHtml} />
+                    ) : n.pdfUrl ? (
+                      <p class="text-[var(--color-ink-soft)]">
+                        Read the full newsletter as a PDF using the download link.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="card text-[var(--color-ink-soft)] italic">
+          No newsletters published yet.
+        </p>
+      )}
+    </div>
+  </section>
+</Layout>
