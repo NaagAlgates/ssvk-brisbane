@@ -1,16 +1,20 @@
 templeAddressLine1: 4915–4923 Mt Lindesay Highway
-templeAddressLine2: ""
 suburb: South Maclean
-postcode: "4280"
+postcode: '4280'
 state: QLD
 country: Australia
-postalAddress: "PO BOX 77, Mt Ommaney, QLD 4074, Australia"
-phonePrimary: "+61 7 5547 8064"
+postalAddress: PO BOX 77, Mt Ommaney, QLD 4074, Australia
+phonePrimary: +61 7 5547 8064
 emailGeneral: info@ssvk.org.au
-googleMapsUrl: https://www.google.com/maps/search/?api=1&query=Sri+Selva+Vinayakar+Koyil+South+Maclean+QLD
-googleMapsEmbedUrl: ""
-facebookUrl: ""
-youtubeUrl: ""
+googleMapsUrl: >-
+  https://www.google.com/maps/search/?api=1&query=Sri+Selva+Vinayakar+Koyil+South+Maclean+QLD
+googleMapsEmbedUrl: >-
+  <iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3529.7060442803054!2d153.0132142!3d-27.7880303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b91375fb9bbf347%3A0xc653916980c5502c!2sSri%20Selva%20Vinayakar%20Koyil%20(Ganesha%20Temple)!5e0!3m2!1sen!2sau!4v1779084426293!5m2!1sen!2sau"
+  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"></iframe>
+facebookUrl: https://www.facebook.com/profile.php?id=100064840352331
+youtubeUrl: https://www.youtube.com/channel/UCk9J8Hm8iWsLhce9tkrP3gw
 yearEstablished: 1995
 acresGrounds: 4.5
 distanceKm: 35
