@@ -334,6 +334,15 @@
   let userEmail  = '';
   let userInitials = '';
   let history: Array<{ role: string; content: string }> = [];
+  let savedMsgs: Array<{ role: 'user' | 'bot'; text: string }> = [];
+
+  const SESSION_KEY = 'ssvk_chat_v1';
+
+  const saveSession = () => {
+    try {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ userName, userEmail, history, savedMsgs }));
+    } catch {}
+  };
 
   const openPanel  = () => { panel.hidden = false; if (!userName) introName.focus(); else input.focus(); };
   const closePanel = () => { panel.hidden = true; };
@@ -388,13 +397,11 @@
     return html;
   };
 
-  const addMsg = (text: string, role: 'user' | 'bot') => {
+  const renderMsg = (text: string, role: 'user' | 'bot') => {
     const row = document.createElement('div');
     row.className = `msg-row msg-row-${role}`;
-
     const bubble = document.createElement('div');
     bubble.className = `msg msg-${role}`;
-
     if (role === 'bot') {
       bubble.innerHTML = formatBotText(text);
     } else {
@@ -402,15 +409,19 @@
       p.textContent = text;
       bubble.appendChild(p);
     }
-
     const avatar = role === 'bot'
       ? makeAvatar('msg-avatar-bot', 'TA')
       : makeAvatar('msg-avatar-user', userInitials);
-
     row.appendChild(avatar);
     row.appendChild(bubble);
     msgs.appendChild(row);
     scrollBottom();
+  };
+
+  const addMsg = (text: string, role: 'user' | 'bot') => {
+    renderMsg(text, role);
+    savedMsgs.push({ role, text });
+    saveSession();
   };
 
   const showTyping = () => {
@@ -446,6 +457,25 @@
     input.focus();
   });
   introName.addEventListener('keydown', (e) => { if (e.key === 'Enter') introSubmit.click(); });
+
+  // Restore previous session on page load/navigation
+  const restoreSession = () => {
+    try {
+      const raw = sessionStorage.getItem(SESSION_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (!saved?.userName) return;
+      userName     = saved.userName;
+      userEmail    = saved.userEmail ?? '';
+      userInitials = getInitials(userName);
+      history      = saved.history ?? [];
+      savedMsgs    = saved.savedMsgs ?? [];
+      intro.hidden    = true;
+      chatMain.hidden = false;
+      savedMsgs.forEach(m => renderMsg(m.text, m.role));
+    } catch {}
+  };
+  restoreSession();
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
