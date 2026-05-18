@@ -1,0 +1,9 @@
+name: Podi Dosa
+nameTamil: பொடி தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe sprinkled with spicy powder
+photo: podi-dosa.jpg
+available: true

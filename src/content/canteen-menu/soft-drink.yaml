@@ -1,0 +1,10 @@
+name: Soft Drink
+nameTamil: குளிர்பானம்
+price: 2
+category: drinks
+dietary:
+  - veg
+  - vegan
+description: ''
+photo: soft-drink.jpg
+available: true

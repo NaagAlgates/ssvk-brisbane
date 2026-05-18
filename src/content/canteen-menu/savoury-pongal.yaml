@@ -1,0 +1,9 @@
+name: Savoury Pongal
+nameTamil: வெண் பொங்கல்
+price: 7
+category: lunch
+dietary:
+  - veg
+description: Rice and lentil cooked with pepper and cumin
+photo: pongal.jpg
+available: true

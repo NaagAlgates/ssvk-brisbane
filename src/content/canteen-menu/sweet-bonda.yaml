@@ -1,0 +1,9 @@
+name: Sweet Bonda
+nameTamil: இனிப்பு போண்டா
+price: 1.5
+category: snacks
+dietary:
+  - veg
+description: Deep-fried sweet fritter
+photo: sweet-bonda.jpg
+available: true

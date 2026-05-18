@@ -1,0 +1,9 @@
+name: Onion Dosa
+nameTamil: வெங்காய தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe infused with chopped onions
+photo: onion-dosa.jpg
+available: true

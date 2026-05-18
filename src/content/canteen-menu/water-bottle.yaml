@@ -1,0 +1,10 @@
+name: Water Bottle
+nameTamil: தண்ணீர் பாட்டில்
+price: 2
+category: drinks
+dietary:
+  - veg
+  - vegan
+description: ''
+photo: water-bottle.jpg
+available: true

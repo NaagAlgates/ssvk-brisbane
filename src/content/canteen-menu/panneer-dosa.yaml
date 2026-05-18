@@ -1,0 +1,9 @@
+name: Panneer Dosa
+nameTamil: பன்னீர் தோசை
+price: 9
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe stuffed with spiced paneer
+photo: panneer-dosa.jpg
+available: true

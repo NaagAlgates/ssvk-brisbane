@@ -1,0 +1,9 @@
+name: Kara Dosa
+nameTamil: காரா தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe filled with spicy mixture
+photo: kara-dosa.jpg
+available: true

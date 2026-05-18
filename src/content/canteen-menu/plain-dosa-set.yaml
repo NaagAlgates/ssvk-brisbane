@@ -1,0 +1,10 @@
+name: Plain Dosa Set
+nameTamil: சாதா தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+  - vegan
+description: Crispy rice and lentil crepe. Set of two
+photo: plain-dosa.jpg
+available: true

@@ -18,45 +18,10 @@ const availableMenu = menu
   .map((m) => ({ ...m.entry, slug: m.slug }))
   .filter((m) => m.available);
 
-const menuByCategory: Record<string, any[]> = {};
-for (const item of availableMenu) {
-  const cat = item.category || 'snacks';
-  if (!menuByCategory[cat]) menuByCategory[cat] = [];
-  menuByCategory[cat].push(item);
-}
-
-const DOSAS = [
-  { name: 'Panneer Dosa', price: '$9.00', desc: 'Crispy rice and lentil crepe stuffed with spiced paneer', img: 'https://revi.b-cdn.net/wp-content/uploads/2015/09/paneer-masala-dosa-vert.jpg' },
-  { name: 'Masala Dosa', price: '$7.00', desc: 'Crispy rice and lentil crepe stuffed with potato masala', img: 'https://static.toiimg.com/thumb/54289752.cms?imgsize=495844&width=800&height=800' },
-  { name: 'Plain Dosa Set', price: '$7.00', desc: 'Crispy rice and lentil crepe. Set of two', img: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/07/sada-dosa-1.jpg' },
-  { name: 'Ghee Dosa', price: '$7.00', desc: 'Crispy rice and lentil crepe cooked in ghee', img: 'https://www.shutterstock.com/image-photo/dosa-ghee-roast-coconut-chutney-600nw-2484376905.jpg' },
-  { name: 'Onion Dosa', price: '$7.00', desc: 'Crispy rice and lentil crepe infused with chopped onions', img: 'https://www.yummytummyaarthi.com/wp-content/uploads/2015/05/4-13.jpg' },
-  { name: 'Cheese Dosa', price: '$7.00', desc: 'Crispy rice and lentil crepe filled with cheese', img: 'https://www.yummyfoodrecipes.com/resources/picture/org/Vegetable-Cheese-Dosa.jpg' },
-  { name: 'Podi Dosa', price: '$7.00', desc: 'Crispy rice and lentil crepe sprinkled with spicy powder', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCBx61MhrjbrzvED96kJWJrPLlOm5Ko_9gwA&s' },
-  { name: 'Kara Dosa', price: '$7.00', desc: 'Crispy rice and lentil crepe filled with spicy mixture', img: 'https://c.ndtvimg.com/2024-06/vmdhdfv_dosa_625x300_05_June_24.jpg?im=FaceCrop,algorithm=dnn,width=384,height=384' },
-];
-
-const VARIETIES = [
-  { name: 'Idly', price: '$7.00', desc: 'Three pieces of steamed rice and lentil cake', img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=300&q=80' },
-  { name: 'Poori Set', price: '$7.00', desc: 'Two deep-fried bread made from wheat flour', img: 'https://i.pinimg.com/564x/95/c5/8a/95c58a20486f96a9ea1ae25f692e9ef5.jpg' },
-  { name: 'Uttapam', price: '$7.00', desc: 'Thick crepe topped with onions, tomatoes and chillies', img: 'https://rakskitchen.net/wp-content/uploads/2013/03/8527219504_0ddb2cde6f_z-500x500.jpg' },
-  { name: 'Savoury Pongal', price: '$7.00', desc: 'Rice and lentil cooked with pepper and cumin', img: 'https://www.vegrecipesofindia.com/wp-content/uploads/2016/04/pongal-recipe-1.jpg' },
-  { name: 'Idly Dosa Combo', price: '$7.00', desc: 'Combination of idly and dosa', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSADvIDqC3l8tjcfLEkZSJ0xeg9aPc5iakpjg&s' },
-  { name: 'Ulunthu Vadai', price: '$1.50', desc: 'Crispy lentil doughnut', img: 'https://images.unsplash.com/photo-1730191843435-073792ba22bc?w=300&q=80' },
-  { name: 'Kadalai Vadai', price: '$1.50', desc: 'Crispy chickpea fritter', img: 'https://i.ytimg.com/vi/CdM1w19JEuc/maxresdefault.jpg' },
-  { name: 'Sambar Vadai', price: '$2.50', desc: 'Vadai soaked in sambar', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVMFV57HoBznF7uj4vR-ZBeWp5PSDT7XxrAw&s' },
-  { name: 'Sweet Bonda', price: '$1.50', desc: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmRAFAALHtbVYdznoQrrnaKRZfPrFaegp4CA&s' },
-  { name: 'Laddu', price: '$1.50', desc: '', img: 'https://images.unsplash.com/photo-1635952346904-95f2ccfcd029?w=300&q=80' },
-];
-
-const SNACKS_DRINKS = [
-  { name: 'Murukku', price: '$6.50', desc: 'Pack of five', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7D3CZbqTNFDh4vUA1VFQovXFAMKQb_Jj7Dg&s' },
-  { name: 'Mango Lassi', price: '$3.50', desc: '', img: 'https://littlesunnykitchen.com/wp-content/uploads/2019/08/Vegan-Mango-Lassi-2.jpg' },
-  { name: 'Coffee', price: '$2.00', desc: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYyMeagvSMSWNx1a4Yj9tvNioKyTkhTMdZNg&s' },
-  { name: 'Tea', price: '$2.00', desc: '', img: 'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipes%2F2023-12-milk-tea%2Fmilk-tea-587' },
-  { name: 'Soft Drink', price: '$2.00', desc: '', img: 'https://portobellorivercruiser.com.au/wp-content/uploads/2020/09/Cans.jpg' },
-  { name: 'Water Bottle', price: '$2.00', desc: '', img: 'https://cdn.shopify.com/s/files/1/0447/0957/6866/products/30023106.jpg?v=1647385195' },
-];
+const dosas    = availableMenu.filter((m) => m.category === 'breakfast');
+const varieties = availableMenu.filter((m) => m.category === 'lunch');
+const snacks   = availableMenu.filter((m) => m.category === 'snacks');
+const drinks   = availableMenu.filter((m) => m.category === 'drinks');
 ---
 <Layout title="Temple Canteen · Kamadhenu">
 
@@ -92,134 +57,152 @@ const SNACKS_DRINKS = [
   </section>
 
   {/* DOSA MENU */}
-  <section class="py-24 md:py-32">
-    <div class="container-tight">
-      <div class="mb-12">
-        <p class="eyebrow mb-3" style="color: var(--color-saffron);">Dosa Menu</p>
-        <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Varieties of Dosas</h2>
-      </div>
+  {dosas.length > 0 && (
+    <section class="py-24 md:py-32">
+      <div class="container-tight">
+        <div class="mb-12">
+          <p class="eyebrow mb-3" style="color: var(--color-saffron);">Dosa Menu</p>
+          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Varieties of Dosas</h2>
+        </div>
 
-      {/* Canteen Special callout */}
-      <div class="mb-8 flex items-center gap-6 p-5 border border-[var(--color-saffron)] bg-[var(--color-paper-soft)] rounded-sm">
-        <div class="text-3xl font-[var(--font-display)] text-[var(--color-saffron)]" style="font-weight: 700;">$9.00</div>
-        <div>
-          <p class="font-semibold text-[var(--color-ink)] text-lg">Canteen Special</p>
-          <p class="text-sm text-[var(--color-ink-soft)]">Chef's special of the day</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {dosas.map((item) => (
+            <div class="bg-[var(--color-paper-soft)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
+              {item.photo && (
+                <div class="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={item.photo}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-4">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <div>
+                    <p class="font-medium text-[var(--color-ink)] leading-tight">{item.name}</p>
+                    {item.nameTamil && <p lang="ta" class="text-xs text-[var(--color-ink-soft)] tamil-body mt-0.5">{item.nameTamil}</p>}
+                  </div>
+                  <p class="text-lg font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">${item.price?.toFixed(2)}</p>
+                </div>
+                {item.description && <p class="text-xs text-[var(--color-ink-mute)] leading-snug mt-1">{item.description}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="mt-4 text-xs text-[var(--color-ink-mute)]">Extra Potato Masala, Sambar & Chutney — $3.00</p>
+      </div>
+    </section>
+  )}
+
+  {/* VARIETIES */}
+  {varieties.length > 0 && (
+    <section class="py-24 md:py-32 border-t border-[var(--color-rule)] bg-[var(--color-paper-soft)]">
+      <div class="container-tight">
+        <div class="mb-12">
+          <p class="eyebrow mb-3" style="color: var(--color-saffron);">Varieties & Combos</p>
+          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">More to Enjoy</h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {varieties.map((item) => (
+            <div class="bg-[var(--color-paper)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
+              {item.photo && (
+                <div class="aspect-square overflow-hidden">
+                  <img
+                    src={item.photo}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-3">
+                <div class="flex items-start justify-between gap-1 mb-1">
+                  <div>
+                    <p class="font-medium text-[var(--color-ink)] text-sm leading-tight">{item.name}</p>
+                    {item.nameTamil && <p lang="ta" class="text-xs text-[var(--color-ink-mute)] tamil-body mt-0.5">{item.nameTamil}</p>}
+                  </div>
+                  <p class="text-base font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">${item.price?.toFixed(2)}</p>
+                </div>
+                {item.description && <p class="text-xs text-[var(--color-ink-mute)] leading-snug mt-1">{item.description}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="mt-4 text-xs text-[var(--color-ink-mute)]">All items served with coconut chutney and sambar in small container.</p>
+      </div>
+    </section>
+  )}
+
+  {/* SNACKS */}
+  {snacks.length > 0 && (
+    <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
+      <div class="container-tight">
+        <div class="mb-12">
+          <p class="eyebrow mb-3" style="color: var(--color-saffron);">Snacks</p>
+          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Freshly Made</h2>
+        </div>
+        <div class="grid sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {snacks.map((item) => (
+            <div class="bg-[var(--color-paper-soft)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
+              {item.photo && (
+                <div class="aspect-square overflow-hidden">
+                  <img
+                    src={item.photo}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-3">
+                <div class="flex items-start justify-between gap-1 mb-1">
+                  <div>
+                    <p class="font-medium text-[var(--color-ink)] text-sm leading-tight">{item.name}</p>
+                    {item.nameTamil && <p lang="ta" class="text-xs text-[var(--color-ink-mute)] tamil-body mt-0.5">{item.nameTamil}</p>}
+                  </div>
+                  <p class="text-base font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">${item.price?.toFixed(2)}</p>
+                </div>
+                {item.description && <p class="text-xs text-[var(--color-ink-mute)]">{item.description}</p>}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+    </section>
+  )}
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {DOSAS.map((item) => (
-          <div class="bg-[var(--color-paper-soft)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
-            <div class="aspect-[4/3] overflow-hidden">
-              <img
-                src={item.img}
-                alt={item.name}
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div class="p-4">
-              <div class="flex items-start justify-between gap-2 mb-1">
-                <p class="font-medium text-[var(--color-ink)] leading-tight">{item.name}</p>
-                <p class="text-lg font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">{item.price}</p>
-              </div>
-              {item.desc && <p class="text-xs text-[var(--color-ink-mute)] leading-snug">{item.desc}</p>}
-            </div>
-          </div>
-        ))}
-      </div>
-      <p class="mt-4 text-xs text-[var(--color-ink-mute)]">Extra Potato Masala, Sambar & Chutney — $3.00</p>
-    </div>
-  </section>
-
-  {/* VARIETIES & COMBOS */}
-  <section class="py-24 md:py-32 border-t border-[var(--color-rule)] bg-[var(--color-paper-soft)]">
-    <div class="container-tight">
-      <div class="mb-12">
-        <p class="eyebrow mb-3" style="color: var(--color-saffron);">Varieties & Combos</p>
-        <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">More to Enjoy</h2>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {VARIETIES.map((item) => (
-          <div class="bg-[var(--color-paper)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
-            <div class="aspect-square overflow-hidden">
-              <img
-                src={item.img}
-                alt={item.name}
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div class="p-3">
-              <div class="flex items-start justify-between gap-1 mb-1">
-                <p class="font-medium text-[var(--color-ink)] text-sm leading-tight">{item.name}</p>
-                <p class="text-base font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">{item.price}</p>
-              </div>
-              {item.desc && <p class="text-xs text-[var(--color-ink-mute)] leading-snug">{item.desc}</p>}
-            </div>
-          </div>
-        ))}
-      </div>
-      <p class="mt-4 text-xs text-[var(--color-ink-mute)]">All items served with coconut chutney and sambar in small container.</p>
-    </div>
-  </section>
-
-  {/* SNACKS & DRINKS */}
-  <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
-    <div class="container-tight">
-      <div class="mb-12">
-        <p class="eyebrow mb-3" style="color: var(--color-saffron);">Snacks & Drinks</p>
-        <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Freshly Made & Beverages</h2>
-      </div>
-      <div class="grid sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        {SNACKS_DRINKS.map((item) => (
-          <div class="bg-[var(--color-paper-soft)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
-            <div class="aspect-square overflow-hidden">
-              <img
-                src={item.img}
-                alt={item.name}
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div class="p-3">
-              <div class="flex items-start justify-between gap-1 mb-1">
-                <p class="font-medium text-[var(--color-ink)] text-sm leading-tight">{item.name}</p>
-                <p class="text-base font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">{item.price}</p>
-              </div>
-              {item.desc && <p class="text-xs text-[var(--color-ink-mute)]">{item.desc}</p>}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  {/* CMS price list — shown when items are added via admin */}
-  {Object.keys(menuByCategory).length > 0 && (
-    <section class="py-16 border-t border-[var(--color-rule)] bg-[var(--color-paper-soft)]">
+  {/* DRINKS */}
+  {drinks.length > 0 && (
+    <section class="py-24 md:py-32 border-t border-[var(--color-rule)] bg-[var(--color-paper-soft)]">
       <div class="container-tight">
-        <p class="eyebrow mb-2">Updated Price List</p>
-        <h2 class="text-[var(--color-ink)] mb-10" style="font-weight: 400;">Today's Menu</h2>
-        <div class="space-y-12">
-          {Object.entries(menuByCategory).map(([category, items]) => (
-            <div>
-              <h3 class="capitalize text-[var(--color-ink)] mb-6 pb-3 border-b border-[var(--color-rule)]">{category}</h3>
-              <div class="grid sm:grid-cols-2 gap-4">
-                {items.map((item) => (
-                  <div class="flex items-baseline justify-between gap-4 py-3 border-b border-[var(--color-rule)]">
-                    <div>
-                      <p class="text-[var(--color-ink)] font-medium">{item.name}</p>
-                      {item.nameTamil && <p lang="ta" class="text-sm text-[var(--color-ink-soft)] tamil-body">{item.nameTamil}</p>}
-                      {item.description && <p class="text-sm text-[var(--color-ink-mute)] mt-1">{item.description}</p>}
-                    </div>
-                    <p class="text-xl font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 500;">
-                      ${item.price?.toFixed(2)}
-                    </p>
+        <div class="mb-12">
+          <p class="eyebrow mb-3" style="color: var(--color-saffron);">Beverages</p>
+          <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Drinks</h2>
+        </div>
+        <div class="grid sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {drinks.map((item) => (
+            <div class="bg-[var(--color-paper)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
+              {item.photo && (
+                <div class="aspect-square overflow-hidden">
+                  <img
+                    src={item.photo}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-3">
+                <div class="flex items-start justify-between gap-1 mb-1">
+                  <div>
+                    <p class="font-medium text-[var(--color-ink)] text-sm leading-tight">{item.name}</p>
+                    {item.nameTamil && <p lang="ta" class="text-xs text-[var(--color-ink-mute)] tamil-body mt-0.5">{item.nameTamil}</p>}
                   </div>
-                ))}
+                  <p class="text-base font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">${item.price?.toFixed(2)}</p>
+                </div>
               </div>
             </div>
           ))}

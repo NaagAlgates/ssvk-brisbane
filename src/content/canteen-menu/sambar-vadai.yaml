@@ -1,0 +1,9 @@
+name: Sambar Vadai
+nameTamil: சாம்பார் வடை
+price: 2.5
+category: snacks
+dietary:
+  - veg
+description: Vadai soaked in sambar
+photo: sambar-vadai.jpg
+available: true

@@ -1,0 +1,9 @@
+name: Idly Dosa Combo
+nameTamil: இட்லி தோசை காம்போ
+price: 7
+category: lunch
+dietary:
+  - veg
+description: Combination of idly and dosa
+photo: idly-dosa-combo.jpg
+available: true

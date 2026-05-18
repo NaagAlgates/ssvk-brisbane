@@ -1,0 +1,9 @@
+name: Ghee Dosa
+nameTamil: நெய் தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe cooked in ghee
+photo: ghee-dosa.jpg
+available: true

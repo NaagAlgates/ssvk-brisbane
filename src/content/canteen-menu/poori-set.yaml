@@ -1,0 +1,9 @@
+name: Poori Set
+nameTamil: பூரி செட்
+price: 7
+category: lunch
+dietary:
+  - veg
+description: Two deep-fried bread made from wheat flour
+photo: poori-set.jpg
+available: true

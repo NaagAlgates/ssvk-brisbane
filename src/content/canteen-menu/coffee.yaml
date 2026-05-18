@@ -1,0 +1,9 @@
+name: Coffee
+nameTamil: காபி
+price: 2
+category: drinks
+dietary:
+  - veg
+description: ''
+photo: coffee.jpg
+available: true

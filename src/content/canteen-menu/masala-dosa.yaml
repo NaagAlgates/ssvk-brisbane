@@ -1,0 +1,9 @@
+name: Masala Dosa
+nameTamil: மசால தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe stuffed with potato masala
+photo: masala-dosa.jpg
+available: true

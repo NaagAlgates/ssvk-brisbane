@@ -1,0 +1,10 @@
+name: Murukku
+nameTamil: முறுக்கு
+price: 6.5
+category: snacks
+dietary:
+  - veg
+  - vegan
+description: Pack of five
+photo: murukku.jpg
+available: true

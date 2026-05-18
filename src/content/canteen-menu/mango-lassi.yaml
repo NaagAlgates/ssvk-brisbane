@@ -1,0 +1,9 @@
+name: Mango Lassi
+nameTamil: மாம்பழ லஸ்ஸி
+price: 3.5
+category: drinks
+dietary:
+  - veg
+description: Chilled mango and yoghurt drink
+photo: mango-lassi.jpg
+available: true

@@ -1,0 +1,9 @@
+name: Cheese Dosa
+nameTamil: சீஸ் தோசை
+price: 7
+category: breakfast
+dietary:
+  - veg
+description: Crispy rice and lentil crepe filled with cheese
+photo: cheese-dosa.jpg
+available: true

@@ -1,0 +1,9 @@
+name: Laddu
+nameTamil: லட்டு
+price: 1.5
+category: snacks
+dietary:
+  - veg
+description: Traditional sweet made from gram flour and sugar
+photo: laddu.jpg
+available: true

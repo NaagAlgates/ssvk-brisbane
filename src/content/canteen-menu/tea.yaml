@@ -1,0 +1,9 @@
+name: Tea
+nameTamil: தேநீர்
+price: 2
+category: drinks
+dietary:
+  - veg
+description: ''
+photo: tea.jpg
+available: true

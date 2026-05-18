@@ -1,0 +1,9 @@
+name: Idly
+nameTamil: இட்லி
+price: 7
+category: lunch
+dietary:
+  - veg
+description: Three pieces of steamed rice and lentil cake
+photo: idly.jpg
+available: true

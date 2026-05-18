@@ -1,0 +1,9 @@
+name: Uttapam
+nameTamil: உத்தப்பம்
+price: 7
+category: lunch
+dietary:
+  - veg
+description: Thick crepe topped with onions, tomatoes and chillies
+photo: uttapam.jpg
+available: true

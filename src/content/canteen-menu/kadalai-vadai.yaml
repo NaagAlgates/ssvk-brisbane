@@ -1,0 +1,10 @@
+name: Kadalai Vadai
+nameTamil: கடலை வடை
+price: 1.5
+category: snacks
+dietary:
+  - veg
+  - vegan
+description: Crispy chickpea fritter
+photo: kadalai-vadai.jpg
+available: true
