@@ -110,10 +110,21 @@ export default config({
         title: fields.slug({ name: { label: 'Title', validation: { isRequired: true } } }),
         titleTamil: fields.text({ label: 'Title (Tamil)' }),
         date: fields.date({ label: 'Date', validation: { isRequired: true } }),
-        startTime: fields.text({ label: 'Start time' }),
-        endTime: fields.text({ label: 'End time' }),
-        recurring: fields.checkbox({ label: 'Recurring event' }),
-        description: fields.markdoc({ label: 'Description' }),
+        type: fields.select({
+          label: 'Type',
+          options: [
+            { label: 'Major', value: 'major' },
+            { label: 'Minor', value: 'minor' },
+          ],
+          defaultValue: 'minor',
+        }),
+        program: fields.array(
+          fields.object({
+            time: fields.text({ label: 'Time (e.g. 5:30pm)' }),
+            activity: fields.text({ label: 'Activity' }),
+          }),
+          { label: 'Program Schedule', itemLabel: (props) => `${props.fields.time.value} – ${props.fields.activity.value}` }
+        ),
         locationWithinTemple: fields.text({ label: 'Location within temple' }),
         photo: fields.image({ label: 'Photo', directory: 'public/images/events', publicPath: '/images/events/' }),
       },
