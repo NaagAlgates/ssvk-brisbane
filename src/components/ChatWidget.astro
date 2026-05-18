@@ -343,6 +343,10 @@
   const escHtml = (s: string) =>
     s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
+  const linkify = (escaped: string) =>
+    escaped.replace(/\[([^\]]+)\]\((\/[^)]*)\)/g,
+      (_, label, path) => `<a href="${path}" style="color:var(--color-saffron);text-decoration:underline;font-weight:500;">${label}</a>`);
+
   const formatBotText = (text: string): string => {
     const lines = text.split('\n');
     let html = '';
@@ -359,13 +363,13 @@
       const bulletMatch = line.match(/^[-*•]\s+(.+)/);
       if (numMatch) {
         if (!listOpen) { listType = 'ol'; html += '<ol>'; listOpen = true; }
-        html += `<li>${escHtml(numMatch[2])}</li>`;
+        html += `<li>${linkify(escHtml(numMatch[2]))}</li>`;
       } else if (bulletMatch) {
         if (!listOpen) { listType = 'ul'; html += '<ul>'; listOpen = true; }
-        html += `<li>${escHtml(bulletMatch[1])}</li>`;
+        html += `<li>${linkify(escHtml(bulletMatch[1]))}</li>`;
       } else {
         if (listOpen) { html += listType === 'ol' ? '</ol>' : '</ul>'; listOpen = false; }
-        html += `<p>${escHtml(line)}</p>`;
+        html += `<p>${linkify(escHtml(line))}</p>`;
       }
     }
     if (listOpen) html += listType === 'ol' ? '</ol>' : '</ul>';

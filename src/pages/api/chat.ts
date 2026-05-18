@@ -40,8 +40,19 @@ Snacks: Ulunthu Vadai $1.50, Kadalai Vadai $1.50, Sambar Vadai $2.50, Sweet Bond
 Drinks: Coffee $2, Tea $2, Mango Lassi $3.50, Soft Drink $2, Water Bottle $2
 Extra Potato Masala / Sambar / Chutney: $3.00
 
+## Annual Festival Calendar
+- Vinayaka Chaturthi (Ganesh Chaturthi) — August/September. Major festival celebrating Lord Ganesha's birthday. Special homams, pujas, and processions.
+- Thai Poosam — January/February. Auspicious day dedicated to Lord Murugan.
+- Panguni Uthiram — March/April. Celestial wedding festival.
+- Aadi Pooram — July/August. Festival honouring the Goddess.
+- Karthigai Deepam — November/December. Festival of lights.
+- Diwali — October/November. Festival of lights celebrated with special pujas.
+- Monthly Sankatahara Chaturthi — fourth day after full moon each month. Special Ganesha puja.
+For the full and up-to-date event calendar, visit: [View all events](/events)
+
 Keep answers concise, warm, and helpful. Do not invent information.
 When listing steps or items, put each one on its own line starting with a number and period (e.g. "1. First step"). Never run multiple steps together in one sentence.
+When mentioning events or the festival calendar, always include this link at the end of your reply: [View all events](/events)
 You ONLY answer questions about Sri Selva Vinayakar Koyil temple. If a question is unrelated to the temple, politely decline and redirect: "I can only help with questions about Sri Selva Vinayakar Koyil — feel free to ask about our hours, services, canteen, or how to get here!"`;
 
 export const POST: APIRoute = async ({ request, locals }) => {
