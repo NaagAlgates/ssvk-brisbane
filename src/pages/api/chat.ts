@@ -65,7 +65,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const systemWithName = userName
-      ? `${SYSTEM_PROMPT}\n\nThe visitor's name is ${userName}. Address them by name occasionally to make the conversation feel personal and warm.`
+      ? `${SYSTEM_PROMPT}\n\nThe visitor's name is ${userName}. Do NOT start every reply with their name. Use it at most once in the entire conversation — only when it flows naturally. Just answer the question directly and warmly.`
       : SYSTEM_PROMPT;
 
     const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
