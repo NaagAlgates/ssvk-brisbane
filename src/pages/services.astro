@@ -95,25 +95,158 @@ export const prerender = true;
   {/* ARCHANA GUIDE */}
   <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
     <div class="container-tight">
-      <div class="grid lg:grid-cols-12 gap-12">
+      <div class="grid lg:grid-cols-12 gap-12 mb-16">
         <div class="lg:col-span-4">
           <p class="eyebrow mb-5">How to Worship</p>
           <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Archana Guide</h2>
           <p lang="ta" class="tamil-display !text-3xl mb-6">அர்ச்சனை வழிகாட்டி</p>
+          <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed">
+            Pay on arrival, collect a receipt, and the Archana will be performed by the temple priest.
+            Prices are available at the temple office.
+          </p>
         </div>
-        <div class="lg:col-span-8 prose-content text-[var(--color-ink-soft)] text-lg leading-relaxed space-y-6">
-          <p>
-            Archana is the devotional offering of flower petals or leaves to the deity, accompanied by the chanting of the deity's names. At SSVK, Archana is performed by the temple priest on behalf of devotees.
+        <div class="lg:col-span-8 space-y-10">
+
+          {/* Walk-in Archanas */}
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Walk-in Archanas</h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-12 gap-4 items-start">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Standard Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">With oil lamp, ghee lamp & fruit</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Archana Basket</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">Basket with fruits & incense sticks</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Moksha Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">For departed souls — performed with ghee lamp</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Kumkuma Archanas */}
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Kumkuma Archanas</h3>
+            <p class="text-sm text-[var(--color-ink-soft)] mb-4">Available for Abhirami Amman, Vishnu Durga & Siva Durga</p>
+            <div class="space-y-4">
+              <div class="grid grid-cols-12 gap-4 items-start">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Astotra Kumkuma Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">108 names</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Thirisathy Kumkuma Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">300 names</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Nama Archanas */}
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Nama Archanas</h3>
+            <p class="text-sm text-[var(--color-ink-soft)] mb-4">Available for Pillaiyar, Sivan, Murugan, Anjaneyar, Maha Vishnu, Venkadeswavar & Bhairavar</p>
+            <div class="space-y-4">
+              <div class="grid grid-cols-12 gap-4 items-start">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Astotra Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">108 names</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Thirisathy Nama Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">300 names — also available for Santhana Kaapu</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Sahasranama Archana</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">1000 names — devotees to bring flowers, fruits & one coconut. Sponsor receives one prasadam.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* SPONSORED PUJAS & ABISHEKAMS */}
+  <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
+    <div class="container-tight">
+      <div class="grid lg:grid-cols-12 gap-12 mb-16">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-5">By Arrangement</p>
+          <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Sponsored Pujas & Abishekams</h2>
+          <p lang="ta" class="tamil-display !text-3xl mb-6">சிறப்பு பூஜை & அபிஷேகம்</p>
+          <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed">
+            All sponsored pujas and abishekams are performed only during normal temple opening hours.
+            Payment must be made in advance and the receipt produced to the priest before commencement.
+            All necessary materials and neivetham are provided by the temple.
+            Thakshanai (Dakshina) may be given to the priest at the devotee's discretion.
           </p>
-          <p>
-            To request an Archana, collect an Archana ticket from the temple office and provide your family name (gothram). The priest will chant 108 names of Lord Vinayakar while offering flowers in your name.
-          </p>
-          <p>
-            Archana is available during all regular temple hours. Special Archanas for birthdays, weddings, and significant occasions can be arranged in advance by contacting the temple.
-          </p>
-          <p class="text-sm text-[var(--color-ink-mute)] border-l-2 border-[var(--color-rule)] pl-4">
-            For the full Archana information guide, please ask at the temple office or contact us.
-          </p>
+        </div>
+        <div class="lg:col-span-8 space-y-10">
+
+          {/* Sponsored Pujas */}
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Sponsored Pujas</h3>
+            <div class="space-y-4">
+              {[
+                { name: 'Vadai Malai', note: 'Vadai Malai can be ordered through the priest' },
+                { name: 'Mothaka Poojai', note: 'Mothakam can be ordered through the priest. Poojai with Neivetham available.' },
+                { name: 'Thiruvembavai', note: 'Devotees to bring fruits, flowers & five coconuts' },
+                { name: 'Kuru Poojai', note: 'Devotees to bring fruits, flowers & five coconuts' },
+                { name: 'Sathyanarayana Poojai', note: 'Devotees to bring fruits, flowers & five coconuts' },
+              ].map((item, i) => (
+                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
+                  <div class="col-span-12">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sponsored Abishekams */}
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Sponsored Abishekams</h3>
+            <div class="space-y-4">
+              {[
+                { name: 'Paal Abishekam', note: 'Abishekam with milk. Sponsor receives one prasadam.' },
+                { name: 'Thiraviya Abishekam', note: 'Sponsor receives one prasadam.' },
+                { name: 'Nava Kalasa Abishekam', note: 'On a regular day. Sponsor receives two prasadams.' },
+                { name: 'Nava Kalasa Abishekam (Special Days)', note: 'During special festival days. Sponsor receives two prasadams.' },
+                { name: 'Sankadahara Chathurthi / Monthly Chathurthi Abishekam', note: 'Includes circumambulation of the inner sanctum. (Excludes Aavani Chathurthi.) Sponsor receives prasadam.' },
+                { name: 'Navagrana Homam & Abishekam', note: 'Sponsor receives prasadam.' },
+                { name: 'Sangabishekam', note: 'Abishekam performed with a conch (shankh). Sponsor receives prasadam.' },
+              ].map((item, i) => (
+                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
+                  <div class="col-span-12">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p class="mt-6 text-sm text-[var(--color-ink-mute)] border-l-2 border-[var(--color-rule)] pl-4">
+              Additional prasadams can be ordered by contacting the priest in advance.
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -128,19 +261,112 @@ export const prerender = true;
           <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Festival Procedures</h2>
           <p lang="ta" class="tamil-display !text-3xl mb-6">திருவிழா நடைமுறை</p>
         </div>
-        <div class="lg:col-span-8 prose-content text-[var(--color-ink-soft)] text-lg leading-relaxed space-y-6">
-          <p>
-            SSVK temple festivals follow traditional Agamic procedures as observed in South Indian Saiva temples. Each festival involves specific rituals performed by the temple Kurukkal (priest) in accordance with the <em>Agama Sastra</em>.
+        <div class="lg:col-span-8 space-y-10">
+          <div class="prose-content text-[var(--color-ink-soft)] text-base leading-relaxed space-y-4">
+            <p>
+              Temple festivals for various deities are arranged as prescribed in the Agama Shastras. Dates are published separately in the Special Days & Festivals calendar.
+            </p>
+            <p>
+              Devotees may sponsor any festival through the temple priest. Payment must be made in advance and the receipt produced before the festival commences.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Festival Sponsorship</h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-12 gap-4 items-start">
+                <div class="col-span-12">
+                  <p class="font-medium text-[var(--color-ink)]">Thiru Kalyanam</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">
+                    Includes Abishekam and Alankara Puja of Utsava Moorthy and circumambulation of inner and outer sanctum.
+                    Sponsor receives one prasadam. Devotee to provide Thiru Mangalyam.
+                  </p>
+                </div>
+              </div>
+              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
+                <div class="col-span-12">
+                  <p class="font-medium text-[var(--color-ink)]">Alankara Puja of Utsava Moorthy</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">Sponsor receives two prasadams.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* LIFE EVENTS & OTHER FUNCTIONS */}
+  <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
+    <div class="container-tight">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-5">Life Events</p>
+          <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Other Functions</h2>
+          <p lang="ta" class="tamil-display !text-3xl mb-6">வாழ்க்கை நிகழ்வுகள்</p>
+          <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed">
+            Please consult the priest for the necessary materials required for each function.
+            Thakshanai (Dakshina) may be given at the devotee's discretion.
           </p>
-          <p>
-            Devotees are welcome to participate in all public festival events. Major festivals such as Vinayakar Chaturthi, Panguni Uthiram, and the annual Kumbabishekam anniversary involve multiple days of rituals, processions, and community gatherings.
-          </p>
-          <p>
-            Sponsorship opportunities are available for festival events. Sponsors are honoured during the proceedings and receive a formal receipt for tax purposes. Please contact the temple committee to discuss sponsorship arrangements.
-          </p>
+        </div>
+        <div class="lg:col-span-8 space-y-10">
+
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">At the Temple</h3>
+            <div class="space-y-4">
+              {[
+                { name: 'Naamakaranam', note: 'Naming ceremony for newborns' },
+                { name: 'Annaprasannam', note: 'First rice-feeding ceremony' },
+                { name: 'Vidyarambham', note: 'Initiation into learning. Devotees to bring fruits, flowers, rice, coconut, candy, sugar & a small bottle of honey.' },
+                { name: 'Karnavethanam', note: 'Ear-piercing ceremony' },
+                { name: 'Offering newborn to Deity', note: 'Presenting newborn to the deity and buying back' },
+                { name: 'Blessing of Vehicles', note: '' },
+                { name: 'Wedding Short Ceremony', note: 'Pillaiyar Poojai and Thali tying only' },
+                { name: 'Ayush Homam', note: 'Longevity homam' },
+                { name: 'Thivastam / Shradh', note: 'Ancestral rites — can be arranged with the priest' },
+              ].map((item, i) => (
+                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
+                  <div class="col-span-12">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    {item.note && <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Outside the Temple</h3>
+            <p class="text-sm text-[var(--color-ink-soft)] mb-4">
+              The priest will bring brass utensils (pots, lamps), navathaniayam and homa thiraviyam.
+              Devotees must provide flowers, fruits, coconuts, rice, camphor, ghee, mango leaves and dried mango twigs for homam.
+            </p>
+            <div class="space-y-4">
+              {[
+                { name: 'Wedding Full Ceremony — Temple Hall', note: '' },
+                { name: 'Wedding Full Ceremony — Other Venues', note: '' },
+                { name: 'Grahapravesam (Full Ceremony)', note: 'Includes Ganapathy Homam, Laxmi Homam & Navagrana Homam' },
+                { name: 'Grahapravesam (Ganapathy Homam only)', note: 'Includes Ganapathy Homam, Punyavachanam & Pada Poojai' },
+                { name: 'Grahapravesam (Basic Ceremony)', note: 'Ganapathy Poojai, Punyavachanam & Pada Poojai' },
+                { name: 'Foundation Ceremony', note: 'Punyaha Vaachanam & Thudakku Kalivu' },
+                { name: 'Upanayanam', note: 'Sacred thread ceremony' },
+                { name: 'Ayush Homam', note: '' },
+                { name: 'Thivastam / Chabindikaranam', note: '1st day ceremony after death' },
+              ].map((item, i) => (
+                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
+                  <div class="col-span-12">
+                    <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
+                    {item.note && <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <p class="text-sm text-[var(--color-ink-mute)] border-l-2 border-[var(--color-rule)] pl-4">
-            The full Temple Festival Procedure document is available at the temple office.
+            For bookings please contact the temple priest or the Temple President at
+            <a href="mailto:hasqpresident@gmail.com" class="text-[var(--color-saffron)] ml-1">hasqpresident@gmail.com</a>
           </p>
+
         </div>
       </div>
     </div>
