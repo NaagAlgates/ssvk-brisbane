@@ -5,11 +5,13 @@ import keystaticConfig from '../../keystatic.config';
 
 let services: any[] = [];
 let festivals: any[] = [];
+let events: any[] = [];
 
 try {
   const reader = createReader(process.cwd(), keystaticConfig);
   services = await reader.collections.poojaServices.all();
   festivals = await reader.collections.festivals.all();
+  events = await reader.collections.events.all();
 } catch {}
 
 const today = new Date();
@@ -19,6 +21,13 @@ const upcomingFestivals = festivals
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 const allServices = services.map((s) => ({ ...s.entry, slug: s.slug }));
+
+const allEvents = events
+  .map((e) => ({ ...e.entry, slug: e.slug }))
+  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const prerender = true;
 ---
 <Layout title="Services & Festivals">
@@ -189,6 +198,75 @@ export const prerender = true;
           Festival calendar will appear here once added via the admin panel.
         </p>
       )}
+    </div>
+  </section>
+
+  {/* MONTHLY PROGRAMME */}
+  <section class="py-24 md:py-32 border-t border-[var(--color-rule)]">
+    <div class="container-tight">
+      <div class="grid lg:grid-cols-12 gap-12 mb-12">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-5">Monthly Observances</p>
+          <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Monthly Programme</h2>
+          <p lang="ta" class="tamil-display !text-3xl mb-6">மாத நிகழ்ச்சிகள்</p>
+          <p class="text-[var(--color-ink-soft)] leading-relaxed text-sm">
+            Regular observances, abishekams, and special poojas as listed in the monthly newsletter.
+          </p>
+        </div>
+        <div class="lg:col-span-8">
+          {allEvents.length > 0 ? (
+            <div class="space-y-0">
+              {allEvents.map((ev, i) => {
+                const evDate = new Date(ev.date);
+                const dayNum = evDate.getDate();
+                const weekday = WEEKDAYS[evDate.getDay()];
+                const month = MONTHS[evDate.getMonth()].substring(0, 3);
+                const isMajor = ev.type === 'major';
+                const program: { time: string; activity: string }[] = ev.program ?? [];
+                return (
+                  <div class={`grid grid-cols-12 gap-x-6 gap-y-1 py-5 ${i > 0 ? 'border-t border-[var(--color-rule)]' : ''}`}>
+                    <div class="col-span-2 pt-0.5">
+                      <p class="text-3xl leading-none font-light" style={isMajor ? 'color: var(--color-saffron);' : 'color: var(--color-ink);'}>
+                        {dayNum}
+                      </p>
+                      <p class="text-[0.65rem] tracking-widest uppercase text-[var(--color-ink-mute)] mt-1">
+                        {weekday.substring(0, 3)} {month}
+                      </p>
+                    </div>
+                    <div class="col-span-10">
+                      <div class="flex items-baseline gap-3 mb-2">
+                        <h3 class="text-lg text-[var(--color-ink)]" style="font-weight: 500;">{ev.title}</h3>
+                        {isMajor && (
+                          <span class="text-[0.6rem] tracking-widest uppercase px-2 py-0.5 border border-[var(--color-saffron)] text-[var(--color-saffron)]">
+                            Major
+                          </span>
+                        )}
+                      </div>
+                      {ev.titleTamil && (
+                        <p lang="ta" class="text-sm text-[var(--color-saffron)] tamil-body mb-2">{ev.titleTamil}</p>
+                      )}
+                      {program.length > 0 && (
+                        <div class="space-y-1 mt-2">
+                          {program.map((item) => (
+                            <div class="flex gap-4 text-sm">
+                              <span class="tabular-nums shrink-0 w-16" style="color: var(--color-saffron);">{item.time}</span>
+                              <span class="text-[var(--color-ink-soft)]">{item.activity}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p class="card text-[var(--color-ink-soft)] italic">
+              Monthly programme will appear here once added via the admin panel.
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   </section>
 </Layout>

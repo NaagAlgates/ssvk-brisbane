@@ -6,11 +6,9 @@ import keystaticConfig from '../../keystatic.config';
 import Markdoc from '@markdoc/markdoc';
 
 let newsletters: any[] = [];
-let events: any[] = [];
 try {
   const reader = createReader(process.cwd(), keystaticConfig);
   newsletters = await reader.collections.newsletters.all();
-  events = await reader.collections.events.all();
 } catch {}
 
 const toHtml = (field: any): string => {
@@ -21,21 +19,6 @@ const toHtml = (field: any): string => {
 const sorted = newsletters
   .map((n) => ({ ...n.entry, slug: n.slug }))
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-const allEvents = events.map((e) => ({ ...e.entry, slug: e.slug }));
-
-function getMonthEvents(newsletterDate: string) {
-  const nd = new Date(newsletterDate);
-  return allEvents
-    .filter((e) => {
-      const ed = new Date(e.date);
-      return ed.getFullYear() === nd.getFullYear() && ed.getMonth() === nd.getMonth();
-    })
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-}
-
-const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 ---
 <Layout title="News">
   <section class="pt-32 md:pt-44 pb-12">
@@ -49,31 +32,37 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
   <section class="pb-24 md:pb-32">
     <div class="container-tight max-w-4xl">
       {sorted.length > 0 ? (
-        <div class="space-y-24">
+        <div class="divide-y divide-[var(--color-rule)]">
           {sorted.map((n) => {
             const bodyHtml = toHtml(n.body);
             const date = n.date ? new Date(n.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
-            const monthEvents = n.date ? getMonthEvents(n.date) : [];
-            const nd = n.date ? new Date(n.date) : null;
-            const monthLabel = nd ? `${MONTHS[nd.getMonth()]} ${nd.getFullYear()}` : '';
             return (
-              <article class="border-t border-[var(--color-rule)] pt-12">
-                <div class="grid lg:grid-cols-12 gap-8 mb-12">
+              <details class="group">
+                <summary class="flex items-center justify-between gap-6 py-8 cursor-pointer list-none">
+                  <div class="flex flex-wrap items-baseline gap-x-6 gap-y-1">
+                    {date && <p class="eyebrow eyebrow-mute shrink-0">{date}</p>}
+                    <h2 class="text-xl text-[var(--color-ink)]" style="font-weight: 400;">{n.title}</h2>
+                  </div>
+                  <span class="text-[var(--color-ink-mute)] transition-transform duration-200 group-open:rotate-180 shrink-0">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path d="M5 7.5l5 5 5-5"/>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="grid lg:grid-cols-12 gap-8 pb-10">
                   <div class="lg:col-span-3">
-                    {date && <p class="eyebrow eyebrow-mute mb-2">{date}</p>}
                     {n.pdfUrl && (
                       <a
                         href={n.pdfUrl}
                         target="_blank"
                         rel="noopener"
-                        class="inline-flex items-center gap-2 text-sm text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] transition-colors mt-4"
+                        class="inline-flex items-center gap-2 text-sm text-[var(--color-saffron)] hover:text-[var(--color-saffron-soft)] transition-colors"
                       >
                         Download PDF
                       </a>
                     )}
                   </div>
                   <div class="lg:col-span-9">
-                    <h2 class="text-3xl text-[var(--color-ink)] mb-6" style="font-weight: 400;">{n.title}</h2>
                     {bodyHtml ? (
                       <div class="prose-content text-[var(--color-ink-soft)] text-lg leading-relaxed" set:html={bodyHtml} />
                     ) : n.pdfUrl ? (
@@ -83,69 +72,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
                     ) : null}
                   </div>
                 </div>
-
-                {monthEvents.length > 0 && (
-                  <div class="border-t border-[var(--color-rule)] pt-10">
-                    <div class="grid lg:grid-cols-12 gap-8">
-                      <div class="lg:col-span-3">
-                        <p class="eyebrow mb-2">Programme</p>
-                        <p class="text-sm text-[var(--color-ink-mute)]">{monthLabel}</p>
-                      </div>
-                      <div class="lg:col-span-9">
-                        <h3 class="text-xl text-[var(--color-ink)] mb-8" style="font-weight: 400;">Events &amp; Observances</h3>
-                        <div class="space-y-0">
-                          {monthEvents.map((ev, i) => {
-                            const evDate = new Date(ev.date);
-                            const dayNum = evDate.getDate();
-                            const weekday = WEEKDAYS[evDate.getDay()];
-                            const month = MONTHS[evDate.getMonth()].substring(0, 3);
-                            const isMajor = ev.type === 'major';
-                            const program: { time: string; activity: string }[] = ev.program ?? [];
-                            return (
-                              <div class={`grid grid-cols-12 gap-x-6 gap-y-1 py-5 ${i > 0 ? 'border-t border-[var(--color-rule)]' : ''}`}>
-                                {/* Date column */}
-                                <div class="col-span-2 md:col-span-2 pt-0.5">
-                                  <p class="text-3xl leading-none font-light text-[var(--color-ink)]" style={isMajor ? 'color: var(--color-saffron);' : ''}>
-                                    {dayNum}
-                                  </p>
-                                  <p class="text-[0.65rem] tracking-widest uppercase text-[var(--color-ink-mute)] mt-1">
-                                    {weekday.substring(0, 3)} {month}
-                                  </p>
-                                </div>
-
-                                {/* Event name + program */}
-                                <div class="col-span-10 md:col-span-10">
-                                  <div class="flex items-baseline gap-3 mb-3">
-                                    <h4 class="text-lg text-[var(--color-ink)]" style="font-weight: 500;">{ev.title}</h4>
-                                    {isMajor && (
-                                      <span class="text-[0.6rem] tracking-widest uppercase px-2 py-0.5 border border-[var(--color-saffron)] text-[var(--color-saffron)]">
-                                        Major
-                                      </span>
-                                    )}
-                                  </div>
-                                  {ev.titleTamil && (
-                                    <p lang="ta" class="text-sm text-[var(--color-saffron)] tamil-body mb-3">{ev.titleTamil}</p>
-                                  )}
-                                  {program.length > 0 && (
-                                    <div class="space-y-1">
-                                      {program.map((item) => (
-                                        <div class="flex gap-4 text-sm">
-                                          <span class="text-[var(--color-saffron)] tabular-nums shrink-0 w-16">{item.time}</span>
-                                          <span class="text-[var(--color-ink-soft)]">{item.activity}</span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </article>
+              </details>
             );
           })}
         </div>
