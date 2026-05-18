@@ -312,8 +312,8 @@ export const prerender = true;
       : [[450, 720], [1020, 1230]]; // 7:30am–12:00pm, 5:00pm–8:30pm
     const isOpen = windows.some(([s, e]) => mins >= s && mins < e);
     badge.textContent = isOpen ? 'Open Now' : 'Closed';
-    badge.style.background = isOpen ? 'rgba(34,197,94,0.12)' : 'rgba(0,0,0,0.06)';
-    badge.style.color = isOpen ? '#16a34a' : 'var(--color-ink-mute)';
+    badge.style.background = isOpen ? 'rgba(34,197,94,0.12)' : 'rgba(220,38,38,0.1)';
+    badge.style.color = isOpen ? '#16a34a' : '#dc2626';
     badge.classList.remove('hidden');
   })();
 </script>
