@@ -6,7 +6,7 @@ const links = [
   { href: '/visit', label: 'Visit' },
   { href: '/donate', label: 'Donate' },
 ];
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <header class="absolute top-0 inset-x-0 z-50 bg-transparent">
   <div class="container-tight flex items-center justify-between py-6">
