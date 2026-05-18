@@ -265,7 +265,10 @@ export const prerender = true;
         </div>
 
         <div class="lg:col-span-5 card card-hover">
-          <p class="eyebrow mb-4">Opening Hours</p>
+          <div class="flex items-center justify-between mb-4">
+            <p class="eyebrow">Opening Hours</p>
+            <span id="temple-status" class="hidden text-xs px-2.5 py-1 rounded-full font-medium"></span>
+          </div>
           <div class="space-y-5 mb-6">
             <div>
               <p class="text-[var(--color-ink)] font-semibold mb-1">Monday – Friday</p>
@@ -288,3 +291,25 @@ export const prerender = true;
     </div>
   </section>
 </Layout>
+
+<script>
+  (function () {
+    const badge = document.getElementById('temple-status');
+    if (!badge) return;
+    const now = new Date();
+    // Convert to Brisbane time (AEST = UTC+10, no daylight saving in Queensland)
+    const bris = new Date(now.toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }));
+    const day = bris.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+    const mins = bris.getHours() * 60 + bris.getMinutes();
+    const isWeekend = day === 0 || day === 6;
+    // Open windows in minutes from midnight
+    const windows = isWeekend
+      ? [[450, 780], [1020, 1230]]  // 7:30am–1:00pm, 5:00pm–8:30pm
+      : [[450, 720], [1020, 1230]]; // 7:30am–12:00pm, 5:00pm–8:30pm
+    const isOpen = windows.some(([s, e]) => mins >= s && mins < e);
+    badge.textContent = isOpen ? 'Open Now' : 'Closed';
+    badge.style.background = isOpen ? 'rgba(34,197,94,0.12)' : 'rgba(0,0,0,0.06)';
+    badge.style.color = isOpen ? '#16a34a' : 'var(--color-ink-mute)';
+    badge.classList.remove('hidden');
+  })();
+</script>
