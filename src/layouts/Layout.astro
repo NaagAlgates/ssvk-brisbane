@@ -2,6 +2,8 @@
 import '~/styles/global.css';
 import Nav from '~/components/Nav.astro';
 import Footer from '~/components/Footer.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
 
 interface Props {
   title: string;
@@ -9,6 +11,20 @@ interface Props {
 }
 
 const { title, description = 'Sri Selva Vinayakar Koyil — Ganesha Temple, Brisbane. A traditional Hindu temple serving the community of South-East Queensland since 1995.' } = Astro.props;
+
+let activeNotices: any[] = [];
+try {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  const all = await reader.collections.notices.all();
+  const today = new Date().toISOString().slice(0, 10);
+  activeNotices = all
+    .map((n) => ({ ...n.entry, slug: n.slug }))
+    .filter((n) => !n.expiresOn || n.expiresOn >= today)
+    .sort((a, b) => {
+      const pri = { high: 0, normal: 1, low: 2 };
+      return (pri[a.priority as keyof typeof pri] ?? 1) - (pri[b.priority as keyof typeof pri] ?? 1);
+    });
+} catch {}
 ---
 <!doctype html>
 <html lang="en">
@@ -32,6 +48,26 @@ const { title, description = 'Sri Selva Vinayakar Koyil — Ganesha Temple, Bris
   </head>
   <body>
     <Nav />
+    {activeNotices.length > 0 && (
+      <div class="notice-banners">
+        {activeNotices.map((n) => {
+          const isHigh = n.priority === 'high';
+          const isLow = n.priority === 'low';
+          const bg = isHigh ? 'rgba(220,38,38,0.08)' : isLow ? 'rgba(0,0,0,0.04)' : 'rgba(201,115,14,0.08)';
+          const border = isHigh ? '#dc2626' : isLow ? 'var(--color-rule)' : 'var(--color-saffron)';
+          const color = isHigh ? '#dc2626' : isLow ? 'var(--color-ink-soft)' : 'var(--color-saffron)';
+          const icon = isHigh ? '⚠' : isLow ? 'ℹ' : '📢';
+          return (
+            <div style={`background:${bg}; border-bottom: 1px solid ${border};`}>
+              <div class="container-tight py-3 flex items-center gap-3 text-sm">
+                <span style={`color:${color}; font-size:1rem;`}>{icon}</span>
+                <p style={`color:${color}; font-weight:500;`}>{n.title}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    )}
     <main>
       <slot />
     </main>
