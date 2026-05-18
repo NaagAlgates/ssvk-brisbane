@@ -43,8 +43,8 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div>
           <p class="eyebrow mb-2" style="color: var(--color-saffron);">Open This Weekend</p>
-          <h2 class="text-[var(--color-ink)] text-3xl" style="font-weight: 400;">Saturday & Sunday · 9:00 AM – 2:00 PM</h2>
-          <p class="text-sm text-[var(--color-ink-soft)] mt-2">All dosas served with coconut chutney and sambar. Extra potato masala, sambar & chutney available for $3.00.</p>
+          <h2 class="text-[var(--color-ink)] text-3xl" style="font-weight: 400;">Saturday & Sunday · {canteen?.weekendOpenTime ?? '9:00am'} – {canteen?.weekendCloseTime ?? '2:00pm'}</h2>
+          {canteen?.openingNote && <p class="text-sm text-[var(--color-ink-soft)] mt-2">{canteen.openingNote}</p>}
         </div>
         <div class="px-5 py-3 bg-[var(--color-paper)] border border-[var(--color-rule)]">
           <CanteenStatus canteen={canteen ?? {}} variant="pill" />
@@ -71,7 +71,7 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
               {item.photo && (
                 <div class="aspect-[4/3] overflow-hidden">
                   <img
-                    src={item.photo}
+                    src={`/images/menu/${item.photo}`}
                     alt={item.name}
                     class="w-full h-full object-cover"
                     loading="lazy"
@@ -91,7 +91,7 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
             </div>
           ))}
         </div>
-        <p class="mt-4 text-xs text-[var(--color-ink-mute)]">Extra Potato Masala, Sambar & Chutney — $3.00</p>
+        {canteen?.dosaSideNote && <p class="mt-4 text-xs text-[var(--color-ink-mute)]">{canteen.dosaSideNote}</p>}
       </div>
     </section>
   )}
@@ -111,7 +111,7 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
               {item.photo && (
                 <div class="aspect-square overflow-hidden">
                   <img
-                    src={item.photo}
+                    src={`/images/menu/${item.photo}`}
                     alt={item.name}
                     class="w-full h-full object-cover"
                     loading="lazy"
@@ -131,7 +131,7 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
             </div>
           ))}
         </div>
-        <p class="mt-4 text-xs text-[var(--color-ink-mute)]">All items served with coconut chutney and sambar in small container.</p>
+        {canteen?.varietiesNote && <p class="mt-4 text-xs text-[var(--color-ink-mute)]">{canteen.varietiesNote}</p>}
       </div>
     </section>
   )}
@@ -150,7 +150,7 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
               {item.photo && (
                 <div class="aspect-square overflow-hidden">
                   <img
-                    src={item.photo}
+                    src={`/images/menu/${item.photo}`}
                     alt={item.name}
                     class="w-full h-full object-cover"
                     loading="lazy"
@@ -188,7 +188,7 @@ const drinks   = availableMenu.filter((m) => m.category === 'drinks');
               {item.photo && (
                 <div class="aspect-square overflow-hidden">
                   <img
-                    src={item.photo}
+                    src={`/images/menu/${item.photo}`}
                     alt={item.name}
                     class="w-full h-full object-cover"
                     loading="lazy"

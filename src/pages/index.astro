@@ -41,6 +41,10 @@ const addr = site ?? {
   emailGeneral: 'info@ssvk.org.au',
   googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Sri+Selva+Vinayakar+Koyil+South+Maclean',
 };
+const yearEstablished = site?.yearEstablished ?? 1995;
+const yearsOfWorship = new Date().getFullYear() - yearEstablished;
+const acresGrounds = site?.acresGrounds ?? 4.5;
+const distanceKm = site?.distanceKm ?? 35;
 export const prerender = true;
 ---
 <Layout title="Home">
@@ -84,17 +88,17 @@ export const prerender = true;
   <section class="py-20 md:py-28 bg-[var(--color-paper-soft)] border-y border-[var(--color-rule)]">
     <div class="container-tight grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center">
       <div>
-        <p class="stat-number text-[var(--color-saffron)]">30</p>
+        <p class="stat-number text-[var(--color-saffron)]">{yearsOfWorship}</p>
         <p class="eyebrow mt-3 eyebrow-mute">Years of worship</p>
-        <p class="text-sm text-[var(--color-ink-soft)] mt-1">Since 1995</p>
+        <p class="text-sm text-[var(--color-ink-soft)] mt-1">Since {yearEstablished}</p>
       </div>
       <div>
-        <p class="stat-number">4.5</p>
+        <p class="stat-number">{acresGrounds}</p>
         <p class="eyebrow mt-3 eyebrow-mute">Acres of grounds</p>
         <p class="text-sm text-[var(--color-ink-soft)] mt-1">By the Logan River</p>
       </div>
       <div>
-        <p class="stat-number">35<span class="text-2xl align-top ml-1">km</span></p>
+        <p class="stat-number">{distanceKm}<span class="text-2xl align-top ml-1">km</span></p>
         <p class="eyebrow mt-3 eyebrow-mute">South of Brisbane</p>
         <p class="text-sm text-[var(--color-ink-soft)] mt-1">Mt Lindesay Hwy</p>
       </div>
