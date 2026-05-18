@@ -50,12 +50,12 @@ const VARIETIES = [
 ];
 
 const SNACKS_DRINKS = [
-  { name: 'Murukku', price: '$6.50', desc: 'Pack of five', img: 'https://images.unsplash.com/photo-1709091052718-3cb8a990edfa?w=300&q=80' },
-  { name: 'Mango Lassi', price: '$3.50', desc: '', img: 'https://images.unsplash.com/photo-1577221912057-d2030b722d58?w=300&q=80' },
-  { name: 'Coffee', price: '$2.00', desc: '', img: null },
-  { name: 'Tea', price: '$2.00', desc: '', img: null },
-  { name: 'Soft Drink', price: '$2.00', desc: '', img: null },
-  { name: 'Water Bottle', price: '$2.00', desc: '', img: null },
+  { name: 'Murukku', price: '$6.50', desc: 'Pack of five', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7D3CZbqTNFDh4vUA1VFQovXFAMKQb_Jj7Dg&s' },
+  { name: 'Mango Lassi', price: '$3.50', desc: '', img: 'https://littlesunnykitchen.com/wp-content/uploads/2019/08/Vegan-Mango-Lassi-2.jpg' },
+  { name: 'Coffee', price: '$2.00', desc: '', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYyMeagvSMSWNx1a4Yj9tvNioKyTkhTMdZNg&s' },
+  { name: 'Tea', price: '$2.00', desc: '', img: 'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipes%2F2023-12-milk-tea%2Fmilk-tea-587' },
+  { name: 'Soft Drink', price: '$2.00', desc: '', img: 'https://portobellorivercruiser.com.au/wp-content/uploads/2020/09/Cans.jpg' },
+  { name: 'Water Bottle', price: '$2.00', desc: '', img: 'https://cdn.shopify.com/s/files/1/0447/0957/6866/products/30023106.jpg?v=1647385195' },
 ];
 ---
 <Layout title="Temple Canteen · Kamadhenu">
@@ -173,14 +173,24 @@ const SNACKS_DRINKS = [
         <p class="eyebrow mb-3" style="color: var(--color-saffron);">Snacks & Drinks</p>
         <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Freshly Made & Beverages</h2>
       </div>
-      <div class="divide-y divide-[var(--color-rule)] max-w-xl">
+      <div class="grid sm:grid-cols-3 lg:grid-cols-6 gap-4">
         {SNACKS_DRINKS.map((item) => (
-          <div class="flex items-center justify-between gap-4 py-4">
-            <div>
-              <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
-              {item.desc && <p class="text-sm text-[var(--color-ink-mute)]">{item.desc}</p>}
+          <div class="bg-[var(--color-paper-soft)] rounded-sm overflow-hidden border border-[var(--color-rule)] hover:border-[var(--color-saffron)] transition-colors">
+            <div class="aspect-square overflow-hidden">
+              <img
+                src={item.img}
+                alt={item.name}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
-            <p class="text-xl font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">{item.price}</p>
+            <div class="p-3">
+              <div class="flex items-start justify-between gap-1 mb-1">
+                <p class="font-medium text-[var(--color-ink)] text-sm leading-tight">{item.name}</p>
+                <p class="text-base font-[var(--font-display)] text-[var(--color-saffron)] whitespace-nowrap" style="font-weight: 600;">{item.price}</p>
+              </div>
+              {item.desc && <p class="text-xs text-[var(--color-ink-mute)]">{item.desc}</p>}
+            </div>
           </div>
         ))}
       </div>
