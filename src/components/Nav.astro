@@ -1,4 +1,10 @@
 ---
+interface Props {
+  variant?: 'light' | 'dark';
+}
+const { variant = 'dark' } = Astro.props;
+const isLight = variant === 'light';
+
 const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
@@ -10,11 +16,11 @@ const links = [
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="absolute top-0 inset-x-0 z-50 bg-transparent">
-  <div class="container-tight flex items-center justify-between py-6">
+<header id="site-header" class="fixed top-0 inset-x-0 z-50" data-light={isLight ? '' : undefined}>
+  <div class="container-tight flex items-center justify-between py-5">
     <a href="/" class="flex items-baseline gap-3 no-underline group">
       <span class="font-[var(--font-display)] leading-tight">
-        <span class="block text-base md:text-lg font-semibold tracking-wide text-[var(--color-ink)]">
+        <span class="nav-logo block text-base md:text-lg font-semibold tracking-wide">
           SSVK
         </span>
       </span>
@@ -28,18 +34,14 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
           <li>
             <a
               href={l.href}
-              class={`px-4 py-2 text-sm font-medium transition-colors ${
-                path === l.href
-                  ? 'text-[var(--color-saffron)]'
-                  : 'text-[var(--color-ink)] hover:text-[var(--color-saffron)]'
-              }`}
+              class={`nav-link px-4 py-2 text-sm font-medium transition-colors ${path === l.href ? 'nav-link-active' : ''}`}
             >
               {l.label}
             </a>
           </li>
         ))}
         <li>
-          <a href="/donate" class="ml-2 btn btn-primary !py-2 !px-5 !min-h-[40px] text-xs">
+          <a href="/donate" class="nav-donate ml-2 btn !py-2 !px-5 !min-h-[40px] text-xs">
             Donate
           </a>
         </li>
@@ -66,3 +68,45 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     </ul>
   </nav>
 </header>
+
+<style>
+  /* ── Base nav colours ── */
+  #site-header .nav-logo          { color: var(--color-ink); }
+  #site-header .nav-link          { color: var(--color-ink); }
+  #site-header .nav-link:hover    { color: var(--color-saffron); }
+  #site-header .nav-link-active   { color: var(--color-saffron); }
+  #site-header .nav-donate        { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
+  #site-header .nav-donate:hover  { background: var(--color-saffron); border-color: var(--color-saffron); color: var(--color-paper); }
+
+  /* ── Light variant (hero pages) — white text on photo ── */
+  #site-header[data-light] .nav-logo        { color: white; }
+  #site-header[data-light] .nav-link        { color: rgba(255,255,255,0.85); }
+  #site-header[data-light] .nav-link:hover  { color: white; }
+  #site-header[data-light] .nav-link-active { color: var(--color-saffron); }
+  #site-header[data-light] .nav-donate      { background: var(--color-saffron); color: white; border-color: var(--color-saffron); }
+
+  /* ── Scrolled — frosted glass, always dark text ── */
+  #site-header.is-scrolled {
+    background: rgba(251, 250, 247, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-rule);
+    box-shadow: 0 1px 20px -4px rgba(26, 24, 21, 0.10);
+    transition: background 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  }
+  #site-header.is-scrolled .nav-logo        { color: var(--color-ink) !important; }
+  #site-header.is-scrolled .nav-link        { color: var(--color-ink) !important; }
+  #site-header.is-scrolled .nav-link:hover  { color: var(--color-saffron) !important; }
+  #site-header.is-scrolled .nav-link-active { color: var(--color-saffron) !important; }
+  #site-header.is-scrolled .nav-donate      { background: var(--color-ink) !important; color: var(--color-paper) !important; border-color: var(--color-ink) !important; }
+  #site-header.is-scrolled .nav-donate:hover { background: var(--color-saffron) !important; border-color: var(--color-saffron) !important; }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  if (header) {
+    const update = () => header.classList.toggle('is-scrolled', window.scrollY > 70);
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>

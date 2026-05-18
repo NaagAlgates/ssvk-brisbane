@@ -8,9 +8,10 @@ import keystaticConfig from '../../keystatic.config';
 interface Props {
   title: string;
   description?: string;
+  navVariant?: 'light' | 'dark';
 }
 
-const { title, description = 'Sri Selva Vinayakar Koyil — Ganesha Temple, Brisbane. A traditional Hindu temple serving the community of South-East Queensland since 1995.' } = Astro.props;
+const { title, description = 'Sri Selva Vinayakar Koyil — Ganesha Temple, Brisbane. A traditional Hindu temple serving the community of South-East Queensland since 1995.', navVariant = 'dark' } = Astro.props;
 
 let activeNotices: any[] = [];
 try {
@@ -47,7 +48,7 @@ try {
     <title>{title} — Sri Selva Vinayakar Koyil, Brisbane</title>
   </head>
   <body>
-    <Nav />
+    <Nav variant={navVariant} />
     {activeNotices.length > 0 && (
       <div class="notice-banners">
         {activeNotices.map((n) => {
