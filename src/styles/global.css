@@ -249,7 +249,7 @@
     font-family: var(--font-tamil-display);
     color: var(--color-saffron);
     opacity: 0.06;
-    font-size: clamp(20rem, 50vw, 45rem);
+    font-size: clamp(8rem, 20vw, 16rem);
     line-height: 1;
     pointer-events: none;
     user-select: none;
