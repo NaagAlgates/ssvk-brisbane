@@ -23,6 +23,16 @@ const allEvents = events
   .map((e) => ({ ...e.entry, slug: e.slug }))
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
+// Group events by month
+const eventsByMonth = new Map<string, typeof allEvents>();
+for (const ev of allEvents) {
+  const d = new Date(ev.date);
+  const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  if (!eventsByMonth.has(key)) eventsByMonth.set(key, []);
+  eventsByMonth.get(key)!.push(ev);
+}
+const monthGroups = [...eventsByMonth.entries()].sort(([a], [b]) => a.localeCompare(b));
+
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 ---
@@ -36,7 +46,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     </div>
   </section>
 
-  {/* FESTIVAL CALENDAR — VIBRANT REGISTER */}
+  {/* FESTIVAL CALENDAR */}
   <section class="festival-section py-32">
     <div class="container-tight">
       <div class="text-center mb-16">
@@ -95,53 +105,72 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
           <h2 class="text-[var(--color-ink)] mb-4" style="font-weight: 400;">Monthly Programme</h2>
           <p lang="ta" class="tamil-display !text-3xl mb-6">மாத நிகழ்ச்சிகள்</p>
           <p class="text-[var(--color-ink-soft)] leading-relaxed text-sm">
-            Regular observances, abishekams, and special poojas as listed in the monthly newsletter.
+            Regular observances, abishekams, and special poojas. Select a month to view its programme.
           </p>
         </div>
         <div class="lg:col-span-8">
-          {allEvents.length > 0 ? (
-            <div class="space-y-0">
-              {allEvents.map((ev, i) => {
-                const evDate = new Date(ev.date);
-                const dayNum = evDate.getDate();
-                const weekday = WEEKDAYS[evDate.getDay()];
-                const month = MONTHS[evDate.getMonth()].substring(0, 3);
-                const isMajor = ev.type === 'major';
-                const program: { time: string; activity: string }[] = ev.program ?? [];
+          {monthGroups.length > 0 ? (
+            <div class="space-y-2">
+              {monthGroups.map(([key, monthEvents]) => {
+                const [yearStr, monthStr] = key.split('-');
+                const monthName = MONTHS[parseInt(monthStr) - 1];
+                const year = parseInt(yearStr);
                 return (
-                  <div class={`grid grid-cols-12 gap-x-6 gap-y-1 py-5 ${i > 0 ? 'border-t border-[var(--color-rule)]' : ''}`}>
-                    <div class="col-span-2 pt-0.5">
-                      <p class="text-3xl leading-none font-light" style={isMajor ? 'color: var(--color-saffron);' : 'color: var(--color-ink);'}>
-                        {dayNum}
-                      </p>
-                      <p class="text-[0.65rem] tracking-widest uppercase text-[var(--color-ink-mute)] mt-1">
-                        {weekday.substring(0, 3)} {month}
-                      </p>
-                    </div>
-                    <div class="col-span-10">
-                      <div class="flex items-baseline gap-3 mb-2">
-                        <h3 class="text-lg text-[var(--color-ink)]" style="font-weight: 500;">{ev.title}</h3>
-                        {isMajor && (
-                          <span class="text-[0.6rem] tracking-widest uppercase px-2 py-0.5 border border-[var(--color-saffron)] text-[var(--color-saffron)]">
-                            Major
-                          </span>
-                        )}
-                      </div>
-                      {ev.titleTamil && (
-                        <p lang="ta" class="text-sm text-[var(--color-saffron)] tamil-body mb-2">{ev.titleTamil}</p>
-                      )}
-                      {program.length > 0 && (
-                        <div class="space-y-1 mt-2">
-                          {program.map((item) => (
-                            <div class="flex gap-4 text-sm">
-                              <span class="tabular-nums shrink-0 w-16" style="color: var(--color-saffron);">{item.time}</span>
-                              <span class="text-[var(--color-ink-soft)]">{item.activity}</span>
+                  <details id={`month-${key}`} class="month-accordion border border-[var(--color-rule)] rounded-sm overflow-hidden">
+                    <summary class="flex items-center justify-between px-5 py-4 cursor-pointer select-none list-none hover:bg-[var(--color-surface-raised)] transition-colors">
+                      <span class="text-base font-medium text-[var(--color-ink)]">{monthName} {year}</span>
+                      <span class="flex items-center gap-3">
+                        <span class="text-xs text-[var(--color-ink-mute)] tabular-nums">{monthEvents.length} events</span>
+                        <svg class="chevron w-4 h-4 text-[var(--color-ink-mute)] transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                      </span>
+                    </summary>
+                    <div class="divide-y divide-[var(--color-rule)] border-t border-[var(--color-rule)]">
+                      {monthEvents.map((ev) => {
+                        const evDate = new Date(ev.date);
+                        const dayNum = evDate.getDate();
+                        const weekday = WEEKDAYS[evDate.getDay()];
+                        const isMajor = ev.type === 'major';
+                        const program: { time: string; activity: string }[] = ev.program ?? [];
+                        return (
+                          <div class="grid grid-cols-12 gap-x-6 gap-y-1 px-5 py-5">
+                            <div class="col-span-2 pt-0.5">
+                              <p class="text-3xl leading-none font-light" style={isMajor ? 'color: var(--color-saffron);' : 'color: var(--color-ink);'}>
+                                {dayNum}
+                              </p>
+                              <p class="text-[0.65rem] tracking-widest uppercase text-[var(--color-ink-mute)] mt-1">
+                                {weekday.substring(0, 3)}
+                              </p>
                             </div>
-                          ))}
-                        </div>
-                      )}
+                            <div class="col-span-10">
+                              <div class="flex items-baseline gap-3 mb-2">
+                                <h3 class="text-base text-[var(--color-ink)]" style="font-weight: 500;">{ev.title}</h3>
+                                {isMajor && (
+                                  <span class="text-[0.6rem] tracking-widest uppercase px-2 py-0.5 border border-[var(--color-saffron)] text-[var(--color-saffron)]">
+                                    Major
+                                  </span>
+                                )}
+                              </div>
+                              {ev.titleTamil && (
+                                <p lang="ta" class="text-sm text-[var(--color-saffron)] tamil-body mb-2">{ev.titleTamil}</p>
+                              )}
+                              {program.length > 0 && (
+                                <div class="space-y-1 mt-2">
+                                  {program.map((item) => (
+                                    <div class="flex gap-4 text-sm">
+                                      <span class="tabular-nums shrink-0 w-16" style="color: var(--color-saffron);">{item.time}</span>
+                                      <span class="text-[var(--color-ink-soft)]">{item.activity}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  </div>
+                  </details>
                 );
               })}
             </div>
@@ -155,3 +184,17 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     </div>
   </section>
 </Layout>
+
+<style>
+  details.month-accordion[open] .chevron {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  // Open the accordion matching the visitor's current month
+  const now = new Date();
+  const key = `month-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const el = document.getElementById(key);
+  if (el) el.setAttribute('open', '');
+</script>
