@@ -20,7 +20,7 @@ const sorted = newsletters
   .map((n) => ({ ...n.entry, slug: n.slug }))
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
-<Layout title="News">
+<Layout title="News" description="Latest news and announcements from Sri Selva Vinayakar Koyil — Brisbane's Hindu Ganesha temple in South Maclean, Queensland.">
   <section class="pt-32 md:pt-44 pb-12">
     <div class="container-tight max-w-4xl">
       <p class="eyebrow mb-6">News & Updates</p>

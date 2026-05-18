@@ -47,6 +47,61 @@ try {
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap"
     />
     <title>{title} — Sri Selva Vinayakar Koyil, Brisbane</title>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HinduTemple",
+      "name": "Sri Selva Vinayakar Koyil",
+      "alternateName": ["Ganesha Temple Brisbane", "SSVK Brisbane", "ஸ்ரீ செல்வ விநாயகர் கோயில்"],
+      "description": "A traditional Hindu Ganesha temple serving the South-East Queensland community since 1995. Located beside the Logan River, 35 km south of Brisbane.",
+      "url": "https://ssvk.naaglabs.workers.dev",
+      "telephone": "+61755478064",
+      "email": "info@ssvk.org.au",
+      "foundingDate": "1995-02-05",
+      "image": "https://ssvk.naaglabs.workers.dev/images/temple-birds-view.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "4915–4923 Mt Lindesay Highway",
+        "addressLocality": "South Maclean",
+        "addressRegion": "QLD",
+        "postalCode": "4280",
+        "addressCountry": "AU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -27.785,
+        "longitude": 152.982
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "07:30",
+          "closes": "12:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "17:00",
+          "closes": "20:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday","Sunday"],
+          "opens": "07:30",
+          "closes": "13:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday","Sunday"],
+          "opens": "17:00",
+          "closes": "20:30"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=100064840352331",
+        "https://www.youtube.com/channel/UCk9J8Hm8iWsLhce9tkrP3gw"
+      ]
+    })} />
   </head>
   <body>
     <Nav variant={navVariant} />
