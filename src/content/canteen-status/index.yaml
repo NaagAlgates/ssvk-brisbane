@@ -1,4 +1,6 @@
-isOpen: true
-todayHoursOpen: 11:00am
-todayHoursClose: 8:00pm
+mode: auto
+weekendOpenTime: 9:00am
+weekendCloseTime: 2:00pm
+overrideOpenTime: 9:00am
+overrideCloseTime: 2:00pm
 specialNotice: ""

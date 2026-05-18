@@ -82,9 +82,20 @@ export default config({
       label: 'Canteen Status (live toggle)',
       path: 'src/content/canteen-status/',
       schema: {
-        isOpen: fields.checkbox({ label: 'Canteen is open today', defaultValue: true }),
-        todayHoursOpen: fields.text({ label: 'Today open time', defaultValue: '11:00am' }),
-        todayHoursClose: fields.text({ label: 'Today close time', defaultValue: '8:00pm' }),
+        mode: fields.select({
+          label: 'Status mode',
+          description: 'Auto: open weekends 9am-2pm, closed weekdays. Force open/closed overrides for a specific day.',
+          options: [
+            { label: 'Auto (open weekends only)', value: 'auto' },
+            { label: 'Force open today', value: 'force_open' },
+            { label: 'Force closed today', value: 'force_closed' },
+          ],
+          defaultValue: 'auto',
+        }),
+        weekendOpenTime: fields.text({ label: 'Default weekend open time', defaultValue: '9:00am' }),
+        weekendCloseTime: fields.text({ label: 'Default weekend close time', defaultValue: '2:00pm' }),
+        overrideOpenTime: fields.text({ label: 'Override open time (used when forced open)', defaultValue: '9:00am' }),
+        overrideCloseTime: fields.text({ label: 'Override close time (used when forced open)', defaultValue: '2:00pm' }),
         specialNotice: fields.text({ label: 'Special notice (optional)' }),
       },
     }),

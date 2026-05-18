@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import CanteenStatus from '~/components/CanteenStatus.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 
@@ -116,11 +117,8 @@ export const prerender = true;
           <p class="eyebrow mb-3">Temple Canteen</p>
           <h2 class="text-[var(--color-ink)]" style="font-weight: 400;">Kamadhenu</h2>
         </div>
-        <div class="flex items-center gap-3 px-4 py-2 bg-[var(--color-paper)] border border-[var(--color-rule)]">
-          <span class={`w-2.5 h-2.5 rounded-full ${canteen?.isOpen ? 'bg-[var(--color-teal)] animate-pulse' : 'bg-[var(--color-saffron)]'}`}></span>
-          <span class="text-[var(--color-ink)] font-medium">
-            {canteen?.isOpen ? `Open · ${canteen.todayHoursOpen} – ${canteen.todayHoursClose}` : 'Closed today'}
-          </span>
+        <div class="px-4 py-2 bg-[var(--color-paper)] border border-[var(--color-rule)]">
+          <CanteenStatus canteen={canteen ?? {}} variant="pill" />
         </div>
       </div>
 

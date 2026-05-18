@@ -1,9 +1,10 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import CanteenStatus from '~/components/CanteenStatus.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 
-let canteen: any = { isOpen: true, todayHoursOpen: '11:00am', todayHoursClose: '8:00pm' };
+let canteen: any = {};
 let hours: any = null;
 let festivals: any[] = [];
 let notices: any[] = [];
@@ -95,14 +96,8 @@ export const prerender = true;
   {/* LIVE STATUS BAND — light register */}
   <section class="bg-[var(--color-paper-soft)] border-y border-[var(--color-rule)]">
     <div class="container-tight grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-rule)]">
-      <div class="py-7 px-2 md:px-8 flex items-center gap-4">
-        <span class={`w-2.5 h-2.5 rounded-full ${canteen.isOpen ? 'bg-[var(--color-teal)] animate-pulse' : 'bg-[var(--color-saffron)]'}`}></span>
-        <div>
-          <p class="eyebrow !text-[0.6rem] eyebrow-mute">Canteen</p>
-          <p class="text-[var(--color-ink)] font-medium mt-1">
-            {canteen.isOpen ? `Open · ${canteen.todayHoursOpen} – ${canteen.todayHoursClose}` : 'Closed today'}
-          </p>
-        </div>
+      <div class="py-7 px-2 md:px-8">
+        <CanteenStatus canteen={canteen} variant="pill" />
       </div>
       <div class="py-7 px-2 md:px-8 flex items-center gap-4">
         <span class="text-[var(--color-saffron)] text-xl">◐</span>

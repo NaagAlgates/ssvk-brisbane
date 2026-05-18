@@ -1,0 +1,108 @@
+---
+/*
+  Renders canteen open/closed status based on:
+  - Admin "mode": auto / force_open / force_closed
+  - Auto mode: weekends (Sat/Sun in viewer's local timezone) → open with weekend hours, weekdays → closed
+  - Force modes override the auto logic for the current day
+  Variant controls layout: 'pill' (small status pill) | 'block' (large card content)
+*/
+interface Props {
+  canteen: {
+    mode?: string;
+    weekendOpenTime?: string;
+    weekendCloseTime?: string;
+    overrideOpenTime?: string;
+    overrideCloseTime?: string;
+    specialNotice?: string;
+  };
+  variant?: 'pill' | 'block';
+}
+const { canteen, variant = 'pill' } = Astro.props;
+const c = canteen ?? {};
+const mode = c.mode ?? 'auto';
+const id = `canteen-${Math.random().toString(36).slice(2, 9)}`;
+---
+<div
+  id={id}
+  class="canteen-status-host"
+  data-mode={mode}
+  data-weekend-open={c.weekendOpenTime ?? '9:00am'}
+  data-weekend-close={c.weekendCloseTime ?? '2:00pm'}
+  data-override-open={c.overrideOpenTime ?? '9:00am'}
+  data-override-close={c.overrideCloseTime ?? '2:00pm'}
+  data-variant={variant}
+>
+  {variant === 'pill' ? (
+    <div class="flex items-center gap-4">
+      <span class="canteen-dot w-2.5 h-2.5 rounded-full bg-[var(--color-ink-mute)]" data-open-color="var(--color-teal)" data-closed-color="var(--color-saffron)"></span>
+      <div>
+        <p class="eyebrow !text-[0.6rem] eyebrow-mute">Canteen</p>
+        <p class="canteen-text text-[var(--color-ink)] font-medium mt-1">Checking status…</p>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <p class="canteen-text text-2xl font-bold" style="color: var(--color-ink-soft);">Checking status…</p>
+      {c.specialNotice && <p class="text-sm mt-2 italic text-[var(--color-saffron)]">{c.specialNotice}</p>}
+    </div>
+  )}
+</div>
+
+<script>
+  function updateCanteen(el: HTMLElement) {
+    const mode = el.dataset.mode ?? 'auto';
+    const variant = el.dataset.variant ?? 'pill';
+    const day = new Date().getDay(); // 0 = Sun, 6 = Sat
+    const isWeekend = day === 0 || day === 6;
+
+    let isOpen = false;
+    let openTime = el.dataset.weekendOpen ?? '9:00am';
+    let closeTime = el.dataset.weekendClose ?? '2:00pm';
+
+    if (mode === 'force_open') {
+      isOpen = true;
+      openTime = el.dataset.overrideOpen ?? openTime;
+      closeTime = el.dataset.overrideClose ?? closeTime;
+    } else if (mode === 'force_closed') {
+      isOpen = false;
+    } else {
+      isOpen = isWeekend;
+    }
+
+    const dot = el.querySelector<HTMLElement>('.canteen-dot');
+    if (dot) {
+      const openColor = dot.dataset.openColor ?? 'var(--color-teal)';
+      const closedColor = dot.dataset.closedColor ?? 'var(--color-saffron)';
+      dot.style.backgroundColor = isOpen ? openColor : closedColor;
+      if (isOpen) {
+        dot.classList.add('animate-pulse');
+      } else {
+        dot.classList.remove('animate-pulse');
+      }
+    }
+
+    const text = el.querySelector<HTMLElement>('.canteen-text');
+    if (text) {
+      if (variant === 'pill') {
+        text.textContent = isOpen ? `Open · ${openTime} – ${closeTime}` : 'Closed today';
+      } else {
+        text.textContent = isOpen ? `🟢 Open today` : '🔴 Closed today';
+        text.style.color = isOpen ? 'var(--color-saffron)' : 'var(--color-ink-soft)';
+        // Add hours below as a second element if open
+        if (isOpen) {
+          let hoursEl = el.querySelector<HTMLElement>('.canteen-hours');
+          if (!hoursEl) {
+            hoursEl = document.createElement('p');
+            hoursEl.className = 'canteen-hours text-lg text-[var(--color-ink-soft)] mt-1';
+            text.insertAdjacentElement('afterend', hoursEl);
+          }
+          hoursEl.textContent = `${openTime} – ${closeTime}`;
+        } else {
+          el.querySelector<HTMLElement>('.canteen-hours')?.remove();
+        }
+      }
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('.canteen-status-host').forEach(updateCanteen);
+</script>
