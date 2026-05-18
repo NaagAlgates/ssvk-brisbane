@@ -236,26 +236,31 @@ export const prerender = true;
           {/* Sponsored Abishekams */}
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Sponsored Abishekams</h3>
-            <div class="space-y-4">
+            <div class="divide-y divide-[var(--color-rule)]">
               {[
-                { name: 'Paal Abishekam', note: 'Abishekam with milk. Sponsor receives one prasadam.' },
-                { name: 'Thiraviya Abishekam', note: 'Sponsor receives one prasadam.' },
-                { name: 'Nava Kalasa Abishekam', note: 'On a regular day. Sponsor receives two prasadams.' },
-                { name: 'Nava Kalasa Abishekam (Special Days)', note: 'During special festival days. Sponsor receives two prasadams.' },
-                { name: 'Sankadahara Chathurthi / Monthly Chathurthi Abishekam', note: 'Includes circumambulation of the inner sanctum. (Excludes Aavani Chathurthi.) Sponsor receives prasadam.' },
-                { name: 'Navagrana Homam & Abishekam', note: 'Sponsor receives prasadam.' },
-                { name: 'Sangabishekam', note: 'Abishekam performed with a conch (shankh). Sponsor receives prasadam.' },
-              ].map((item, i) => (
-                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
-                  <div class="col-span-12">
+                { name: 'Paal Abishekam', note: 'Abishekam with milk. Sponsor receives one prasadam.', price: 51 },
+                { name: 'Thiraviya Abishekam', note: 'Sponsor receives one prasadam.', price: 101 },
+                { name: 'Nava Kalasa Abishekam', note: 'On a regular day. Sponsor receives one prasadam.', price: 151 },
+                { name: 'Nava Kalasa Abishekam (Special Days)', note: 'During special festival days. Sponsor receives one prasadam.', price: 201 },
+                { name: 'Sankadahara Chathurthi Abishekam', note: 'Sponsor receives one prasadam.', price: 201 },
+                { name: 'Monthly Chathurthi Abishekam', note: 'Circumambulation of inner sanctum. Excludes Aavani Chathurthi. Sponsor receives one prasadam.', price: 251 },
+                { name: 'Navagraha Homam & Abishekam', note: 'Sponsor receives one prasadam.', price: 251 },
+                { name: 'Sangabishekam', note: '108 conch. Sponsor receives two prasadams.', price: 501 },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
                     <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
                     <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>
+                  </div>
+                  <div class="col-span-4 text-right">
+                    <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">${item.price}.00</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
                   </div>
                 </div>
               ))}
             </div>
             <p class="mt-6 text-sm text-[var(--color-ink-mute)] border-l-2 border-[var(--color-rule)] pl-4">
-              Additional prasadams can be ordered by contacting the priest in advance.
+              Additional prasadams can be ordered at $20 per prasadam — contact the priest in advance.
             </p>
           </div>
 
@@ -284,20 +289,30 @@ export const prerender = true;
           </div>
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Festival Sponsorship</h3>
-            <div class="space-y-4">
-              <div class="grid grid-cols-12 gap-4 items-start">
-                <div class="col-span-12">
-                  <p class="font-medium text-[var(--color-ink)]">Thiru Kalyanam</p>
+            <div class="divide-y divide-[var(--color-rule)]">
+              <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Festival</p>
                   <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">
-                    Includes Abishekam and Alankara Puja of Utsava Moorthy and circumambulation of inner and outer sanctum.
-                    Sponsor receives one prasadam. Devotee to provide Thiru Mangalyam.
+                    Abishekam and Alankara Puja of Utsava Moorthy with circumambulation of inner and outer sanctum.
+                    Sponsor receives one prasadam.
                   </p>
                 </div>
+                <div class="col-span-4 text-right">
+                  <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">$501.00</p>
+                  <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
+                </div>
               </div>
-              <div class="grid grid-cols-12 gap-4 items-start border-t border-[var(--color-rule)] pt-4">
-                <div class="col-span-12">
-                  <p class="font-medium text-[var(--color-ink)]">Alankara Puja of Utsava Moorthy</p>
-                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">Sponsor receives two prasadams.</p>
+              <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                <div class="col-span-8">
+                  <p class="font-medium text-[var(--color-ink)]">Thiru Kalyanam</p>
+                  <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">
+                    Alankara Puja of Utsava Moorthy. Devotee to provide Thiru Mangalyam. Sponsor receives two prasadams.
+                  </p>
+                </div>
+                <div class="col-span-4 text-right">
+                  <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">$501.00</p>
+                  <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
                 </div>
               </div>
             </div>
@@ -324,22 +339,26 @@ export const prerender = true;
 
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">At the Temple</h3>
-            <div class="space-y-4">
+            <div class="divide-y divide-[var(--color-rule)]">
               {[
-                { name: 'Naamakaranam', note: 'Naming ceremony for newborns' },
-                { name: 'Annaprasannam', note: 'First rice-feeding ceremony' },
-                { name: 'Vidyarambham', note: 'Initiation into learning. Devotees to bring fruits, flowers, rice, coconut, candy, sugar & a small bottle of honey.' },
-                { name: 'Karnavethanam', note: 'Ear-piercing ceremony' },
-                { name: 'Offering newborn to Deity', note: 'Presenting newborn to the deity and buying back' },
-                { name: 'Blessing of Vehicles', note: '' },
-                { name: 'Wedding Short Ceremony', note: 'Pillaiyar Poojai and Thali tying only' },
-                { name: 'Ayush Homam', note: 'Longevity homam' },
-                { name: 'Thivastam / Shradh', note: 'Ancestral rites — can be arranged with the priest' },
-              ].map((item, i) => (
-                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
-                  <div class="col-span-12">
+                { name: 'Thivasam / Shradh', note: 'Ancestral rites — can be arranged with the priest', price: '$75 to priest' },
+                { name: 'Offering Newborn to Deity', note: 'Presenting newborn to the deity and buying back. Only after 41 days.', price: '$51.00' },
+                { name: 'Vidyarambham', note: 'Initiation into learning. Devotees to bring fruits, flowers, rice, coconut, candy, sugar & a small bottle of honey. Sponsor receives one prasadam.', price: '$51.00' },
+                { name: 'Annaprasannam', note: 'First rice-feeding ceremony. Sponsor receives one prasadam.', price: '$51.00' },
+                { name: 'Naamakaranam', note: 'Naming ceremony for newborns. Sponsor receives one prasadam.', price: '$51.00' },
+                { name: 'Blessing of Vehicles', note: '', price: '$51.00' },
+                { name: 'Karnavethanam', note: 'Ear-piercing ceremony', price: '$51.00' },
+                { name: 'Wedding Short Ceremony', note: 'Pillaiyar Poojai and Thali tying only. Sponsor receives one prasadam.', price: '$151.00' },
+                { name: 'Ayush Homam', note: 'Longevity homam', price: '$151.00' },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
                     <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
                     {item.note && <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>}
+                  </div>
+                  <div class="col-span-4 text-right">
+                    <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">{item.price}</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
                   </div>
                 </div>
               ))}
@@ -349,25 +368,33 @@ export const prerender = true;
           <div>
             <h3 class="text-base uppercase tracking-widest text-[var(--color-ink-mute)] mb-4 pb-2 border-b border-[var(--color-rule)]">Outside the Temple</h3>
             <p class="text-sm text-[var(--color-ink-soft)] mb-4">
-              The priest will bring brass utensils (pots, lamps), navathaniayam and homa thiraviyam.
+              The priest will bring brass utensils (pots, lamps), navathaniyam and homa thiraviyam.
               Devotees must provide flowers, fruits, coconuts, rice, camphor, ghee, mango leaves and dried mango twigs for homam.
             </p>
-            <div class="space-y-4">
+            <div class="divide-y divide-[var(--color-rule)]">
               {[
-                { name: 'Wedding Full Ceremony — Temple Hall', note: '' },
-                { name: 'Wedding Full Ceremony — Other Venues', note: '' },
-                { name: 'Grahapravesam (Full Ceremony)', note: 'Includes Ganapathy Homam, Laxmi Homam & Navagrana Homam' },
-                { name: 'Grahapravesam (Ganapathy Homam only)', note: 'Includes Ganapathy Homam, Punyavachanam & Pada Poojai' },
-                { name: 'Grahapravesam (Basic Ceremony)', note: 'Ganapathy Poojai, Punyavachanam & Pada Poojai' },
-                { name: 'Foundation Ceremony', note: 'Punyaha Vaachanam & Thudakku Kalivu' },
-                { name: 'Upanayanam', note: 'Sacred thread ceremony' },
-                { name: 'Ayush Homam', note: '' },
-                { name: 'Thivastam / Chabindikaranam', note: '1st day ceremony after death' },
-              ].map((item, i) => (
-                <div class={`grid grid-cols-12 gap-4 items-start ${i > 0 ? 'border-t border-[var(--color-rule)] pt-4' : ''}`}>
-                  <div class="col-span-12">
+                { name: 'Wedding: Full Ceremony (Temple Hall)', note: '', price: '$501.00' },
+                { name: 'Wedding: Full Ceremony (Other Venues)', note: '', price: '$501.00' },
+                { name: 'Grahapravesam — Full Ceremony', note: 'Includes Ganapathy Homam, Luxmi Homam & Navagraha Homam', price: '$251.00' },
+                { name: 'Grahapravesam — Ganapathy Homam only', note: 'Includes Ganapathy Homam, Punyaavachanam & Pada Poojai', price: '$201.00' },
+                { name: 'Grahapravesam — Basic Ceremony', note: 'Ganapathy Poojai, Punyavachanam & Pada Poojai', price: '$151.00' },
+                { name: 'Foundation Ceremony', note: '', price: '$151.00' },
+                { name: 'Punyaha Vaachanam (Thudakku Kalivu)', note: '', price: '$151.00' },
+                { name: 'Thivasam', note: '', price: '$151.00' },
+                { name: 'Chabindikaranam', note: '31st day ceremony after death', price: '$151.00' },
+                { name: 'Upanayanam', note: 'Sacred thread ceremony. Sponsor receives one prasadam.', price: '$201.00' },
+                { name: 'Ayush Homam', note: 'Sponsor receives one prasadam.', price: '$151.00' },
+                { name: 'Manavarai Hire', note: '', price: '$501.00' },
+                { name: 'Hall Hire', note: '', price: '$20/hr' },
+              ].map((item) => (
+                <div class="grid grid-cols-12 gap-4 items-baseline py-4">
+                  <div class="col-span-8">
                     <p class="font-medium text-[var(--color-ink)]">{item.name}</p>
                     {item.note && <p class="text-sm text-[var(--color-ink-soft)] mt-0.5">{item.note}</p>}
+                  </div>
+                  <div class="col-span-4 text-right">
+                    <p class="text-2xl font-[var(--font-display)] text-[var(--color-ink)]" style="font-weight: 500;">{item.price}</p>
+                    <p class="eyebrow !text-[0.6rem] eyebrow-mute">AUD</p>
                   </div>
                 </div>
               ))}
@@ -375,8 +402,9 @@ export const prerender = true;
           </div>
 
           <p class="text-sm text-[var(--color-ink-mute)] border-l-2 border-[var(--color-rule)] pl-4">
-            For bookings please contact the temple priest or the Temple President at
-            <a href="mailto:hasqpresident@gmail.com" class="text-[var(--color-saffron)] ml-1">hasqpresident@gmail.com</a>
+            For bookings please contact the temple priest on <a href="tel:+61755477302" class="text-[var(--color-saffron)]">07 5547 7302</a>,
+            or the Temple President on <a href="tel:+61407753991" class="text-[var(--color-saffron)]">0407 753 991</a> /
+            <a href="mailto:hasq.president@gmail.com" class="text-[var(--color-saffron)]">hasq.president@gmail.com</a>
           </p>
 
         </div>
